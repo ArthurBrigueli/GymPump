@@ -11,6 +11,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 
+
+
 const Tab = createBottomTabNavigator()
 const screenOptions = {
   tabBarShowLabel: false,
@@ -30,6 +32,11 @@ const screenOptions = {
 export default function App() {
   return (
     <NavigationContainer>
+        {/*<StatusBar
+          backgroundColor="#0c0d17"
+          barStyle="light-content"
+          translucent={false}
+        /> */}
         <Tab.Navigator screenOptions={screenOptions}>
           <Tab.Screen 
             name="TimeScreen" 
