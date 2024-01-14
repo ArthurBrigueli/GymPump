@@ -37,7 +37,7 @@ export default function App() {
           barStyle="light-content"
           translucent={false}
         /> */}
-        <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Navigator screenOptions={screenOptions} initialRouteName='Home'>
           <Tab.Screen 
             name="TimeScreen" 
             component={TimeScreen}

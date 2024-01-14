@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 const Note = ()=>{
     return(
         <View>
-            <Text>notePump</Text>
+            <Text>NotePump</Text>
         </View>
     )
 }
