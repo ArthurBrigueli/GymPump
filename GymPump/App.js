@@ -18,10 +18,6 @@ const screenOptions = {
   tabBarShowLabel: false,
   headerShow: false,
   tabBarStyle: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
     elevation: 1,
     height: 60,
     backgroundColor: "#18192d",
