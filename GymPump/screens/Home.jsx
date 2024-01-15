@@ -48,20 +48,22 @@ const Home = ()=>{
             
 
 
-            <View style={styles.containerFolha}>
-                <ScrollView>
-                    {Array.isArray(dataFolha) && dataFolha.map((item, index)=> (
-                        <View key={index} style={styles.containerDia}>
-                            <View style={styles.containerTxtDia}>
-                                <Text style={styles.txtDia}>{item.dia}</Text>
+            {Array.isArray(dataFolha)&&(
+                <View style={styles.containerFolha}>
+                    <ScrollView>
+                        {Array.isArray(dataFolha) && dataFolha.map((item, index)=> (
+                            <View key={index} style={styles.containerDia}>
+                                <View style={styles.containerTxtDia}>
+                                    <Text style={styles.txtDia}>{item.dia}</Text>
+                                </View>
+                                <View style={styles.containerValor}>
+                                    <Text>{item.valor}</Text>
+                                </View>
                             </View>
-                            <View style={styles.containerValor}>
-                                <Text>{item.valor}</Text>
-                            </View>
-                        </View>
-                    ))}
-                </ScrollView>
-            </View>
+                        ))}
+                    </ScrollView>
+                </View>
+            )}
 
         </View>
     )
