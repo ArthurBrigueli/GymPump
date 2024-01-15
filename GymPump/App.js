@@ -41,7 +41,8 @@ export default function App() {
               headerShown: false,
               tabBarIcon: ({focused})=>{
                 return(
-                  <View style={{width: 50, height: 50, padding:10 ,borderRadius: 100,alignItems: 'center', justifyContent: 'center', backgroundColor:focused ? '#31346c':'#18192d'}}>
+                  <View style={{width: 50, height: 50, padding:10 ,borderRadius: 100,alignItems: 'center', justifyContent: 'center', backgroundColor:focused ? '#31346c':'#18192d', position: 'absolute',
+                  bottom: focused ? 20 : 0}}>
                     <Ionicons name="timer" size={24} color="white" />
                   </View>
                 )
@@ -56,7 +57,8 @@ export default function App() {
               headerShown: false,
               tabBarIcon: ({focused})=>{
                 return(
-                  <View style={{width: 50, height: 50,padding:10 ,borderRadius: 100,alignItems: 'center', justifyContent: 'center', backgroundColor:focused ? '#31346c':'#18192d'}}>
+                  <View style={{width: 50, height: 50,padding:10 ,borderRadius: 100,alignItems: 'center', justifyContent: 'center', backgroundColor:focused ? '#31346c':'#18192d', position: 'absolute',
+                  bottom: focused ? 20 : 0}}>
                     <Entypo name="home" size={24} color={"white"} />
                   </View>
                 )
@@ -73,7 +75,8 @@ export default function App() {
               headerShown: false,
               tabBarIcon: ({focused})=>{
                 return(
-                  <View style={{width: 50, height: 50 ,borderRadius: 100,alignItems: 'center', justifyContent: 'center', backgroundColor:focused ? '#31346c':'#18192d'}}>
+                  <View style={{width: 50, height: 50 ,borderRadius: 100,alignItems: 'center', justifyContent: 'center', backgroundColor:focused ? '#31346c':'#18192d', position: 'absolute',
+                  bottom: focused ? 20 : 0}}>
                     <FontAwesome name="sticky-note" size={24} color="white" />
                   </View>
                 )
