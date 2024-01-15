@@ -102,7 +102,7 @@ const TimeScreen = () => {
         <TouchableOpacity style={styles.botaoComecarSerie} onPress={comecarSerie}>
           <Text style={styles.textBotao}>Começar série</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.botaoDescanso} onPress={descanso}>
+        <TouchableOpacity style={isDescanso ? styles.botaoDescansoOn:styles.botaoDescanso} onPress={descanso}>
           <Text style={styles.textBotao}>Descanso</Text>
         </TouchableOpacity>
       </View>
@@ -143,6 +143,10 @@ const styles = StyleSheet.create({
         width: 150,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+
+    botaoDescansoOn:{
+      display: "none"
     },
 
     botaoDescanso:{
