@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native"
 import CreateFolha from "../components/CreateFolha"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Home = ()=>{
@@ -36,18 +37,16 @@ const Home = ()=>{
         <View style={styles.container}>
             {!Array.isArray(dataFolha) ? (
                 <TouchableOpacity style={styles.botao} onPress={openModal}>
-                    <Text style={styles.txtBotaoAddFolha}>Adicionar folha de treino</Text>
+                    <Ionicons name="add" size={20} color="white" />
                 </TouchableOpacity>
             ):(
                 <TouchableOpacity style={styles.botao} onPress={remove}>
-                    <Text style={styles.txtBotaoAddFolha}>Remover Folha</Text>
+                    <Ionicons name="trash" size={20} color="white" />
                 </TouchableOpacity>
             )}
             <CreateFolha isOpen={modalOpen} closeModal={closeModal}/>
 
             
-
-
             {Array.isArray(dataFolha)&&(
                 <View style={styles.containerFolha}>
                     <ScrollView>
@@ -80,9 +79,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#18192d',
         justifyContent:'center',
         alignItems: 'center',
-        margin: 20,
-        padding: 5,
-        borderRadius: 10
+        width: 60,
+        height: 60,
+        borderRadius: 100,
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        zIndex: 1
     },
     txtBotaoAddFolha: {
         color: 'white'
