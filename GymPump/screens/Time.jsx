@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Alert } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import ModalConfigTime from "../components/ModalConfigTime";
 import { Ionicons } from '@expo/vector-icons';
@@ -19,6 +19,7 @@ const TimeScreen = () => {
   const bottomSheetRef = useRef(null)
   const [timeMinute, setTimeMinute] = useState(0)
   const [timeSecond, setTimeSecond] = useState(0)
+  const [showAlertConfirmedTime, setShowAlertConfirmedTime] = useState(false)
 
   useEffect(() => {
     let interval;
@@ -41,6 +42,7 @@ const TimeScreen = () => {
       }
     }
   }, [tempoTotal])
+
 
   const comecarSerie = () => {
     setIsDescanso(false)
@@ -97,6 +99,11 @@ const TimeScreen = () => {
     setTimeMinute(Number(timeMinute))
     setTimeSecond(Number(timeSecond))
     closeConfig()
+    setShowAlertConfirmedTime(true)
+
+    setTimeout(()=>{
+      setShowAlertConfirmedTime(false)
+    }, 1000)
   }
 
 
@@ -132,6 +139,12 @@ const TimeScreen = () => {
           <Ionicons name="cog" size={20} color='white'/>
       </TouchableOpacity>
       <ModalConfigTime bottomSheetRef={bottomSheetRef} alterarTime={alterarTime}/>
+      {showAlertConfirmedTime && <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+        <View style={{ padding: 20, backgroundColor: 'white', borderRadius: 5 , height: '30%',width: '50%', justifyContent: 'space-evenly', alignItems: 'center'}}>
+          <Ionicons name="checkmark-outline" color='green' size={50}/>
+          <Text style={{fontSize: 15}}>Alteração do tempo de descanso atualizado!</Text>
+        </View>
+      </View>}
     </View>
   );
 };
