@@ -5,7 +5,7 @@ import BottomSheet from "@gorhom/bottom-sheet"
 
 const ModalConfigTime = ({ bottomSheetRef , alterarTime})=>{
 
-    const snapPoint = useMemo(()=>['30%'])
+    const snapPoint = useMemo(()=>['40%'])
 
     const [selectedMinutes, setSelectedMinutes] = useState(0);
     const [selectedSeconds, setSelectedSeconds] = useState(0);
