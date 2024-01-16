@@ -2,6 +2,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native"
 import { Picker } from "@react-native-picker/picker"
 import { useMemo, useState } from "react"
 import BottomSheet from "@gorhom/bottom-sheet"
+import Separator from "./Separator"
 
 const ModalConfigTime = ({ bottomSheetRef , alterarTime})=>{
 
@@ -23,18 +24,26 @@ const ModalConfigTime = ({ bottomSheetRef , alterarTime})=>{
 
             <View style={styles.container}>
                 <View style={styles.pickerContainer}>
+                    <View style={styles.containerTextTitle}>
+                        <Text>Minutos</Text>
+                    </View>
                     <Picker
-                    selectedValue={selectedMinutes}
-                    onValueChange={(itemValue) => setSelectedMinutes(itemValue)}
+                        selectedValue={selectedMinutes}
+                        onValueChange={(itemValue) => setSelectedMinutes(itemValue)}
+                        
                     >
+                    
                     {Array.from({ length: 60 }, (_, i) => i).map((minute) => (
                         <Picker.Item key={minute} label={String(minute).padStart(2)} value={String(minute).padStart(2)} />
                     ))}
                     </Picker>
-                    <Text>:</Text>
+                    <Separator color="black" heigth={1}/>
+                    <View style={styles.containerTextTitle}>
+                        <Text>Segundos</Text>
+                    </View>
                     <Picker
-                    selectedValue={selectedSeconds}
-                    onValueChange={(itemValue) => setSelectedSeconds(itemValue)}
+                        selectedValue={selectedSeconds}
+                        onValueChange={(itemValue) => setSelectedSeconds(itemValue)}
                     >
                     {Array.from({ length: 60 }, (_, i) => i).map((second) => (
                         <Picker.Item key={second} label={String(second).padStart(2)} value={String(second).padStart(2)} />
@@ -69,7 +78,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     pickerContainer: {
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        gap: 5
     },
     container: {
         flex: 1,
@@ -78,6 +88,10 @@ const styles = StyleSheet.create({
     txtBtn:{
         color: 'black',
         fontWeight: 'bold'
+    },
+    containerTextTitle: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 
