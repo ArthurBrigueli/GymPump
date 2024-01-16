@@ -142,7 +142,7 @@ const TimeScreen = () => {
       {showAlertConfirmedTime && <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
         <View style={{ padding: 20, backgroundColor: 'white', borderRadius: 5 , height: '30%',width: '50%', justifyContent: 'space-evenly', alignItems: 'center'}}>
           <Ionicons name="checkmark-outline" color='green' size={50}/>
-          <Text style={{fontSize: 15}}>Alteração do tempo de descanso atualizado!</Text>
+          <Text style={{fontSize: 15}}>Alteração Concluida!</Text>
         </View>
       </View>}
     </View>
