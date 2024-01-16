@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import * as Notifications from 'expo-notifications';
+import ModalConfigTime from "../components/ModalConfigTime";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -14,6 +15,7 @@ const TimeScreen = () => {
   const [tempoTotal, setTempoTotal] = useState(0);
   const [running, setRunning] = useState(false);
   const [isDescanso, setIsDescanso] = useState(false)
+  const [isConfigOpen, setIsConfigOpen] = useState(false)
 
   useEffect(() => {
     let interval;
@@ -80,6 +82,14 @@ const TimeScreen = () => {
     });
   };
 
+  const openConfig = ()=>{
+    setIsConfigOpen(true)
+  }
+
+  const closeConfig = ()=>{
+    setIsConfigOpen(false)
+  }
+
   return (
     <View style={styles.container}>
       {/* Cronômetro */}
@@ -106,6 +116,11 @@ const TimeScreen = () => {
           <Text style={styles.textBotao}>Descanso</Text>
         </TouchableOpacity>
       </View>
+
+      <TouchableOpacity style={styles.btnConfig} onPress={openConfig}>
+          <Text>OP</Text>
+      </TouchableOpacity>
+      <ModalConfigTime isConfigOpen={isConfigOpen} closeConfig={closeConfig}/>
     </View>
   );
 };
@@ -169,6 +184,14 @@ const styles = StyleSheet.create({
 
     TextSubTitleSerieOff: {
         color: 'gray',
+    },
+    btnConfig: {
+      position: 'absolute',
+      backgroundColor: 'white',
+      borderRadius: 100,
+      padding: 15,
+      right: 20,
+      bottom: 20
     }
 
 })

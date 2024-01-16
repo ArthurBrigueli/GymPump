@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { StyleSheet, View, Text, TouchableOpacity, Modal, ScrollView } from "react-native"
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native"
 import CreateFolha from "../components/CreateFolha"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
