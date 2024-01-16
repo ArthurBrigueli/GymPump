@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import ModalConfigTime from "../components/ModalConfigTime";
@@ -16,7 +16,9 @@ const TimeScreen = () => {
   const [tempoTotal, setTempoTotal] = useState(0);
   const [running, setRunning] = useState(false);
   const [isDescanso, setIsDescanso] = useState(false)
-  const [isConfigOpen, setIsConfigOpen] = useState(false)
+  const bottomSheetRef = useRef(null)
+  const [timeMinute, setTimeMinute] = useState(0)
+  const [timeSecond, setTimeSecond] = useState(0)
 
   useEffect(() => {
     let interval;
@@ -32,10 +34,11 @@ const TimeScreen = () => {
   useEffect(()=>{
     const minuto = Math.floor(tempoTotal / 60);
     const segundos = tempoTotal % 60;
-
-    if (minuto === 1 && segundos === 30) {
-      handleCallNotifications();
-      setRunning(false);
+    if(timeMinute > 0 || timeSecond > 0){
+      if (minuto === timeMinute && segundos === timeSecond) {
+        handleCallNotifications();
+        setRunning(false);
+      }
     }
   }, [tempoTotal])
 
@@ -68,7 +71,6 @@ const TimeScreen = () => {
     const { status } = await Notifications.getPermissionsAsync();
 
     if (status !== 'granted') {
-      console.log('Você não permitiu a notificação');
       return;
     }
 
@@ -84,12 +86,19 @@ const TimeScreen = () => {
   };
 
   const openConfig = ()=>{
-    setIsConfigOpen(true)
+    bottomSheetRef.current?.expand()
   }
 
   const closeConfig = ()=>{
-    setIsConfigOpen(false)
+    bottomSheetRef.current?.close()
   }
+
+  const alterarTime = (timeMinute, timeSecond)=>{
+    setTimeMinute(Number(timeMinute))
+    setTimeSecond(Number(timeSecond))
+    closeConfig()
+  }
+
 
   return (
     <View style={styles.container}>
@@ -115,13 +124,14 @@ const TimeScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity style={isDescanso ? styles.botaoDescansoOn:styles.botaoDescanso} onPress={descanso}>
           <Text style={styles.textBotao}>Descanso</Text>
+          <Text style={styles.textBotao}>{timeMinute}:{timeSecond}</Text>
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity style={styles.btnConfig} onPress={openConfig}>
           <Ionicons name="cog" size={20} color='white'/>
       </TouchableOpacity>
-      <ModalConfigTime isConfigOpen={isConfigOpen} closeConfig={closeConfig}/>
+      <ModalConfigTime bottomSheetRef={bottomSheetRef} alterarTime={alterarTime}/>
     </View>
   );
 };
@@ -196,7 +206,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       bottom: 20,
       right: 20,
-      zIndex: 1
+      zIndex: 0
     }
 
 })
