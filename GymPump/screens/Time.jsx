@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import ModalConfigTime from "../components/ModalConfigTime";
+import { Ionicons } from '@expo/vector-icons';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -118,7 +119,7 @@ const TimeScreen = () => {
       </View>
 
       <TouchableOpacity style={styles.btnConfig} onPress={openConfig}>
-          <Text>OP</Text>
+          <Ionicons name="cog" size={20} color='white'/>
       </TouchableOpacity>
       <ModalConfigTime isConfigOpen={isConfigOpen} closeConfig={closeConfig}/>
     </View>
@@ -186,12 +187,16 @@ const styles = StyleSheet.create({
         color: 'gray',
     },
     btnConfig: {
-      position: 'absolute',
-      backgroundColor: 'white',
+      backgroundColor: '#18192d',
+      justifyContent:'center',
+      alignItems: 'center',
+      width: 60,
+      height: 60,
       borderRadius: 100,
-      padding: 15,
+      position: 'absolute',
+      bottom: 20,
       right: 20,
-      bottom: 20
+      zIndex: 1
     }
 
 })
