@@ -140,9 +140,8 @@ const TimeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         alignContent: 'center',
-        gap: 100,
         backgroundColor: '#0c0d17'
     },
 
