@@ -175,10 +175,10 @@ const styles = StyleSheet.create({
     },
     botaoComecarSerie: {
         margin: 5,
-        padding: 20,
         backgroundColor: '#00a859',
         borderRadius: 100,
         width: 150,
+        height: 60,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -189,10 +189,10 @@ const styles = StyleSheet.create({
 
     botaoDescanso:{
         margin: 5,
-        padding: 20,
         backgroundColor: '#3498db',
         borderRadius: 100,
         width: 150,
+        height: 60,
         justifyContent: 'center',
         alignItems: 'center'
     },
