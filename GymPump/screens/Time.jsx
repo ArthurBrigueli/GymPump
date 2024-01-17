@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal, Alert } from 'react-na
 import * as Notifications from 'expo-notifications';
 import ModalConfigTime from "../components/ModalConfigTime";
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -17,14 +18,13 @@ const TimeScreen = () => {
   const [running, setRunning] = useState(false);
   const [isDescanso, setIsDescanso] = useState(false)
   const bottomSheetRef = useRef(null)
-  const [timeMinute, setTimeMinute] = useState(0)
-  const [timeSecond, setTimeSecond] = useState(0)
   const [showAlertConfirmedTime, setShowAlertConfirmedTime] = useState(false)
+  const [timeData, setTimeData] = useState({minutos:0, segundos:0})
 
   useEffect(() => {
     let interval;
 
-    if (running) {
+    if (running && timeData.minutos > 0 || timeData.segundos > 0) {
       interval = setInterval(() => {
         setTempoTotal((prevTempoTotal) => prevTempoTotal + 1);
       }, 1000);
@@ -35,13 +35,25 @@ const TimeScreen = () => {
   useEffect(()=>{
     const minuto = Math.floor(tempoTotal / 60);
     const segundos = tempoTotal % 60;
-    if(timeMinute > 0 || timeSecond > 0){
-      if (minuto === timeMinute && segundos === timeSecond) {
+    if(timeData.minutos > 0 || timeData.segundos > 0){
+      if (minuto === timeData.minutos && segundos === timeData.segundos) {
         handleCallNotifications();
         setRunning(false);
       }
     }
   }, [tempoTotal])
+
+
+  useEffect(()=>{
+    const data = async()=>{
+      const data = await AsyncStorage.getItem('TimeDescanso')
+      if(data){
+        setTimeData(JSON.parse(data))
+      }
+    }
+
+    data()
+  }, [])
 
 
   const comecarSerie = () => {
@@ -95,9 +107,8 @@ const TimeScreen = () => {
     bottomSheetRef.current?.close()
   }
 
-  const alterarTime = (timeMinute, timeSecond)=>{
-    setTimeMinute(Number(timeMinute))
-    setTimeSecond(Number(timeSecond))
+  const alterarTime = (minutos, segundos)=>{
+    salvarTimeLocal(minutos, segundos)
     closeConfig()
     setShowAlertConfirmedTime(true)
 
@@ -105,6 +116,21 @@ const TimeScreen = () => {
       setShowAlertConfirmedTime(false)
     }, 1000)
   }
+
+  const salvarTimeLocal = async(minutos, segundos)=>{
+    const data = {minutos:Number(minutos), segundos:Number(segundos)}
+    setTimeData({minutos:Number(minutos),segundos:Number(segundos)})
+    const dataJson = JSON.stringify(data)
+    await AsyncStorage.setItem('TimeDescanso', dataJson)
+  }
+
+  const del = async()=>{
+    await AsyncStorage.removeItem('TimeDescanso')
+    console.log('deletado')
+  }
+
+
+
 
 
   return (
@@ -131,7 +157,7 @@ const TimeScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity style={isDescanso ? styles.botaoDescansoOn:styles.botaoDescanso} onPress={descanso}>
           <Text style={styles.textBotao}>Descanso</Text>
-          <Text style={styles.textBotao}>{timeMinute}:{timeSecond}</Text>
+          <Text style={styles.textBotao}>{timeData.minutos}:{timeData.segundos}</Text>
         </TouchableOpacity>
       </View>
 
