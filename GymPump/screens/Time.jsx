@@ -24,7 +24,7 @@ const TimeScreen = () => {
   useEffect(() => {
     let interval;
 
-    if (running && timeData.minutos > 0 || timeData.segundos > 0) {
+    if (running) {
       interval = setInterval(() => {
         setTempoTotal((prevTempoTotal) => prevTempoTotal + 1);
       }, 1000);
