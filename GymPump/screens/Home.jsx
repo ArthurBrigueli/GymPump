@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-nati
 import CreateFolha from "../components/CreateFolha"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+import { Alert } from "react-native";
 
 
 const Home = ()=>{
@@ -19,8 +20,25 @@ const Home = ()=>{
     }
 
     const remove = async()=>{
-        await AsyncStorage.removeItem('FolhaDeTreino')
-        setDataFolha([])
+        Alert.alert(
+            "Confirmar Remoção",
+            "Tem certeza de que deseja remover a folha de treino?",
+            [
+              {
+                text: "Cancelar",
+                style: "cancel",
+              },
+              {
+                text: "Excluir",
+                onPress: async () => {
+                  // Lógica de remoção
+                  await AsyncStorage.removeItem('FolhaDeTreino');
+                  setDataFolha([]);
+                },
+              },
+            ],
+            { cancelable: false }
+          );
     }
 
     useEffect(()=>{
