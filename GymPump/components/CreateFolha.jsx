@@ -7,7 +7,6 @@
     const CreateFolha = ({isOpen, closeModal})=>{
 
 
-        const diaSemana = ['Seg.', 'Ter.', 'Qua.', 'Qui.', 'Sex.', 'Sáb.', 'Dom.']
         const [dataFolha, setDataFolha] = useState([])
 
         const handleInputChange = (index, dia, valor) => {
