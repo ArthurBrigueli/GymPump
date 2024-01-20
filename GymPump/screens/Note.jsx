@@ -3,17 +3,31 @@ import { Ionicons } from '@expo/vector-icons';
 import {useRef} from 'react'
 import CreateTreino from '../components/CreateTreino';
 import { useState } from 'react';
+import AddTreino from '../components/AddTreino';
 
 const Note = ()=>{
 
     const modalRef = useRef(null)
+    const modalRefAdd = useRef(null)
+    const [openRef, setOpenRef] = useState(false)
+
+    const openModalAdd = ()=>{
+        modalRefAdd.current?.expand()
+    }
+
+    const closeModalAdd = ()=>{
+        modalRefAdd.current?.close()
+    }
 
     const openModal = ()=>{
         modalRef.current?.expand()
+        setOpenRef(true)
     }
 
     const closeModal = ()=>{
         modalRef.current?.close()
+        openModalAdd()
+        setOpenRef(false)
     }
 
 
@@ -26,7 +40,7 @@ const Note = ()=>{
 
             <CreateTreino modalRef={modalRef} closeModal={closeModal}/>
 
-            <Text style={styles.txt}>sjajsaj</Text>
+            <AddTreino openRef={modalRefAdd}/>
         </View>
     )
 }

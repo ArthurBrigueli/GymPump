@@ -29,7 +29,7 @@ const CreateTreino = ({modalRef, closeModal})=>{
         <BottomSheet
             ref={modalRef}
             snapPoints={snapPoints}
-            index={0}
+            index={-1}
             backgroundStyle={{backgroundColor: 'white'}}
             enablePanDownToClose={true}
         >
