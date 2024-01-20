@@ -11,6 +11,11 @@ const Note = ()=>{
     const modalRefAdd = useRef(null)
     const [openRef, setOpenRef] = useState(false)
 
+
+    {/* state das info do treino */}
+    const [date, setDate] = useState(new Date())
+    const [titulo, setTitulo] = useState('')
+
     const openModalAdd = ()=>{
         modalRefAdd.current?.expand()
     }
@@ -31,6 +36,11 @@ const Note = ()=>{
     }
 
 
+    const addTreino = ()=>{
+        closeModal()
+    }
+
+
 
     return(
         <View style={styles.container}>
@@ -38,9 +48,9 @@ const Note = ()=>{
                 <Ionicons name="add" size={20} color="white" />
             </TouchableOpacity>
 
-            <CreateTreino modalRef={modalRef} closeModal={closeModal}/>
+            <CreateTreino modalRef={modalRef} closeModal={closeModal} setTitulo={setTitulo} titulo={titulo} setDate={setDate} date={date} addTreino={addTreino}/>
 
-            <AddTreino openRef={modalRefAdd}/>
+            <AddTreino openRef={modalRefAdd} date={date} titulo={titulo}/>
         </View>
     )
 }

@@ -5,11 +5,10 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { useState } from 'react'
 import {format} from 'date-fns'
 
-const CreateTreino = ({modalRef, closeModal})=>{
+const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, addTreino})=>{
 
 
     const snapPoints = useMemo(()=>['30%'])
-    const [date, setDate] = useState(new Date())
     const [openDate, setOpenDate] = useState(false)
     const [mode, setMode] = useState("date")
 
@@ -18,12 +17,17 @@ const CreateTreino = ({modalRef, closeModal})=>{
         setDate(selectDate)
         setOpenDate(false)
     }
+     
+    const handleTitulo = (e)=>{
+        setTitulo(e)
+    }
 
 
     const openDatePicker = (showMode)=>{
         setOpenDate(true)
         setMode(showMode)
     }
+
 
     return(
         <BottomSheet
@@ -44,11 +48,11 @@ const CreateTreino = ({modalRef, closeModal})=>{
                     </View>
 
                     <View style={styles.containerInput}>
-                        <TextInput placeholder='Digite o titulo do treino' style={styles.inputTitle} keyboardType='default'/>
+                        <TextInput placeholder='Digite o titulo do treino' style={styles.inputTitle} keyboardType='default' onChangeText={handleTitulo}/>
                     </View>
                 </View>
                 <View style={styles.containerbtn}>
-                    <TouchableOpacity onPress={closeModal} style={styles.btnCriar}>
+                    <TouchableOpacity onPress={addTreino} style={styles.btnCriar}>
                         <Text style={styles.txtBtn}>Criar</Text>
                     </TouchableOpacity>
                 </View>
