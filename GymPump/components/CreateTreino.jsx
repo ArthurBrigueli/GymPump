@@ -8,7 +8,7 @@ import {format} from 'date-fns'
 const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, addTreino})=>{
 
 
-    const snapPoints = useMemo(()=>['30%'])
+    const snapPoints = useMemo(()=>['40%'])
     const [openDate, setOpenDate] = useState(false)
     const [mode, setMode] = useState("date")
 
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         borderRadius: 8,
-        width: '50%',
+        width: '80%',
     },
     containerInput: {
         justifyContent: 'center',
