@@ -47,10 +47,11 @@ const Note = ()=>{
             <TouchableOpacity style={styles.btnAdd} onPress={openModal}>
                 <Ionicons name="add" size={20} color="white" />
             </TouchableOpacity>
+            
 
             <CreateTreino modalRef={modalRef} closeModal={closeModal} setTitulo={setTitulo} titulo={titulo} setDate={setDate} date={date} addTreino={addTreino}/>
 
-            <AddTreino openRef={modalRefAdd} date={date} titulo={titulo}/>
+            <AddTreino openRef={modalRefAdd} date={date} titulo={titulo} closeM={closeModalAdd}/>
         </View>
     )
 }

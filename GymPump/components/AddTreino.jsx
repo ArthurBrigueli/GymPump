@@ -6,17 +6,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 
 
-const AddTreino = ({openRef, date, titulo})=>{
+const AddTreino = ({openRef, date, titulo, closeM})=>{
 
     const snapPoints = useMemo(()=>['20%', '50%', '100%'])
 
     const [openModel, setOpenModel] = useState(false)
+    const [exercicios, setExercicios] = useState([])
+
+
     const [exercicio, setExercicio] = useState({
         nome: '',
         peso: '',
         repeticao: ''
     })
 
+    
 
 
     const handleInput = (field, value) => {
@@ -26,13 +30,31 @@ const AddTreino = ({openRef, date, titulo})=>{
         }))
     }
 
+    const resetExercicio = () => {
+        setExercicio({
+          nome: '',
+          peso: '',
+          repeticao: ''
+        });
+    };
+
 
     const handleSubmit = ()=> {
-        console.log(exercicio)
+        const cloneArray = [...exercicios]
+        cloneArray.push(exercicio)
+        setExercicios(cloneArray)
+        setOpenModel(false)
+        resetExercicio()
     }
 
     const addExercicio = ()=> {
         setOpenModel(true)
+    }
+
+    const saveExercicios = ()=>{
+        console.log(exercicios)
+        setExercicios([])
+        closeM()
     }
 
 
@@ -54,17 +76,24 @@ const AddTreino = ({openRef, date, titulo})=>{
             </View>
 
             <View style={styles.containerExercicios}>
-                <View style={styles.containerExercicio}>
-                    <Text style={styles.Text}>Nome do exercicio</Text>
-                    <View>
-                        <Text style={styles.Text}>4Rep</Text>
-                        <Text style={styles.Text}>25KG</Text>
+                {exercicios.map((e) => (
+                    <View style={styles.containerExercicio}>
+                        <Text style={styles.Text}>{e.nome}</Text>
+                        <View>
+                            <Text style={styles.Text}>{e.repeticao} REP</Text>
+                            <Text style={styles.Text}>{e.peso} KG</Text>
+                        </View>
                     </View>
-                </View>
+                ))}
                 
             </View>
+
             <TouchableOpacity style={styles.btnAdd} onPress={addExercicio}>
                 <Ionicons name="add" size={20} color="white" />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.btnsave} onPress={saveExercicios}>
+                <Ionicons name="save" size={20} color="white" />
             </TouchableOpacity>
 
             {openModel && (
@@ -114,6 +143,18 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         position: 'absolute',
         bottom: 20,
+        right: 20,
+    },
+
+    btnsave: {
+        backgroundColor: '#18192d',
+        justifyContent:'center',
+        alignItems: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 100,
+        position: 'absolute',
+        bottom: 85,
         right: 20,
     },
     containerExercicio: {
