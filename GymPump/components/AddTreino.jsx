@@ -76,8 +76,8 @@ const AddTreino = ({openRef, date, titulo, closeM})=>{
             </View>
 
             <View style={styles.containerExercicios}>
-                {exercicios.map((e) => (
-                    <View style={styles.containerExercicio}>
+                {exercicios.map((e, index) => (
+                    <View key={index} style={styles.containerExercicio}>
                         <Text style={styles.Text}>{e.nome}</Text>
                         <View>
                             <Text style={styles.Text}>{e.repeticao} REP</Text>
