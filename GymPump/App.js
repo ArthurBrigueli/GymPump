@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import TimeScreen from './screens/Time';
 import { StatusBar } from 'expo-status-bar';
-import Teste from './screens/Note';
+import Note from './screens/Note';
 import Home from './screens/Home';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -71,8 +71,8 @@ export default function App() {
 
 
             <Tab.Screen 
-              name="Teste" 
-              component={Teste}
+              name="Note" 
+              component={Note}
               options={{
                 headerShown: false,
                 tabBarIcon: ({focused})=>{

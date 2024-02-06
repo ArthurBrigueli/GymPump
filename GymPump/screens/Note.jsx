@@ -2,8 +2,10 @@ import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {useRef} from 'react'
 import CreateTreino from '../components/CreateTreino';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AddTreino from '../components/AddTreino';
+
+import { createTable, fetchTreinos, insertTreino, removeTable } from '../databases/DataBase';
 
 const Note = ()=>{
 
@@ -15,6 +17,14 @@ const Note = ()=>{
     {/* state das info do treino */}
     const [date, setDate] = useState(new Date())
     const [titulo, setTitulo] = useState('')
+
+    const [exercicios, setExercicios] = useState([])
+
+
+    useEffect(() => {
+        createTable();
+        fetchTreinos(setExercicios);
+    }, [exercicios]);
 
     const openModalAdd = ()=>{
         modalRefAdd.current?.expand()
@@ -37,15 +47,31 @@ const Note = ()=>{
 
 
     const addTreino = ()=>{
+        insertTreino(titulo, date.toString())
+        fetchTreinos(setExercicios);
         closeModal()
     }
 
 
+    const remove = ()=>{
+        removeTable()
+    }
+
 
     return(
         <View style={styles.container}>
+
+            {exercicios.map((e, index)=> (
+                <Text style={styles.txt} key={index}>{e.nome} - {e.data} - {e.exercicios}</Text>
+            ))}
+
+
             <TouchableOpacity style={styles.btnAdd} onPress={openModal}>
                 <Ionicons name="add" size={20} color="white" />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.remove} onPress={remove}>
+                <Ionicons name="remove" size={20} color="white" />
             </TouchableOpacity>
             
 
@@ -76,6 +102,18 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         position: 'absolute',
         bottom: 20,
+        right: 20,
+        zIndex: 0
+    },
+    remove: {
+        backgroundColor: '#18192d',
+        justifyContent:'center',
+        alignItems: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 100,
+        position: 'absolute',
+        bottom: 90,
         right: 20,
         zIndex: 0
     }
