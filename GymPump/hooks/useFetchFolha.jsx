@@ -23,7 +23,6 @@ const useFetchFolha = (url)=>{
             const data = await AsyncStorage.getItem('FolhaDeTreino')
             const dataForm = JSON.parse(data)
             setData(dataForm)
-            setCallBack(!callBack)
         }
 
         fetchData()
