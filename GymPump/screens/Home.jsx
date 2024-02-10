@@ -5,11 +5,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { Alert } from "react-native";
 
+import useFetchFolha from "../hooks/useFetchFolha";
 
 const Home = ()=>{
 
     const [modalOpen, setIsModalOpen] = useState(false)
     const [dataFolha, setDataFolha] = useState([])
+    const {add, data:item, remove:removeFolha} = useFetchFolha('FolhaDeTreino')
 
     const openModal = ()=>{
         setIsModalOpen(true)
@@ -32,7 +34,7 @@ const Home = ()=>{
                 text: "Excluir",
                 onPress: async () => {
                   // Lógica de remoção
-                  await AsyncStorage.removeItem('FolhaDeTreino');
+                  removeFolha()
                   setDataFolha([]);
                 },
               },
@@ -41,19 +43,16 @@ const Home = ()=>{
           );
     }
 
-    useEffect(()=>{
-        const getData = async()=>{
-            const data = await AsyncStorage.getItem('FolhaDeTreino')
-            const dataForm = JSON.parse(data)
-            setDataFolha(dataForm)
-        }
-        getData()
-    }, [modalOpen, dataFolha])
 
+    const handleSubmit = async(data)=>{
+        add(data)
+        closeModal()
+        setDataFolha([])
+    }
 
     return(
         <View style={styles.container}>
-            {!Array.isArray(dataFolha) ? (
+            {!Array.isArray(item) ? (
                 <TouchableOpacity style={styles.botao} onPress={openModal}>
                     <Ionicons name="add" size={20} color="white" />
                 </TouchableOpacity>
@@ -62,13 +61,13 @@ const Home = ()=>{
                     <Ionicons name="trash" size={20} color="white" />
                 </TouchableOpacity>
             )}
-            <CreateFolha isOpen={modalOpen} closeModal={closeModal}/>
+            <CreateFolha isOpen={modalOpen} closeModal={closeModal} handleSubmit={handleSubmit}/>
 
             
-            {Array.isArray(dataFolha)&&(
+            {Array.isArray(item)&&(
                 <View style={styles.containerFolha}>
                     <ScrollView>
-                        {Array.isArray(dataFolha) && dataFolha.map((item, index)=> (
+                        {Array.isArray(item) && item.map((item, index)=> (
                             <View key={index} style={styles.containerDia}>
                                 <View style={styles.containerTxtDia}>
                                     <Text style={styles.txtDia}>{item.dia}</Text>

@@ -4,7 +4,7 @@
     import AsyncStorage from '@react-native-async-storage/async-storage';
     import { useEffect } from "react";
 
-    const CreateFolha = ({isOpen, closeModal})=>{
+    const CreateFolha = ({isOpen, closeModal, handleSubmit})=>{
 
 
         const [dataFolha, setDataFolha] = useState([])
@@ -21,13 +21,11 @@
             
         };
 
-        const handleSubmit = async()=>{
-            
-            const data = JSON.stringify(dataFolha)
-            await AsyncStorage.setItem('FolhaDeTreino', data)
-            closeModal()
-            setDataFolha([])
+
+        const handleSu = ()=>{
+            handleSubmit(dataFolha)
         }
+
 
 
         return(
@@ -40,7 +38,7 @@
                     <View style={styles.containerAddFolha}>
                         <ScrollView>
                             <FormFolha handleInputChange={handleInputChange}/>
-                            <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
+                            <TouchableOpacity style={styles.btnSubmit} onPress={handleSu}>
                                 <Text style={styles.txtBtn}>Criar folha de treino</Text>
                             </TouchableOpacity>
                         </ScrollView>
