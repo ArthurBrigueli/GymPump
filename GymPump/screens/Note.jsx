@@ -81,15 +81,15 @@ const Note = ()=>{
                         <View style={styles.containerExercicios}>
                             {Array.isArray(e.exercicios) && e.exercicios.map((exercicio, indexExercicios)=>(
                                 <View key={indexExercicios} style={styles.containerExercicio}>
-                                    <Text>{exercicio.nome}</Text>
-                                    <Text>{exercicio.peso}</Text>
-                                    <Text>{exercicio.repeticao}</Text>
+                                    <Text style={styles.txt}>{exercicio.nome}</Text>
+                                    <Text style={styles.txt}>{exercicio.peso}</Text>
+                                    <Text style={styles.txt}>{exercicio.repeticao}</Text>
                                 </View>
                             ))}
                         </View>
                         <View style={styles.containerbtn}>
                             <TouchableOpacity style={styles.btnExcluir} onPress={()=>excluirExercicio(e.id)}>
-                                <Text>x</Text>
+                                <Text style={styles.txt}>x</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
