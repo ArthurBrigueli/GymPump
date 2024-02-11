@@ -79,7 +79,13 @@ const Note = ()=>{
                             <Text>{e.data}</Text>
                         </View>
                         <View style={styles.containerExercicios}>
-                            <Text>{e.exercicios}</Text>
+                            {e.exercicios.map((exercicio, indexExercicios)=>(
+                                <View key={indexExercicios} style={styles.containerExercicio}>
+                                    <Text>{exercicio.nome}</Text>
+                                    <Text>{exercicio.peso}</Text>
+                                    <Text>{exercicio.repeticao}</Text>
+                                </View>
+                            ))}
                         </View>
                         <View style={styles.containerbtn}>
                             <TouchableOpacity style={styles.btnExcluir} onPress={()=>excluirExercicio(e.id)}>
@@ -117,6 +123,14 @@ const styles = StyleSheet.create({
         flex: 1
     },
 
+    containerExercicio: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: '100%',
+        backgroundColor: 'gray'
+    },
+
     containerbtn: {
         alignItems: 'flex-end',
     },
@@ -129,8 +143,9 @@ const styles = StyleSheet.create({
     },
 
     containerExercicios: {
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        gap: 10
     },
 
     containerTreino: {

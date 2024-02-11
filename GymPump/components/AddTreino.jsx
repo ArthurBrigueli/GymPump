@@ -11,7 +11,7 @@ const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
     const snapPoints = useMemo(()=>['20%', '50%', '100%'])
 
     const [openModel, setOpenModel] = useState(false)
-    const [exercicios, setExercicios] = useState([])
+    const [exercicios, setExercicios] = useState([{"nome":"", "peso": "", "repeticao": ""}])
 
 
     const [exercicio, setExercicio] = useState({

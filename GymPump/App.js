@@ -30,11 +30,11 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <NavigationContainer>
-          {/*<StatusBar
+          <StatusBar
             backgroundColor="#0c0d17"
             barStyle="light-content"
             translucent={false}
-          /> */}  
+          />
           <Tab.Navigator screenOptions={screenOptions} initialRouteName='Home'>
             <Tab.Screen 
               name="TimeScreen" 
