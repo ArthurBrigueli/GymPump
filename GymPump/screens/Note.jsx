@@ -72,14 +72,14 @@ const Note = ()=>{
         <View style={styles.container}>
 
             <ScrollView>
-                {data && data.map((e, index) => (
+                {Array.isArray(data) && data.map((e, index) => (
                     <View key={index} style={styles.containerTreino}>
                         <View>
                             <Text>{e.nome}</Text>
                             <Text>{e.data}</Text>
                         </View>
                         <View style={styles.containerExercicios}>
-                            {e.exercicios.map((exercicio, indexExercicios)=>(
+                            {Array.isArray(e.exercicios) && e.exercicios.map((exercicio, indexExercicios)=>(
                                 <View key={indexExercicios} style={styles.containerExercicio}>
                                     <Text>{exercicio.nome}</Text>
                                     <Text>{exercicio.peso}</Text>

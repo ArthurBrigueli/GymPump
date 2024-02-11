@@ -8,9 +8,7 @@ const useFetchTreino = (url)=>{
     const [data, setData] = useState(null)
 
     const addTreino = async(name, date)=>{
-        const exercicios = [{"nome": "", "peso": "", "repeticao": ""}]
-        const exerciciosString = JSON.stringify(exercicios)
-        const idTreino = await insertTreino(name, date, exerciciosString)
+        const idTreino = await insertTreino(name, date)
         setIdTreino(idTreino)
         setCallBack(!callBack)
     }
@@ -32,16 +30,21 @@ const useFetchTreino = (url)=>{
     }
 
     useEffect(()=>{
-        fetchTreinos((treino)=>{
-            const treinosAtualizados = treino.map((treino) => {
-                return {
-                  ...treino,
-                  exercicios: JSON.parse(treino.exercicios),
-                };
-            });
+        const fetchData = async()=>{
 
-            setData(treinosAtualizados)
-        })
+            fetchTreinos((treino)=>{
+                const treinosAtualizados = treino.map((treino) => {
+                    return {
+                      ...treino,
+                      exercicios: JSON.parse(treino.exercicios),
+                    };
+                });
+                setData(treinosAtualizados)
+            })
+        }
+
+        fetchData()
+        
     }, [url,callBack])
 
 
