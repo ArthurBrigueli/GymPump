@@ -63,6 +63,7 @@ const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, a
                         is24Hour={true}
                         onChange={handleDate}
                         mode={mode}
+                        display='spinner'
                     />
                 )}
             </View>
