@@ -4,7 +4,7 @@ import {useRef} from 'react'
 import CreateTreino from '../components/CreateTreino';
 import { useState, useEffect } from 'react';
 import AddTreino from '../components/AddTreino';
-
+import {format} from 'date-fns'
 import { createTable, fetchTreinos, insertTreino, removeTable, deleteId } from '../databases/DataBase';
 import useFetchTreino from '../hooks/useFetchTreino';
 
@@ -76,7 +76,7 @@ const Note = ()=>{
                     <View key={index} style={styles.containerTreino}>
                         <View>
                             <Text>{e.nome}</Text>
-                            <Text>{e.data}</Text>
+                            <Text>{format(e.data, 'dd/MM/yyyy')}</Text>
                         </View>
                         <View style={styles.containerExercicios}>
                             {Array.isArray(e.exercicios) && e.exercicios.map((exercicio, indexExercicios)=>(
