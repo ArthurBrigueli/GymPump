@@ -34,7 +34,7 @@ export default function App() {
             backgroundColor="#0c0d17"
             barStyle="light-content"
             translucent={false}
-          /> */}
+          /> */}  
           <Tab.Navigator screenOptions={screenOptions} initialRouteName='Home'>
             <Tab.Screen 
               name="TimeScreen" 

@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 
 
-const AddTreino = ({openRef, date, titulo, closeM})=>{
+const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
 
     const snapPoints = useMemo(()=>['20%', '50%', '100%'])
 
@@ -52,7 +52,7 @@ const AddTreino = ({openRef, date, titulo, closeM})=>{
     }
 
     const saveExercicios = ()=>{
-        console.log(exercicios)
+        addExercicios(exercicios)
         setExercicios([])
         closeM()
     }

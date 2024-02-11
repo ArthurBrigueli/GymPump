@@ -10,17 +10,41 @@ export const createTable = () => {
   });
 };
 
-export const insertTreino = (nome, data, exercicios) => {
+
+
+export const deleteId = (id) => {
   db.transaction(tx => {
-    tx.executeSql('INSERT INTO treinos (nome, data, exercicios) VALUES (?, ?, ?);', [nome, data, exercicios]);
+    tx.executeSql(
+      'DELETE FROM treinos WHERE id = ?', [id]
+    )
+  })
+}
+
+export const insertTreino = (nome, data, exercicios) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'INSERT INTO treinos (nome, data, exercicios) VALUES (?, ?, ?);',
+        [nome, data, exercicios],
+        (_, result) => {
+          resolve(result.insertId); // Chamando resolve com o insertId
+        },
+        (_, error) => {
+          reject(error); // Chamando reject com o erro, caso ocorra
+        }
+      );
+    });
   });
 };
+
+
+
 
 export const fetchTreinos = (callback) => {
   db.transaction(tx => {
     tx.executeSql('SELECT * FROM treinos;', [], (_, { rows }) => {
       const treinos = [];
-      for (let i = 0; i < rows.length; i++) {
+      for (let i = rows.length - 1; i >= 0; i--) {
         treinos.push(rows.item(i));
       }
       callback(treinos);

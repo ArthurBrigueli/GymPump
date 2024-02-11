@@ -1,17 +1,19 @@
-import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {useRef} from 'react'
 import CreateTreino from '../components/CreateTreino';
 import { useState, useEffect } from 'react';
 import AddTreino from '../components/AddTreino';
 
-import { createTable, fetchTreinos, insertTreino, removeTable } from '../databases/DataBase';
+import { createTable, fetchTreinos, insertTreino, removeTable, deleteId } from '../databases/DataBase';
+import useFetchTreino from '../hooks/useFetchTreino';
 
 const Note = ()=>{
 
     const modalRef = useRef(null)
     const modalRefAdd = useRef(null)
     const [openRef, setOpenRef] = useState(false)
+    const {addTreino:addTrinoDB, removeTreino, data, idTreino, update, json, removeTreinoId} = useFetchTreino(null)
 
 
     {/* state das info do treino */}
@@ -46,24 +48,49 @@ const Note = ()=>{
     }
 
 
-    const addTreino = ()=>{
-        insertTreino(titulo, date.toString())
-        fetchTreinos(setExercicios);
+    const addTreino = async()=>{
+
+        addTrinoDB(titulo, date.toString())
+        
         closeModal()
+    }
+
+    const addExercicios = (exercicios)=>{
+        update(idTreino, exercicios)
     }
 
 
     const remove = ()=>{
-        removeTable()
+        removeTreino()
     }
 
+    const excluirExercicio = (id)=>{
+        removeTreinoId(id)
+    }
 
     return(
         <View style={styles.container}>
 
-            {exercicios.map((e, index)=> (
-                <Text style={styles.txt} key={index}>{e.nome} - {e.data} - {e.exercicios}</Text>
-            ))}
+            <ScrollView>
+                {data && data.map((e, index) => (
+                    <View key={index} style={styles.containerTreino}>
+                        <View>
+                            <Text>{e.nome}</Text>
+                            <Text>{e.data}</Text>
+                        </View>
+                        <View style={styles.containerExercicios}>
+                            <Text>{e.exercicios}</Text>
+                        </View>
+                        <View style={styles.containerbtn}>
+                            <TouchableOpacity style={styles.btnExcluir} onPress={()=>excluirExercicio(e.id)}>
+                                <Text>x</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                ))}  
+            </ScrollView>
+
+            
 
 
             <TouchableOpacity style={styles.btnAdd} onPress={openModal}>
@@ -77,7 +104,7 @@ const Note = ()=>{
 
             <CreateTreino modalRef={modalRef} closeModal={closeModal} setTitulo={setTitulo} titulo={titulo} setDate={setDate} date={date} addTreino={addTreino}/>
 
-            <AddTreino openRef={modalRefAdd} date={date} titulo={titulo} closeM={closeModalAdd}/>
+            <AddTreino openRef={modalRefAdd} date={date} titulo={titulo} closeM={closeModalAdd} addExercicios={addExercicios}/>
         </View>
     )
 }
@@ -87,8 +114,34 @@ const Note = ()=>{
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#0c0d17',
-        flex: 1,
+        flex: 1
     },
+
+    containerbtn: {
+        alignItems: 'flex-end',
+    },
+
+    btnExcluir: {
+        backgroundColor: 'gray',
+        width: 100,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    containerExercicios: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    containerTreino: {
+        backgroundColor: 'white',
+        padding: 10,
+        gap: 20,
+        margin: 15,
+        borderRadius: 5
+        
+    },
+
 
     txt: {
         color: 'white'
