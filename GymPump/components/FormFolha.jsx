@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import {Input, Button} from 'react-native-elements'
-
+import { FormFolhaStyle } from '../styles/FormFolha/FormFolhaStyle'
 
 
 const FormFolha = ({handleInputChange})=>{
@@ -11,7 +11,7 @@ const FormFolha = ({handleInputChange})=>{
     return(
         <View>
             {diaSemana.map((dia, index) => (
-                <View key={index} style={styles.inputContainer}>
+                <View key={index} style={FormFolhaStyle.inputContainer}>
                     <Text>{dia}</Text>
                     <Input
                         placeholder={`Digite algo para ${dia}`}
@@ -24,19 +24,6 @@ const FormFolha = ({handleInputChange})=>{
         </View>
     )
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 20,
-    },
-    inputContainer: {
-      marginBottom: 20,
-      width: '100%',
-    }
-});
 
 
 export default FormFolha

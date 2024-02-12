@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { useState } from 'react'
 import {format} from 'date-fns'
+import { CreateTreinoStyle } from '../styles/CreateTreino/CreateTreinoStyle'
 
 const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, addTreino})=>{
 
@@ -38,22 +39,22 @@ const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, a
             enablePanDownToClose={true}
         >
 
-            <View style={styles.container}>
+            <View style={CreateTreinoStyle.container}>
 
-                <View style={styles.containerInputs}>
-                    <View style={styles.containerDate}>
-                        <TouchableOpacity style={styles.btnDate} onPress={()=>openDatePicker("date")}>
+                <View style={CreateTreinoStyle.containerInputs}>
+                    <View style={CreateTreinoStyle.containerDate}>
+                        <TouchableOpacity style={CreateTreinoStyle.btnDate} onPress={()=>openDatePicker("date")}>
                             <Text>{format(date, 'dd/MM/yyyy')}</Text>
                         </TouchableOpacity>
                     </View>
 
-                    <View style={styles.containerInput}>
-                        <TextInput placeholder='Digite o titulo do treino' style={styles.inputTitle} keyboardType='default' onChangeText={handleTitulo}/>
+                    <View style={CreateTreinoStyle.containerInput}>
+                        <TextInput placeholder='Digite o titulo do treino' style={CreateTreinoStyle.inputTitle} keyboardType='default' onChangeText={handleTitulo}/>
                     </View>
                 </View>
-                <View style={styles.containerbtn}>
-                    <TouchableOpacity onPress={addTreino} style={styles.btnCriar}>
-                        <Text style={styles.txtBtn}>Criar</Text>
+                <View style={CreateTreinoStyle.containerbtn}>
+                    <TouchableOpacity onPress={addTreino} style={CreateTreinoStyle.btnCriar}>
+                        <Text style={CreateTreinoStyle.txtBtn}>Criar</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -71,63 +72,6 @@ const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, a
         </BottomSheet>
     )
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        gap: 20,
-        alignItems :'center',
-        flex: 1,
-        justifyContent: 'space-around'
-    },
-    containerDate:{
-        justifyContent: 'center',
-        width: '100%'
-    },
-    btnDate: {
-        width: '50%',
-        padding: 10,
-        alignItems:"center",
-        marginLeft: 10,
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 8
-    },
-    inputTitle: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        paddingLeft: 10,
-        paddingRight: 10,
-        borderRadius: 8,
-        width: '80%',
-    },
-    containerInput: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%'
-    },
-    containerInputs:{
-        width: '100%',
-        gap: 20
-    },
-    containerbtn:{
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    btnCriar: {
-        backgroundColor: 'green',
-        width: '50%',
-        alignItems: 'center',
-        borderRadius: 8,
-        padding: 10
-    },
-    txtBtn:{
-        color: 'white',
-        fontWeight: 'bold'
-    }
-})
 
 
 export default CreateTreino

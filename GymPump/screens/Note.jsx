@@ -7,6 +7,7 @@ import AddTreino from '../components/AddTreino';
 import {format} from 'date-fns'
 import { createTable, fetchTreinos, insertTreino, removeTable, deleteId } from '../databases/DataBase';
 import useFetchTreino from '../hooks/useFetchTreino';
+import { noteStyle } from '../styles/Note/noteStyle';
 
 const Note = ()=>{
 
@@ -69,27 +70,27 @@ const Note = ()=>{
     }
 
     return(
-        <View style={styles.container}>
+        <View style={noteStyle.container}>
 
             <ScrollView>
                 {Array.isArray(data) && data.map((e, index) => (
-                    <View key={index} style={styles.containerTreino}>
+                    <View key={index} style={noteStyle.containerTreino}>
                         <View>
                             <Text>{e.nome}</Text>
                             <Text>{format(e.data, 'dd/MM/yyyy')}</Text>
                         </View>
-                        <View style={styles.containerExercicios}>
+                        <View style={noteStyle.containerExercicios}>
                             {Array.isArray(e.exercicios) && e.exercicios.map((exercicio, indexExercicios)=>(
-                                <View key={indexExercicios} style={styles.containerExercicio}>
-                                    <Text style={styles.txt}>{exercicio.nome}</Text>
-                                    <Text style={styles.txt}>{exercicio.peso}</Text>
-                                    <Text style={styles.txt}>{exercicio.repeticao}</Text>
+                                <View key={indexExercicios} style={noteStyle.containerExercicio}>
+                                    <Text style={noteStyle.txt}>{exercicio.nome}</Text>
+                                    <Text style={noteStyle.txt}>{exercicio.peso}</Text>
+                                    <Text style={noteStyle.txt}>{exercicio.repeticao}</Text>
                                 </View>
                             ))}
                         </View>
-                        <View style={styles.containerbtn}>
-                            <TouchableOpacity style={styles.btnExcluir} onPress={()=>excluirExercicio(e.id)}>
-                                <Text style={styles.txt}>x</Text>
+                        <View style={noteStyle.containerbtn}>
+                            <TouchableOpacity style={noteStyle.btnExcluir} onPress={()=>excluirExercicio(e.id)}>
+                                <Text style={noteStyle.txt}>x</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -99,11 +100,11 @@ const Note = ()=>{
             
 
 
-            <TouchableOpacity style={styles.btnAdd} onPress={openModal}>
+            <TouchableOpacity style={noteStyle.btnAdd} onPress={openModal}>
                 <Ionicons name="add" size={20} color="white" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.remove} onPress={remove}>
+            <TouchableOpacity style={noteStyle.remove} onPress={remove}>
                 <Ionicons name="remove" size={20} color="white" />
             </TouchableOpacity>
             
@@ -114,77 +115,5 @@ const Note = ()=>{
         </View>
     )
 }
-
-
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#0c0d17',
-        flex: 1
-    },
-
-    containerExercicio: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        width: '100%',
-        backgroundColor: 'gray'
-    },
-
-    containerbtn: {
-        alignItems: 'flex-end',
-    },
-
-    btnExcluir: {
-        backgroundColor: 'gray',
-        width: 100,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    containerExercicios: {
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        gap: 10
-    },
-
-    containerTreino: {
-        backgroundColor: 'white',
-        padding: 10,
-        gap: 20,
-        margin: 15,
-        borderRadius: 5
-        
-    },
-
-
-    txt: {
-        color: 'white'
-    },
-    btnAdd: {
-        backgroundColor: '#18192d',
-        justifyContent:'center',
-        alignItems: 'center',
-        width: 60,
-        height: 60,
-        borderRadius: 100,
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        zIndex: 0
-    },
-    remove: {
-        backgroundColor: '#18192d',
-        justifyContent:'center',
-        alignItems: 'center',
-        width: 60,
-        height: 60,
-        borderRadius: 100,
-        position: 'absolute',
-        bottom: 90,
-        right: 20,
-        zIndex: 0
-    }
-})
 
 export default Note

@@ -4,6 +4,7 @@ import * as Notifications from 'expo-notifications';
 import ModalConfigTime from "../components/ModalConfigTime";
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { timeStyle } from "../styles/Time/timeStyle";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -134,34 +135,34 @@ const TimeScreen = () => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={timeStyle.container}>
       {/* Cronômetro */}
-      <View style={styles.cronometroContainer}>
+      <View style={timeStyle.cronometroContainer}>
         {isDescanso ? (
-            <Text style={styles.cronometroText}>{obterMinutos()}:{obterSegundos()}s</Text>
+            <Text style={timeStyle.cronometroText}>{obterMinutos()}:{obterSegundos()}s</Text>
         ):(
-            <Text style={styles.TextSubTitleCronometro}>Serie em andamento...</Text>
+            <Text style={timeStyle.TextSubTitleCronometro}>Serie em andamento...</Text>
         )}
 
         {!running && isDescanso && (
-            <Text style={styles.TextSubTitleSerieOff}>Seu tempo de descanso acabou, Inicie a serie!</Text>
+            <Text style={timeStyle.TextSubTitleSerieOff}>Seu tempo de descanso acabou, Inicie a serie!</Text>
         )}
         
     
       </View>
 
       {/* Botões */}
-      <View style={styles.botoesContainer}>
-        <TouchableOpacity style={styles.botaoComecarSerie} onPress={comecarSerie}>
-          <Text style={styles.textBotao}>Começar série</Text>
+      <View style={timeStyle.botoesContainer}>
+        <TouchableOpacity style={timeStyle.botaoComecarSerie} onPress={comecarSerie}>
+          <Text style={timeStyle.textBotao}>Começar série</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={isDescanso ? styles.botaoDescansoOn:styles.botaoDescanso} onPress={descanso}>
-          <Text style={styles.textBotao}>Descanso</Text>
-          <Text style={styles.textBotao}>{timeData.minutos}:{timeData.segundos}</Text>
+        <TouchableOpacity style={isDescanso ? timeStyle.botaoDescansoOn:timeStyle.botaoDescanso} onPress={descanso}>
+          <Text style={timeStyle.textBotao}>Descanso</Text>
+          <Text style={timeStyle.textBotao}>{timeData.minutos}:{timeData.segundos}</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.btnConfig} onPress={openConfig}>
+      <TouchableOpacity style={timeStyle.btnConfig} onPress={openConfig}>
           <Ionicons name="cog" size={20} color='white'/>
       </TouchableOpacity>
       <ModalConfigTime bottomSheetRef={bottomSheetRef} alterarTime={alterarTime}/>
@@ -176,77 +177,5 @@ const TimeScreen = () => {
 };
 
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-        alignContent: 'center',
-        backgroundColor: '#0c0d17'
-    },
-
-    cronometroContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    cronometroText:{
-        fontSize: 70,
-        color: 'white'
-    },
-
-    botoesContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignContent: 'center',
-    },
-    botaoComecarSerie: {
-        margin: 5,
-        backgroundColor: '#00a859',
-        borderRadius: 100,
-        width: 150,
-        height: 60,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    botaoDescansoOn:{
-      display: "none"
-    },
-
-    botaoDescanso:{
-        margin: 5,
-        backgroundColor: '#3498db',
-        borderRadius: 100,
-        width: 150,
-        height: 60,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    textBotao: {
-        color: 'white'
-    },
-    TextSubTitleCronometro: {
-        color: 'gray',
-        fontSize: 25
-    },
-
-    TextSubTitleSerieOff: {
-        color: 'gray',
-    },
-    btnConfig: {
-      backgroundColor: '#18192d',
-      justifyContent:'center',
-      alignItems: 'center',
-      width: 60,
-      height: 60,
-      borderRadius: 100,
-      position: 'absolute',
-      bottom: 20,
-      right: 20,
-      zIndex: 0
-    }
-
-})
 
 export default TimeScreen

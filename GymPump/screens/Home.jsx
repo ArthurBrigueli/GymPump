@@ -4,6 +4,7 @@ import CreateFolha from "../components/CreateFolha"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { Alert } from "react-native";
+import { homeStyle } from "../styles/Home/Home";
 
 import useFetchFolha from "../hooks/useFetchFolha";
 
@@ -51,13 +52,13 @@ const Home = ()=>{
     }
 
     return(
-        <View style={styles.container}>
+        <View style={homeStyle.container}>
             {!Array.isArray(item) ? (
-                <TouchableOpacity style={styles.botao} onPress={openModal}>
+                <TouchableOpacity style={homeStyle.botao} onPress={openModal}>
                     <Ionicons name="add" size={20} color="white" />
                 </TouchableOpacity>
             ):(
-                <TouchableOpacity style={styles.botao} onPress={remove}>
+                <TouchableOpacity style={homeStyle.botao} onPress={remove}>
                     <Ionicons name="trash" size={20} color="white" />
                 </TouchableOpacity>
             )}
@@ -65,14 +66,14 @@ const Home = ()=>{
 
             
             {Array.isArray(item)&&(
-                <View style={styles.containerFolha}>
+                <View style={homeStyle.containerFolha}>
                     <ScrollView>
                         {Array.isArray(item) && item.map((item, index)=> (
-                            <View key={index} style={styles.containerDia}>
-                                <View style={styles.containerTxtDia}>
-                                    <Text style={styles.txtDia}>{item.dia}</Text>
+                            <View key={index} style={homeStyle.containerDia}>
+                                <View style={homeStyle.containerTxtDia}>
+                                    <Text style={homeStyle.txtDia}>{item.dia}</Text>
                                 </View>
-                                <View style={styles.containerValor}>
+                                <View style={homeStyle.containerValor}>
                                     <Text>{item.valor}</Text>
                                 </View>
                             </View>
@@ -84,49 +85,5 @@ const Home = ()=>{
         </View>
     )
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#0c0d17',
-        alignItems: 'center',
-        flex: 1
-    },
-    botao:{
-        backgroundColor: '#18192d',
-        justifyContent:'center',
-        alignItems: 'center',
-        width: 60,
-        height: 60,
-        borderRadius: 100,
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        zIndex: 1
-    },
-    txtBotaoAddFolha: {
-        color: 'white'
-    },
-    containerFolha: {
-        backgroundColor: 'white',
-        width: '90%',
-        flex: 1,
-        borderRadius: 5,
-        margin: 20
-    },
-    containerDia: {
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderColor: 'black',
-        width: '100%',
-        margin: 10,
-    },
-    containerTxtDia: {
-        width: '100%',
-    },
-    txtDia: {
-        marginLeft: 10
-    }
-})
 
 export default Home
