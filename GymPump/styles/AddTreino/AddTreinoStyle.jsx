@@ -36,7 +36,7 @@ export const AddTreinoStyle = StyleSheet.create({
         right: 20,
     },
     containerExercicio: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingLeft: 20,
@@ -79,5 +79,22 @@ export const AddTreinoStyle = StyleSheet.create({
         width: '90%',
         color: 'white',
         paddingLeft: 10
+    },
+    containerExercicioInfo: {
+        width: '100%',
+        flexDirection: "row",
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    btnExcluir:{
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 5
+        
+    },
+    containerBtnTrash: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })
