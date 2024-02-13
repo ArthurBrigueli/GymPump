@@ -9,7 +9,7 @@ export const noteStyle = StyleSheet.create({
 
     containerExercicio: {
         flexDirection: 'row',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
         backgroundColor: 'gray',
@@ -78,4 +78,4 @@ export const noteStyle = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold'
     }
-})
+})  

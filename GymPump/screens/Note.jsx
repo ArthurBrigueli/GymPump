@@ -69,6 +69,15 @@ const Note = ()=>{
         removeTreinoId(id)
     }
 
+
+    const limitarString = (string, tam)=>{
+        if(string.length > tam){
+            return string.substring(0, tam) + '...'
+        }else{
+            return string
+        }
+    }
+
     return(
         <View style={noteStyle.container}>
 
@@ -82,9 +91,11 @@ const Note = ()=>{
                         <View style={noteStyle.containerExercicios}>
                             {Array.isArray(e.exercicios) && e.exercicios.map((exercicio, indexExercicios)=>(
                                 <View key={indexExercicios} style={noteStyle.containerExercicio}>
-                                    <Text style={noteStyle.txt}>{exercicio.nome}</Text>
-                                    <Text style={noteStyle.txt}>{exercicio.peso}</Text>
-                                    <Text style={noteStyle.txt}>{exercicio.repeticao}</Text>
+                                    <Text style={noteStyle.txt}>{limitarString(exercicio.nome, 30)}</Text>
+                                    <View>
+                                        <Text style={noteStyle.txt}>{exercicio.peso}KG</Text>
+                                        <Text style={noteStyle.txt}>{exercicio.repeticao}Rep</Text>
+                                    </View>
                                 </View>
                             ))}
                         </View>
