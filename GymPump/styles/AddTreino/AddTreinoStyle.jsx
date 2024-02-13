@@ -59,7 +59,8 @@ export const AddTreinoStyle = StyleSheet.create({
     },
     containerModal: {
         backgroundColor: 'gray',
-        width: '70%',
+        width: '90%',
+        height: '100vh',
         padding: 30,
         alignItems: 'center',
         justifyContent:"space-around",
@@ -77,6 +78,7 @@ export const AddTreinoStyle = StyleSheet.create({
         borderWidth:1,
         borderRadius:5,
         width: '90%',
+        height: 50,
         color: 'white',
         paddingLeft: 10
     },
@@ -94,6 +96,15 @@ export const AddTreinoStyle = StyleSheet.create({
     },
     containerBtnTrash: {
         width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    addTreino: {
+        backgroundColor: 'white',
+        padding: 10,
+        borderRadius: 5,
+        width: '60%',
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center'
     }

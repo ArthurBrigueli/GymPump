@@ -120,7 +120,7 @@ const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
                                     <TextInput value={exercicio.peso} keyboardType="numeric" placeholder={'Peso usado no exercicio'} placeholderTextColor="white" style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('peso', value)}/>
                                     <TextInput value={exercicio.repeticao} keyboardType="numeric" placeholder={'Repetiçoes feitas'} placeholderTextColor="white"  style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('repeticao', value)}/>
                                 </View>
-                                <TouchableOpacity onPress={handleSubmit}>
+                                <TouchableOpacity style={AddTreinoStyle.addTreino} onPress={handleSubmit}>
                                     <Text>Adicionar exercicio</Text>
                                 </TouchableOpacity>
                             </View>
