@@ -76,7 +76,7 @@ const Note = ()=>{
                 {Array.isArray(data) && data.map((e, index) => (
                     <View key={index} style={noteStyle.containerTreino}>
                         <View>
-                            <Text>{e.nome}</Text>
+                            <Text style={noteStyle.txtNome}>{e.nome}</Text>
                             <Text>{format(e.data, 'dd/MM/yyyy')}</Text>
                         </View>
                         <View style={noteStyle.containerExercicios}>

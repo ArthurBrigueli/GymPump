@@ -12,7 +12,9 @@ export const noteStyle = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         width: '100%',
-        backgroundColor: 'gray'
+        backgroundColor: 'gray',
+        padding: 10,
+        borderRadius: 3
     },
 
     containerbtn: {
@@ -20,10 +22,13 @@ export const noteStyle = StyleSheet.create({
     },
 
     btnExcluir: {
-        backgroundColor: 'gray',
+        backgroundColor: '#f95959',
         width: 100,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: 3,
+        padding: 10,
+
     },
 
     containerExercicios: {
@@ -68,5 +73,9 @@ export const noteStyle = StyleSheet.create({
         bottom: 90,
         right: 20,
         zIndex: 0
+    },
+    txtNome: {
+        fontSize: 20,
+        fontWeight: 'bold'
     }
 })
