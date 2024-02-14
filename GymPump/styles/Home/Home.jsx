@@ -4,7 +4,7 @@ export const homeStyle = StyleSheet.create({
     container: {
         backgroundColor: '#0c0d17',
         alignItems: 'center',
-        flex: 1
+        flex: 1,
     },
     botao:{
         backgroundColor: '#18192d',
@@ -22,23 +22,46 @@ export const homeStyle = StyleSheet.create({
         color: 'white'
     },
     containerFolha: {
-        backgroundColor: 'white',
+        backgroundColor: '#e0e0e0',
         width: '90%',
         flex: 1,
         borderRadius: 5,
-        margin: 20
+        margin: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     containerDia: {
         alignItems: 'center',
         borderBottomWidth: 1,
         borderColor: 'black',
-        width: '100%',
-        margin: 10,
+        paddingBottom: 10
     },
     containerTxtDia: {
+        padding: 10,
+        borderRadius: 5,
         width: '100%',
-    },
+      },
     txtDia: {
-        marginLeft: 10
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+        alignSelf: 'flex-start',
+        backgroundColor: '#18192d',
+        padding: 10,
+        borderRadius: 5,
+    },
+
+    containerValor:{
+        width: '90%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    containerScroll:{
+        width: '100%'
+    },
+    txtValor:{
+        textAlign: 'center',
+        fontSize: 20
     }
 })

@@ -67,14 +67,14 @@ const Home = ()=>{
             
             {Array.isArray(item)&&(
                 <View style={homeStyle.containerFolha}>
-                    <ScrollView>
+                    <ScrollView style={homeStyle.containerScroll}>
                         {Array.isArray(item) && item.map((item, index)=> (
                             <View key={index} style={homeStyle.containerDia}>
                                 <View style={homeStyle.containerTxtDia}>
                                     <Text style={homeStyle.txtDia}>{item.dia}</Text>
                                 </View>
                                 <View style={homeStyle.containerValor}>
-                                    <Text>{item.valor}</Text>
+                                    <Text style={homeStyle.txtValor}>{item.valor}</Text>
                                 </View>
                             </View>
                         ))}
