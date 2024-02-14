@@ -8,13 +8,17 @@ import {format} from 'date-fns'
 import { createTable, fetchTreinos, insertTreino, removeTable, deleteId } from '../databases/DataBase';
 import useFetchTreino from '../hooks/useFetchTreino';
 import { noteStyle } from '../styles/Note/noteStyle';
+import { Icon } from 'react-native-elements';
+import EditTreino from '../components/EditTreino';
 
 const Note = ()=>{
 
     const modalRef = useRef(null)
     const modalRefAdd = useRef(null)
+    const modalRefEdit = useRef(null)
+
     const [openRef, setOpenRef] = useState(false)
-    const {addTreino:addTrinoDB, removeTreino, data, idTreino, update, json, removeTreinoId} = useFetchTreino(null)
+    const {addTreino:addTrinoDB, removeTreino, data, idTreino, update, json, removeTreinoId, fetchIdTreino, dataId} = useFetchTreino(null)
 
 
     {/* state das info do treino */}
@@ -46,6 +50,16 @@ const Note = ()=>{
         modalRef.current?.close()
         openModalAdd()
         setOpenRef(false)
+    }
+
+
+    const openModalEdit = (id)=>{
+        modalRefEdit.current?.expand()
+        fetchIdTreino(id)
+    }
+
+    const closeModalEdit = ()=>{
+        modalRefEdit.current?.close()
     }
 
 
@@ -100,8 +114,11 @@ const Note = ()=>{
                             ))}
                         </View>
                         <View style={noteStyle.containerbtn}>
+                            <TouchableOpacity style={noteStyle.btnEdit} onPress={()=>openModalEdit(e.id)}>
+                                <Icon name='edit' color='black'/>
+                            </TouchableOpacity>
                             <TouchableOpacity style={noteStyle.btnExcluir} onPress={()=>excluirExercicio(e.id)}>
-                                <Text style={noteStyle.txt}>x</Text>
+                                <Icon name='clear' color='white'/>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -118,7 +135,9 @@ const Note = ()=>{
             <TouchableOpacity style={noteStyle.remove} onPress={remove}>
                 <Ionicons name="remove" size={20} color="white" />
             </TouchableOpacity>
-            
+
+
+            <EditTreino modalRefEdit={modalRefEdit} closeModal={closeModalEdit} data={dataId}/>
 
             <CreateTreino modalRef={modalRef} closeModal={closeModal} setTitulo={setTitulo} titulo={titulo} setDate={setDate} date={date} addTreino={addTreino}/>
 

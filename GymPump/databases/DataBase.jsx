@@ -52,6 +52,22 @@ export const fetchTreinos = (callback) => {
   });
 };
 
+export const fetchTreinoId = (id, callback) => {
+  db.transaction(tx => {
+    tx.executeSql(
+      'SELECT * FROM treinos WHERE id = ?;',
+      [id],
+      (_, { rows }) => {
+        const treinos = [];
+        for (let i = rows.length - 1; i >= 0; i--) {
+          treinos.push(rows.item(i));
+        }
+        callback(treinos);
+      }
+    );
+  });
+};
+
 
 export const removeTable = () => {
     db.transaction(tx => {

@@ -18,7 +18,19 @@ export const noteStyle = StyleSheet.create({
     },
 
     containerbtn: {
-        alignItems: 'flex-end',
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between'
+    },
+
+    btnEdit: {
+        borderColor: 'gray',
+        borderWidth: 2,
+        width: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 3,
+        padding: 10
     },
 
     btnExcluir: {

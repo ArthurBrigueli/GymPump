@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { createTable, fetchTreinos, insertTreino, removeTable, updateExercicio, deleteId } from '../databases/DataBase';
+import { createTable, fetchTreinos, insertTreino, removeTable, updateExercicio, deleteId, fetchTreinoId } from '../databases/DataBase';
 
 const useFetchTreino = (url)=>{
 
     const [idTreino, setIdTreino] = useState(null)
     const [callBack, setCallBack] = useState(false)
     const [data, setData] = useState(null)
+    const [dataId, setDataId] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const addTreino = async(name, date)=>{
         const idTreino = await insertTreino(name, date)
@@ -29,6 +31,19 @@ const useFetchTreino = (url)=>{
         setCallBack(!callBack)
     }
 
+    const fetchIdTreino = (id)=>{
+        fetchTreinoId(id, (treino)=>{
+            const treinoAtualizado = treino.map((treino)=> {
+                return {
+                    ...treino,
+                    exercicios: JSON.parse(treino.exercicios)
+                }
+            })
+            setDataId(treinoAtualizado)
+        })
+        
+    }
+
     useEffect(()=>{
         const fetchData = async()=>{
 
@@ -48,7 +63,7 @@ const useFetchTreino = (url)=>{
     }, [url,callBack])
 
 
-    return {addTreino, removeTreino, data, idTreino, update, removeTreinoId}
+    return {addTreino, removeTreino, data, idTreino, update, removeTreinoId, fetchIdTreino, dataId}
 
 }
 
