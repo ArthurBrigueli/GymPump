@@ -10,6 +10,7 @@ import useFetchTreino from '../hooks/useFetchTreino';
 import { noteStyle } from '../styles/Note/noteStyle';
 import { Icon } from 'react-native-elements';
 import EditTreino from '../components/EditTreino';
+import PopUpTxtLimited from '../components/PopUpTxtLimited';
 
 const Note = ()=>{
 
@@ -26,6 +27,7 @@ const Note = ()=>{
     const [titulo, setTitulo] = useState('')
     const [exercicios, setExercicios] = useState([])
     const [btnLoading, setBtnLoading] = useState(null)
+    const [clickedTxt, setclickedTxt] = useState(false)
 
 
     useEffect(() => {
@@ -82,6 +84,10 @@ const Note = ()=>{
         removeTreinoId(id)
     }
 
+    const handleTxtLimited = (index, indexExercicios)=>{
+        setclickedTxt([index, indexExercicios])
+    }
+
 
     const limitarString = (string, tam)=>{
         if(string.length > tam){
@@ -104,7 +110,11 @@ const Note = ()=>{
                         <View style={noteStyle.containerExercicios}>
                             {Array.isArray(e.exercicios) && e.exercicios.map((exercicio, indexExercicios)=>(
                                 <View key={indexExercicios} style={noteStyle.containerExercicio}>
-                                    <Text style={noteStyle.txt}>{limitarString(exercicio.nome, 30)}</Text>
+                                    <Text style={noteStyle.txt} onPress={()=>handleTxtLimited(index, indexExercicios)}>{limitarString(exercicio.nome, 30)}</Text>
+                                    {clickedTxt[0] == index && clickedTxt[1] == indexExercicios && (
+                                        <PopUpTxtLimited txt={exercicio.nome} handleTxtLimited={handleTxtLimited}/>
+                                    )}
+
                                     <View>
                                         <Text style={noteStyle.txt}>{exercicio.peso}KG</Text>
                                         <Text style={noteStyle.txt}>{exercicio.repeticao}Rep</Text>
