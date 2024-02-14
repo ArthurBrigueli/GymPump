@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, ActivityIndicator} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {useRef} from 'react'
 import CreateTreino from '../components/CreateTreino';
@@ -18,14 +18,14 @@ const Note = ()=>{
     const modalRefEdit = useRef(null)
 
     const [openRef, setOpenRef] = useState(false)
-    const {addTreino:addTrinoDB, removeTreino, data, idTreino, update, json, removeTreinoId, fetchIdTreino, dataId} = useFetchTreino(null)
+    const {addTreino:addTrinoDB, removeTreino, data, idTreino, update, json, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading} = useFetchTreino(null)
 
-
+    
     {/* state das info do treino */}
     const [date, setDate] = useState(new Date())
     const [titulo, setTitulo] = useState('')
-
     const [exercicios, setExercicios] = useState([])
+    const [btnLoading, setBtnLoading] = useState(null)
 
 
     useEffect(() => {
@@ -52,10 +52,9 @@ const Note = ()=>{
         setOpenRef(false)
     }
 
-
     const openModalEdit = (id)=>{
-        modalRefEdit.current?.expand()
         fetchIdTreino(id)
+        modalRefEdit.current?.expand();
     }
 
     const closeModalEdit = ()=>{
@@ -113,14 +112,26 @@ const Note = ()=>{
                                 </View>
                             ))}
                         </View>
-                        <View style={noteStyle.containerbtn}>
-                            <TouchableOpacity style={noteStyle.btnEdit} onPress={()=>openModalEdit(e.id)}>
-                                <Icon name='edit' color='black'/>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={noteStyle.btnExcluir} onPress={()=>excluirExercicio(e.id)}>
-                                <Icon name='clear' color='white'/>
-                            </TouchableOpacity>
-                        </View>
+                        {loading ? (
+                            <ActivityIndicator size='small' color='black'/>
+                        ):(
+                            <View style={noteStyle.containerbtn}>
+                                <TouchableOpacity style={noteStyle.btnEdit} onPress={()=>{openModalEdit(e.id)}} disabled={loadingEdit}>
+                                    {loadingEdit ? (
+                                        <ActivityIndicator size='small' color='black' />
+                                    ):(
+                                        <Icon name='edit' color='black'/>
+                                    )}
+                                </TouchableOpacity>
+                                <TouchableOpacity style={noteStyle.btnExcluir} onPress={()=>excluirExercicio(e.id)} disabled={loading}>
+                                    {loading ? (
+                                        <ActivityIndicator size='small' color='white'/>
+                                    ): (
+                                        <Icon name='clear' color='white'/>
+                                    )}
+                                </TouchableOpacity>
+                            </View>
+                        )}
                     </View>
                 ))}  
             </ScrollView>
@@ -137,7 +148,7 @@ const Note = ()=>{
             </TouchableOpacity>
 
 
-            <EditTreino modalRefEdit={modalRefEdit} closeModal={closeModalEdit} data={dataId}/>
+            <EditTreino modalRefEdit={modalRefEdit} closeModal={closeModalEdit} data={dataId} loading={loadingEdit}/>
 
             <CreateTreino modalRef={modalRef} closeModal={closeModal} setTitulo={setTitulo} titulo={titulo} setDate={setDate} date={date} addTreino={addTreino}/>
 

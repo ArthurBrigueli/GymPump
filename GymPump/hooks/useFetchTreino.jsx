@@ -7,7 +7,8 @@ const useFetchTreino = (url)=>{
     const [callBack, setCallBack] = useState(false)
     const [data, setData] = useState(null)
     const [dataId, setDataId] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [loadingEdit, setLoadingEdit] = useState(false)
+    const [loading, setloading] = useState(false)
 
     const addTreino = async(name, date)=>{
         const idTreino = await insertTreino(name, date)
@@ -32,6 +33,7 @@ const useFetchTreino = (url)=>{
     }
 
     const fetchIdTreino = (id)=>{
+        setLoadingEdit(true)
         fetchTreinoId(id, (treino)=>{
             const treinoAtualizado = treino.map((treino)=> {
                 return {
@@ -39,14 +41,17 @@ const useFetchTreino = (url)=>{
                     exercicios: JSON.parse(treino.exercicios)
                 }
             })
+            setLoadingEdit(false)
             setDataId(treinoAtualizado)
         })
+
+        
         
     }
 
     useEffect(()=>{
         const fetchData = async()=>{
-
+            setloading(true)
             fetchTreinos((treino)=>{
                 const treinosAtualizados = treino.map((treino) => {
                     return {
@@ -54,6 +59,7 @@ const useFetchTreino = (url)=>{
                       exercicios: JSON.parse(treino.exercicios),
                     };
                 });
+                setloading(false)
                 setData(treinosAtualizados)
             })
         }
@@ -63,7 +69,7 @@ const useFetchTreino = (url)=>{
     }, [url,callBack])
 
 
-    return {addTreino, removeTreino, data, idTreino, update, removeTreinoId, fetchIdTreino, dataId}
+    return {addTreino, removeTreino, data, idTreino, update, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading}
 
 }
 
