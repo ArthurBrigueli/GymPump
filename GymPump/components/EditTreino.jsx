@@ -1,13 +1,20 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert} from "react-native"
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, TouchableWithoutFeedback} from "react-native"
 import BottomSheet from '@gorhom/bottom-sheet'
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Icon } from "react-native-elements"
+import { AddTreinoStyle } from "../styles/AddTreino/AddTreinoStyle"
 
 const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTreino})=>{
 
     const snapPoint = useMemo(()=>['100%'])
 
     const [data, setData] = useState(dataEdit)
+    const [openModal, setOpenModal] = useState(false)
+    const [newExercicio, setNewExercicio] = useState({
+        nome: "",
+        peso: "",
+        repeticao: ""
+    })
 
 
     useEffect(()=>{
@@ -33,6 +40,37 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
         closeModal()
         Alert.alert('Treino editado', 'Seu treino foi editado com sucesso!')
     }
+
+
+    const addTreino = ()=>{
+        setOpenModal(true)
+    }
+
+    const closeOpenModal = ()=> {
+        setOpenModal(false)
+    }
+
+    const handleInput = (index, value)=>{
+        setNewExercicio({
+            [index]: value
+        })
+
+
+    }
+
+    const handleSubmit = ()=> {
+        const prev = [...data[0].exercicios]
+        prev.push(newExercicio)
+        data[0].exercicios = prev
+        setNewExercicio({
+            nome: "",
+            peso: "",
+            repeticao: ""
+        })
+        setOpenModal(false)
+    }
+
+
     
 
 
@@ -46,7 +84,7 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
         >
             <View style={styles.container}>
                 {!loading ? (
-                    dataEdit && dataEdit.map((e, index)=>(
+                    data && data.map((e, index)=>(
                         <View key={index} style={styles.containerEdit}>
                             <View style={styles.containerInfo}>
                                 <TextInput value={e.nome} style={styles.inputNome} onChangeText={(e)=>handleData(index, 'nome', e)}/>
@@ -79,7 +117,36 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
                             <ActivityIndicator size='small' color='white'/>
                         )}
                     </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.btnteste}>
+                        {!loading ? (
+                            <Icon name="add" color='white' onPress={addTreino}/>
+                        ):(
+                            <ActivityIndicator size='small' color='white'/>
+                        )}
+                    </TouchableOpacity>
                 </View>
+
+
+                {openModal && (
+                    <TouchableWithoutFeedback onPress={closeOpenModal}>
+                        <View style={AddTreinoStyle.BackContainerModal}>
+                            <TouchableWithoutFeedback onPress={() => {}}>
+                                <View style={AddTreinoStyle.containerModal}>
+                                    <View style={AddTreinoStyle.containerInputs}>
+                                        <TextInput value={newExercicio.nome} placeholder={'Nome do exercicio'} style={AddTreinoStyle.inputText} placeholderTextColor="white" onChangeText={(value) => handleInput('nome', value)}/>
+                                        <TextInput value={newExercicio.peso} keyboardType="numeric" placeholder={'Peso usado no exercicio'} placeholderTextColor="white" style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('peso', value)}/>
+                                        <TextInput value={newExercicio.repeticao} keyboardType="numeric" placeholder={'Repetiçoes feitas'} placeholderTextColor="white"  style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('repeticao', value)}/>
+                                    </View>
+                                    <TouchableOpacity style={AddTreinoStyle.addTreino} onPress={handleSubmit}>
+                                        <Text>Adicionar exercicio</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                    </TouchableWithoutFeedback>
+                )}
+
             </View>
             
         </BottomSheet>
@@ -112,6 +179,19 @@ const styles = StyleSheet.create({
         gap: 15
     },
     btnAdd: {
+        backgroundColor: '#18192d',
+        justifyContent:'center',
+        alignItems: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 100,
+        position: 'absolute',
+        bottom: 90,
+        right: 20,
+        zIndex: 0
+    },
+
+    btnteste: {
         backgroundColor: '#18192d',
         justifyContent:'center',
         alignItems: 'center',
