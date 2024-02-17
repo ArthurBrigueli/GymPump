@@ -81,3 +81,9 @@ export const updateExercicio = (id, novoExercicio) => {
       tx.executeSql('UPDATE treinos SET exercicios = ? WHERE id = ?;', [novoExercicio, id]);
     });
 };
+
+export const updateTreino = (id, nome, data, exercicios) => {
+  db.transaction(tx => {
+    tx.executeSql('UPDATE treinos SET nome = ?, data = ?, exercicios = ? WHERE id = ?;',[nome, data, exercicios,id])
+  })
+}

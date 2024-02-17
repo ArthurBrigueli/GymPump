@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { createTable, fetchTreinos, insertTreino, removeTable, updateExercicio, deleteId, fetchTreinoId } from '../databases/DataBase';
-
+import { createTable, fetchTreinos, insertTreino, removeTable, updateExercicio, deleteId, fetchTreinoId, updateTreino } from '../databases/DataBase';
+import {format} from 'date-fns'
 const useFetchTreino = (url)=>{
 
     const [idTreino, setIdTreino] = useState(null)
@@ -11,7 +11,8 @@ const useFetchTreino = (url)=>{
     const [loading, setloading] = useState(false)
 
     const addTreino = async(name, date)=>{
-        const idTreino = await insertTreino(name, date)
+        const dataFormat = format(date, 'dd/MM/yyyy')
+        const idTreino = await insertTreino(name, dataFormat)
         setIdTreino(idTreino)
         setCallBack(!callBack)
     }
@@ -24,6 +25,11 @@ const useFetchTreino = (url)=>{
 
     const update = (id, exercicios)=>{
         updateExercicio(id, JSON.stringify(exercicios))
+        setCallBack(!callBack)
+    }
+
+    const updateTreinoId = (id, nome, data, exercicios) => {
+        updateTreino(id, nome, data, JSON.stringify(exercicios))
         setCallBack(!callBack)
     }
 
@@ -69,7 +75,7 @@ const useFetchTreino = (url)=>{
     }, [url,callBack])
 
 
-    return {addTreino, removeTreino, data, idTreino, update, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading}
+    return {addTreino, removeTreino, data, idTreino, update, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading, updateTreinoId}
 
 }
 

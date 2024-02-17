@@ -19,7 +19,7 @@ const Note = ()=>{
     const modalRefEdit = useRef(null)
 
     const [openRef, setOpenRef] = useState(false)
-    const {addTreino:addTrinoDB, removeTreino, data, idTreino, update, json, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading} = useFetchTreino(null)
+    const {addTreino:addTrinoDB, removeTreino, data, idTreino, update, json, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading, updateTreinoId} = useFetchTreino(null)
 
     
     {/* state das info do treino */}
@@ -76,9 +76,16 @@ const Note = ()=>{
     }
 
 
+    const editTreino = (id, nome, data, exercicios)=>{
+        updateTreinoId(id, nome, data, exercicios)
+
+    }
+
+
     const remove = ()=>{
         removeTreino()
     }
+    
 
     const excluirExercicio = (id)=>{
         removeTreinoId(id)
@@ -105,7 +112,7 @@ const Note = ()=>{
                     <View key={index} style={noteStyle.containerTreino}>
                         <View>
                             <Text style={noteStyle.txtNome}>{e.nome}</Text>
-                            <Text>{format(e.data, 'dd/MM/yyyy')}</Text>
+                            <Text>{e.data}</Text>
                         </View>
                         <View style={noteStyle.containerExercicios}>
                             {Array.isArray(e.exercicios) && e.exercicios.map((exercicio, indexExercicios)=>(
@@ -158,7 +165,7 @@ const Note = ()=>{
             </TouchableOpacity>
 
 
-            <EditTreino modalRefEdit={modalRefEdit} closeModal={closeModalEdit} data={dataId} loading={loadingEdit}/>
+            <EditTreino modalRefEdit={modalRefEdit} closeModal={closeModalEdit} data={dataId} loading={loadingEdit} editTreino={editTreino}/>
 
             <CreateTreino modalRef={modalRef} closeModal={closeModal} setTitulo={setTitulo} titulo={titulo} setDate={setDate} date={date} addTreino={addTreino}/>
 
