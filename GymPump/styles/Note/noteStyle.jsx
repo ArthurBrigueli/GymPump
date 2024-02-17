@@ -12,7 +12,7 @@ export const noteStyle = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-        backgroundColor: 'gray',
+        backgroundColor: '#202024',
         padding: 10,
         borderRadius: 3
     },
@@ -34,7 +34,7 @@ export const noteStyle = StyleSheet.create({
     },
 
     btnExcluir: {
-        backgroundColor: '#f95959',
+        backgroundColor: '#271A45',
         width: 100,
         justifyContent: 'center',
         alignItems: 'center',
@@ -60,7 +60,7 @@ export const noteStyle = StyleSheet.create({
 
 
     txt: {
-        color: 'white'
+        color: '#E1E1E6'
     },
     btnAdd: {
         backgroundColor: '#18192d',
