@@ -44,7 +44,7 @@ const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, a
                 <View style={CreateTreinoStyle.containerInputs}>
                     <View style={CreateTreinoStyle.containerDate}>
                         <TouchableOpacity style={CreateTreinoStyle.btnDate} onPress={()=>openDatePicker("date")}>
-                            <Text>{format(date, 'dd/MM/yyyy')}</Text>
+                            <Text style={CreateTreinoStyle.txtDate}>{format(date, 'dd/MM/yyyy')}</Text>
                         </TouchableOpacity>
                     </View>
 
