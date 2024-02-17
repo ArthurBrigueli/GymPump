@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         height: 60,
         borderRadius: 100,
         position: 'absolute',
-        bottom: 20,
+        bottom: 90,
         right: 20,
         zIndex: 0
     },
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         height: 60,
         borderRadius: 100,
         position: 'absolute',
-        bottom: 90,
+        bottom: 20,
         right: 20,
         zIndex: 0
     },
