@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Alert, Animated } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import ModalConfigTime from "../components/ModalConfigTime";
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { timeStyle } from "../styles/Time/timeStyle";
+import LottieView from 'lottie-react-native'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -20,6 +21,7 @@ const TimeScreen = () => {
   const [isDescanso, setIsDescanso] = useState(false)
   const bottomSheetRef = useRef(null)
   const [showAlertConfirmedTime, setShowAlertConfirmedTime] = useState(false)
+  const [fadeIn] = useState(new Animated.Value(0))
   const [timeData, setTimeData] = useState({minutos:0, segundos:0})
 
   useEffect(() => {
@@ -111,11 +113,24 @@ const TimeScreen = () => {
   const alterarTime = (minutos, segundos)=>{
     salvarTimeLocal(minutos, segundos)
     closeConfig()
+
+    Animated.timing(fadeIn, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: false
+    }).start()
+
     setShowAlertConfirmedTime(true)
 
-    setTimeout(()=>{
-      setShowAlertConfirmedTime(false)
-    }, 1000)
+    setTimeout(() => {
+      Animated.timing(fadeIn, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: false,
+      }).start(() => {
+        setShowAlertConfirmedTime(false);
+      });
+    }, 2000);
   }
 
   const salvarTimeLocal = async(minutos, segundos)=>{
@@ -166,12 +181,30 @@ const TimeScreen = () => {
           <Ionicons name="cog" size={20} color='white'/>
       </TouchableOpacity>
       <ModalConfigTime bottomSheetRef={bottomSheetRef} alterarTime={alterarTime}/>
-      {showAlertConfirmedTime && <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-        <View style={{ padding: 20, backgroundColor: 'white', borderRadius: 5 , height: '30%',width: '50%', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <Ionicons name="checkmark-outline" color='green' size={50}/>
-          <Text style={{fontSize: 15}}>Alteração Concluida!</Text>
-        </View>
-      </View>}
+      {showAlertConfirmedTime && (
+        <Animated.View
+          style={{
+            ...StyleSheet.absoluteFillObject,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            opacity: fadeIn, // Use a opacidade animada aqui
+          }}
+        >
+          <View style={{ padding: 20, backgroundColor: 'white', borderRadius: 5, height: '30%', width: '50%', justifyContent: 'space-evenly', alignItems: 'center' }}>
+            <LottieView
+              source={require('../assets/animationImg/animationConfirmed.json')}
+              autoPlay
+              style={{
+                width: 80,
+                height: 80
+              }}
+            />
+            <Text style={{ fontSize: 15 }}>Alteração Concluída!</Text>
+          </View>
+        </Animated.View>
+      )}
+
     </View>
   );
 };
