@@ -21,7 +21,7 @@ const TimeScreen = () => {
   const [isDescanso, setIsDescanso] = useState(false)
   const bottomSheetRef = useRef(null)
   const [showAlertConfirmedTime, setShowAlertConfirmedTime] = useState(false)
-  const [fadeIn, setFadeIn] = useState(new Animated.Value(0))
+  const [fadeIn] = useState(new Animated.Value(0))
   const [timeData, setTimeData] = useState({minutos:0, segundos:0})
 
   useEffect(() => {
