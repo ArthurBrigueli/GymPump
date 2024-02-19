@@ -12,9 +12,11 @@ export const noteStyle = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-        backgroundColor: '#202024',
+        backgroundColor: '#d5def5',
         padding: 10,
-        borderRadius: 3
+        borderRadius: 3,
+        borderColor: 'black',
+        borderWidth: 1
     },
 
     containerbtn: {
@@ -60,7 +62,7 @@ export const noteStyle = StyleSheet.create({
 
 
     txt: {
-        color: '#E1E1E6'
+        color: '#202024'
     },
     btnAdd: {
         backgroundColor: '#18192d',
