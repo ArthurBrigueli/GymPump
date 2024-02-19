@@ -51,11 +51,9 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
     }
 
     const handleInput = (index, value)=>{
-        setNewExercicio({
-            [index]: value
-        })
-
-
+        const prev = {...newExercicio}
+        prev[index] = value
+        setNewExercicio(prev)
     }
 
     const handleSubmit = ()=> {
