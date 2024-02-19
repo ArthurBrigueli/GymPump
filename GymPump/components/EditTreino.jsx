@@ -85,8 +85,8 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
             <View style={styles.container}>
                 {!loading ? (
                     data && data.map((e, index)=>(
-                        <ScrollView>
-                            <View key={index} style={styles.containerEdit}>
+                        <ScrollView key={index}>
+                            <View style={styles.containerEdit}>
                                 <View style={styles.containerInfo}>
                                     <TextInput value={e.nome} style={styles.inputNome} onChangeText={(e)=>handleData(index, 'nome', e)}/>
                                     <TextInput style={styles.input} value={e.data} onChangeText={(e)=>handleData(index,'data', e)}/>
