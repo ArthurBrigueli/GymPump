@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, TouchableWithoutFeedback} from "react-native"
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, TouchableWithoutFeedback, ScrollView} from "react-native"
 import BottomSheet from '@gorhom/bottom-sheet'
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Icon } from "react-native-elements"
@@ -85,23 +85,25 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
             <View style={styles.container}>
                 {!loading ? (
                     data && data.map((e, index)=>(
-                        <View key={index} style={styles.containerEdit}>
-                            <View style={styles.containerInfo}>
-                                <TextInput value={e.nome} style={styles.inputNome} onChangeText={(e)=>handleData(index, 'nome', e)}/>
-                                <TextInput style={styles.input} value={e.data} onChangeText={(e)=>handleData(index,'data', e)}/>
-                            </View>
-                            <View style={styles.containerExercicios}>
-                                {Array.isArray(e.exercicios) && e.exercicios.map((ex, indexEx)=>(
-                                    <View key={indexEx} style={styles.containerExercicio}>
-                                        <TextInput value={ex.nome} style={styles.inputExercicio} onChangeText={(e)=>{handleExercicios(indexEx, 'nome', e)}}/>
-                                        <View style={styles.containerInfo}>
-                                            <TextInput style={styles.inputExercicio} value={ex.peso} onChangeText={(e)=>{handleExercicios(indexEx, 'peso', e)}}/>
-                                            <TextInput style={styles.inputExercicio} value={ex.repeticao} onChangeText={(e)=>{handleExercicios(indexEx, 'repeticao', e)}}/>
+                        <ScrollView key={index}>
+                            <View style={styles.containerEdit}>
+                                <View style={styles.containerInfo}>
+                                    <TextInput value={e.nome} style={styles.inputNome} onChangeText={(e)=>handleData(index, 'nome', e)}/>
+                                    <TextInput style={styles.input} value={e.data} onChangeText={(e)=>handleData(index,'data', e)}/>
+                                </View>
+                                <View style={styles.containerExercicios}>
+                                    {Array.isArray(e.exercicios) && e.exercicios.map((ex, indexEx)=>(
+                                        <View key={indexEx} style={styles.containerExercicio}>
+                                            <TextInput value={ex.nome} style={styles.inputExercicio} onChangeText={(e)=>{handleExercicios(indexEx, 'nome', e)}}/>
+                                            <View style={styles.containerInfo}>
+                                                <TextInput style={styles.inputExercicio} value={ex.peso} onChangeText={(e)=>{handleExercicios(indexEx, 'peso', e)}}/>
+                                                <TextInput style={styles.inputExercicio} value={ex.repeticao} onChangeText={(e)=>{handleExercicios(indexEx, 'repeticao', e)}}/>
+                                            </View>
                                         </View>
-                                    </View>
-                                ))}
+                                    ))}
+                                </View>
                             </View>
-                        </View>
+                        </ScrollView>
                     ))
                 ):(
                     <ActivityIndicator size='large' color='black'/>
@@ -208,9 +210,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-        backgroundColor: 'gray',
+        backgroundColor: '#d5def5',
         padding: 10,
-        borderRadius: 3
+        borderRadius: 3,
+        borderColor: 'black',
+        borderWidth: 1
     },
     containerExercicios: {
         justifyContent: 'space-around',
@@ -224,8 +228,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     inputExercicio:{
-        color: 'white',
-        borderColor: 'white',
+        color: 'black',
+        borderColor: 'black',
         borderBottomWidth: 1,
 
     },
