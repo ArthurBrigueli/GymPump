@@ -10,7 +10,6 @@ import useFetchTreino from '../hooks/useFetchTreino';
 import { noteStyle } from '../styles/Note/noteStyle';
 import { Icon } from 'react-native-elements';
 import EditTreino from '../components/EditTreino';
-import PopUpTxtLimited from '../components/PopUpTxtLimited';
 
 import TreinoList from '../components/TreinoItem.jsx/TreinoList';
 import ExercicioList from '../components/TreinoItem.jsx/ExercicioList';
