@@ -93,7 +93,7 @@ const Note = ()=>{
 
 
     const limitarString = (string, tam)=>{
-        if(string.length > tam){
+        if(string && string.length > tam){
             return string.substring(0, tam) + '...'
         }else{
             return string
