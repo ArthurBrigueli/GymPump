@@ -5,7 +5,7 @@ const useFetchTreino = (url)=>{
 
     const [idTreino, setIdTreino] = useState(null)
     const [callBack, setCallBack] = useState(false)
-    const [data, setData] = useState(null)
+    const [data, setData] = useState([])
     const [dataId, setDataId] = useState(null)
     const [loadingEdit, setLoadingEdit] = useState(false)
     const [loading, setloading] = useState(false)
