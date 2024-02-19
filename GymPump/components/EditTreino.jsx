@@ -51,11 +51,9 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
     }
 
     const handleInput = (index, value)=>{
-        setNewExercicio({
-            [index]: value
-        })
-
-
+        const prev = {...newExercicio}
+        prev[index] = value
+        setNewExercicio(prev)
     }
 
     const handleSubmit = ()=> {
@@ -70,6 +68,9 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
         setOpenModal(false)
     }
 
+    const handleSubmitClear = ()=>{
+        
+    }
 
     
 
@@ -94,6 +95,11 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
                                 <View style={styles.containerExercicios}>
                                     {Array.isArray(e.exercicios) && e.exercicios.map((ex, indexEx)=>(
                                         <View key={indexEx} style={styles.containerExercicio}>
+                                            <View>
+                                                <TouchableOpacity onPress={handleSubmitClear}>
+                                                    <Text>Clear</Text>
+                                                </TouchableOpacity>
+                                            </View>
                                             <TextInput value={ex.nome} style={styles.inputExercicio} onChangeText={(e)=>{handleExercicios(indexEx, 'nome', e)}}/>
                                             <View style={styles.containerInfo}>
                                                 <TextInput style={styles.inputExercicio} value={ex.peso} onChangeText={(e)=>{handleExercicios(indexEx, 'peso', e)}}/>
