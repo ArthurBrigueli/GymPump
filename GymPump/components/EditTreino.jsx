@@ -210,9 +210,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-        backgroundColor: 'gray',
+        backgroundColor: '#d5def5',
         padding: 10,
-        borderRadius: 3
+        borderRadius: 3,
+        borderColor: 'black',
+        borderWidth: 1
     },
     containerExercicios: {
         justifyContent: 'space-around',
@@ -226,8 +228,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     inputExercicio:{
-        color: 'white',
-        borderColor: 'white',
+        color: 'black',
+        borderColor: 'black',
         borderBottomWidth: 1,
 
     },
