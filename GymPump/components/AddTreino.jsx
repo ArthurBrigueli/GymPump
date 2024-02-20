@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { AddTreinoStyle } from '../styles/AddTreino/AddTreinoStyle';
+import FormAddExercicio from './FormAddExercicio';
 
 
 const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
@@ -111,22 +112,7 @@ const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
             </TouchableOpacity>
 
             {openModel && (
-                <TouchableWithoutFeedback onPress={closeModal}>
-                    <View style={AddTreinoStyle.BackContainerModal}>
-                        <TouchableWithoutFeedback onPress={() => {}}>
-                            <View style={AddTreinoStyle.containerModal}>
-                                <View style={AddTreinoStyle.containerInputs}>
-                                    <TextInput value={exercicio.nome} placeholder={'Nome do exercicio'} style={AddTreinoStyle.inputText} placeholderTextColor="white" onChangeText={(value) => handleInput('nome', value)}/>
-                                    <TextInput value={exercicio.peso} keyboardType="numeric" placeholder={'Peso usado no exercicio'} placeholderTextColor="white" style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('peso', value)}/>
-                                    <TextInput value={exercicio.repeticao} keyboardType="numeric" placeholder={'Repetiçoes feitas'} placeholderTextColor="white"  style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('repeticao', value)}/>
-                                </View>
-                                <TouchableOpacity style={AddTreinoStyle.addTreino} onPress={handleSubmit}>
-                                    <Text>Adicionar exercicio</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </TouchableWithoutFeedback>
-                    </View>
-              </TouchableWithoutFeedback>
+                <FormAddExercicio closeModal={closeModal} handleInput={handleInput} handleSubmit={handleSubmit}/>
             )}
 
         </BottomSheet>

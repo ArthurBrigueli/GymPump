@@ -3,6 +3,7 @@ import BottomSheet from '@gorhom/bottom-sheet'
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Icon } from "react-native-elements"
 import { AddTreinoStyle } from "../styles/AddTreino/AddTreinoStyle"
+import FormAddExercicio from "./FormAddExercicio"
 
 const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTreino})=>{
 
@@ -141,22 +142,7 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
 
 
                 {openModal && (
-                    <TouchableWithoutFeedback onPress={closeOpenModal}>
-                        <View style={AddTreinoStyle.BackContainerModal}>
-                            <TouchableWithoutFeedback onPress={() => {}}>
-                                <View style={AddTreinoStyle.containerModal}>
-                                    <View style={AddTreinoStyle.containerInputs}>
-                                        <TextInput value={newExercicio.nome} placeholder={'Nome do exercicio'} style={AddTreinoStyle.inputText} placeholderTextColor="white" onChangeText={(value) => handleInput('nome', value)}/>
-                                        <TextInput value={newExercicio.peso} keyboardType="numeric" placeholder={'Peso usado no exercicio'} placeholderTextColor="white" style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('peso', value)}/>
-                                        <TextInput value={newExercicio.repeticao} keyboardType="numeric" placeholder={'Repetiçoes feitas'} placeholderTextColor="white"  style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('repeticao', value)}/>
-                                    </View>
-                                    <TouchableOpacity style={AddTreinoStyle.addTreino} onPress={handleSubmit}>
-                                        <Text>Adicionar exercicio</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </TouchableWithoutFeedback>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    <FormAddExercicio closeModal={closeModal} handleSubmit={handleSubmit} handleInput={handleInput}/>
                 )}
 
             </View>
