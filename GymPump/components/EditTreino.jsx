@@ -142,7 +142,7 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
 
 
                 {openModal && (
-                    <FormAddExercicio closeModal={closeModal} handleSubmit={handleSubmit} handleInput={handleInput} exercicio={newExercicio}/>
+                    <FormAddExercicio closeModal={closeOpenModal} handleSubmit={handleSubmit} handleInput={handleInput} exercicio={newExercicio}/>
                 )}
 
             </View>
