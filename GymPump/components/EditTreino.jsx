@@ -97,9 +97,9 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
                                 <View style={styles.containerExercicios}>
                                     {Array.isArray(e.exercicios) && e.exercicios.map((ex, indexEx)=>(
                                         <View key={indexEx} style={styles.containerExercicio}>
-                                            <View>
+                                            <View style={styles.containerBtnDelete}>
                                                 <TouchableOpacity onPress={()=>handleSubmitClear(indexEx)}>
-                                                    <Text>Clear</Text>
+                                                <Icon name="delete" color='black'/>
                                                 </TouchableOpacity>
                                             </View>
                                             <View style={styles.containerInfoExercicio}>
@@ -177,6 +177,11 @@ const styles = StyleSheet.create({
         bottom: 90,
         right: 20,
         zIndex: 0
+    },
+
+    containerBtnDelete: {
+        width: "100%",
+        alignItems: 'flex-end'
     },
     container:{
         backgroundColor: 'white',
