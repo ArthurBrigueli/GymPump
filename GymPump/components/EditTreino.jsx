@@ -68,8 +68,10 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
         setOpenModal(false)
     }
 
-    const handleSubmitClear = ()=>{
-        
+    const handleSubmitClear = (index)=>{
+        const prev = [...data]
+        prev[0].exercicios.splice(index, 1)
+        setData(prev)
     }
 
     
@@ -96,14 +98,16 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
                                     {Array.isArray(e.exercicios) && e.exercicios.map((ex, indexEx)=>(
                                         <View key={indexEx} style={styles.containerExercicio}>
                                             <View>
-                                                <TouchableOpacity onPress={handleSubmitClear}>
+                                                <TouchableOpacity onPress={()=>handleSubmitClear(indexEx)}>
                                                     <Text>Clear</Text>
                                                 </TouchableOpacity>
                                             </View>
-                                            <TextInput value={ex.nome} style={styles.inputExercicio} onChangeText={(e)=>{handleExercicios(indexEx, 'nome', e)}}/>
-                                            <View style={styles.containerInfo}>
-                                                <TextInput style={styles.inputExercicio} value={ex.peso} onChangeText={(e)=>{handleExercicios(indexEx, 'peso', e)}}/>
-                                                <TextInput style={styles.inputExercicio} value={ex.repeticao} onChangeText={(e)=>{handleExercicios(indexEx, 'repeticao', e)}}/>
+                                            <View style={styles.containerInfoExercicio}>
+                                                <TextInput value={ex.nome} style={styles.inputExercicio} onChangeText={(e)=>{handleExercicios(indexEx, 'nome', e)}}/>
+                                                <View style={styles.containerInfo}>
+                                                    <TextInput style={styles.inputExercicio} value={ex.peso} onChangeText={(e)=>{handleExercicios(indexEx, 'peso', e)}}/>
+                                                    <TextInput style={styles.inputExercicio} value={ex.repeticao} onChangeText={(e)=>{handleExercicios(indexEx, 'repeticao', e)}}/>
+                                                </View>
                                             </View>
                                         </View>
                                     ))}
@@ -179,6 +183,17 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
     },
+    containerInfoExercicio:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+        backgroundColor: '#d5def5',
+        padding: 10,
+        borderRadius: 3,
+        borderColor: 'black',
+        borderWidth: 1
+    },
     containerEdit: {
         backgroundColor: 'white',
         borderRadius: 5,
@@ -212,7 +227,7 @@ const styles = StyleSheet.create({
         zIndex: 0
     },
     containerExercicio: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
