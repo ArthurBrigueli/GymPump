@@ -1,7 +1,7 @@
 import {View, Text, TextInput, StyleSheet, TouchableOpacity, TouchableWithoutFeedback} from 'react-native'
+import { AddTreinoStyle } from '../styles/AddTreino/AddTreinoStyle'
 
-
-const FormAddExercicio = ({closeModal, handleInput, handleSubmit})=>{
+const FormAddExercicio = ({closeModal, handleInput, handleSubmit, exercicio})=>{
     return(
         <TouchableWithoutFeedback onPress={closeModal}>
             <View style={AddTreinoStyle.BackContainerModal}>

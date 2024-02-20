@@ -112,7 +112,7 @@ const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
             </TouchableOpacity>
 
             {openModel && (
-                <FormAddExercicio closeModal={closeModal} handleInput={handleInput} handleSubmit={handleSubmit}/>
+                <FormAddExercicio closeModal={closeModal} handleInput={handleInput} handleSubmit={handleSubmit} exercicio={exercicio}/>
             )}
 
         </BottomSheet>
