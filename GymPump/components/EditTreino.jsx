@@ -3,6 +3,7 @@ import BottomSheet from '@gorhom/bottom-sheet'
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Icon } from "react-native-elements"
 import { AddTreinoStyle } from "../styles/AddTreino/AddTreinoStyle"
+import FormAddExercicio from "./FormAddExercicio"
 
 const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTreino})=>{
 
@@ -68,8 +69,10 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
         setOpenModal(false)
     }
 
-    const handleSubmitClear = ()=>{
-        
+    const handleSubmitClear = (index)=>{
+        const prev = [...data]
+        prev[0].exercicios.splice(index, 1)
+        setData(prev)
     }
 
     
@@ -95,15 +98,17 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
                                 <View style={styles.containerExercicios}>
                                     {Array.isArray(e.exercicios) && e.exercicios.map((ex, indexEx)=>(
                                         <View key={indexEx} style={styles.containerExercicio}>
-                                            <View>
-                                                <TouchableOpacity onPress={handleSubmitClear}>
-                                                    <Text>Clear</Text>
+                                            <View style={styles.containerBtnDelete}>
+                                                <TouchableOpacity onPress={()=>handleSubmitClear(indexEx)}>
+                                                <Icon name="delete" color='black'/>
                                                 </TouchableOpacity>
                                             </View>
-                                            <TextInput value={ex.nome} style={styles.inputExercicio} onChangeText={(e)=>{handleExercicios(indexEx, 'nome', e)}}/>
-                                            <View style={styles.containerInfo}>
-                                                <TextInput style={styles.inputExercicio} value={ex.peso} onChangeText={(e)=>{handleExercicios(indexEx, 'peso', e)}}/>
-                                                <TextInput style={styles.inputExercicio} value={ex.repeticao} onChangeText={(e)=>{handleExercicios(indexEx, 'repeticao', e)}}/>
+                                            <View style={styles.containerInfoExercicio}>
+                                                <TextInput value={ex.nome} style={styles.inputExercicio} onChangeText={(e)=>{handleExercicios(indexEx, 'nome', e)}}/>
+                                                <View style={styles.containerInfo}>
+                                                    <TextInput style={styles.inputExercicio} value={ex.peso} onChangeText={(e)=>{handleExercicios(indexEx, 'peso', e)}}/>
+                                                    <TextInput style={styles.inputExercicio} value={ex.repeticao} onChangeText={(e)=>{handleExercicios(indexEx, 'repeticao', e)}}/>
+                                                </View>
                                             </View>
                                         </View>
                                     ))}
@@ -137,22 +142,7 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
 
 
                 {openModal && (
-                    <TouchableWithoutFeedback onPress={closeOpenModal}>
-                        <View style={AddTreinoStyle.BackContainerModal}>
-                            <TouchableWithoutFeedback onPress={() => {}}>
-                                <View style={AddTreinoStyle.containerModal}>
-                                    <View style={AddTreinoStyle.containerInputs}>
-                                        <TextInput value={newExercicio.nome} placeholder={'Nome do exercicio'} style={AddTreinoStyle.inputText} placeholderTextColor="white" onChangeText={(value) => handleInput('nome', value)}/>
-                                        <TextInput value={newExercicio.peso} keyboardType="numeric" placeholder={'Peso usado no exercicio'} placeholderTextColor="white" style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('peso', value)}/>
-                                        <TextInput value={newExercicio.repeticao} keyboardType="numeric" placeholder={'Repetiçoes feitas'} placeholderTextColor="white"  style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('repeticao', value)}/>
-                                    </View>
-                                    <TouchableOpacity style={AddTreinoStyle.addTreino} onPress={handleSubmit}>
-                                        <Text>Adicionar exercicio</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </TouchableWithoutFeedback>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    <FormAddExercicio closeModal={closeOpenModal} handleSubmit={handleSubmit} handleInput={handleInput} exercicio={newExercicio}/>
                 )}
 
             </View>
@@ -174,10 +164,26 @@ const styles = StyleSheet.create({
         right: 20,
         zIndex: 0
     },
+
+    containerBtnDelete: {
+        width: "100%",
+        alignItems: 'flex-end'
+    },
     container:{
         backgroundColor: 'white',
         flex: 1,
         justifyContent: 'space-between',
+    },
+    containerInfoExercicio:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+        backgroundColor: '#d5def5',
+        padding: 10,
+        borderRadius: 3,
+        borderColor: 'black',
+        borderWidth: 1
     },
     containerEdit: {
         backgroundColor: 'white',
@@ -212,7 +218,7 @@ const styles = StyleSheet.create({
         zIndex: 0
     },
     containerExercicio: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',

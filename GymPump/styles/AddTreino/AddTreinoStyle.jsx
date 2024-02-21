@@ -58,13 +58,15 @@ export const AddTreinoStyle = StyleSheet.create({
 
     },
     containerModal: {
-        backgroundColor: 'gray',
+        backgroundColor: '#E8E8E8',
         width: '90%',
         height: '100vh',
         padding: 30,
         alignItems: 'center',
         justifyContent:"space-around",
-        borderRadius: 10,
+        borderRadius: 30,
+        borderColor: 'black',
+        borderWidth: 2,
         gap:30
     },
     containerInputs: {
@@ -76,11 +78,11 @@ export const AddTreinoStyle = StyleSheet.create({
     inputText: {
         borderColor: 'black',
         borderWidth:1,
-        borderRadius:5,
+        borderRadius:20,
         width: '90%',
         height: 50,
-        color: 'white',
-        paddingLeft: 10
+        color: 'black',
+        textAlign: 'center'
     },
     containerExercicioInfo: {
         width: '100%',
@@ -100,12 +102,13 @@ export const AddTreinoStyle = StyleSheet.create({
         justifyContent: 'center'
     },
     addTreino: {
-        backgroundColor: 'white',
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 20,
         width: '60%',
         height: 50,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: 'black'
     }
 })
