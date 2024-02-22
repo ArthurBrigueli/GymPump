@@ -21,15 +21,12 @@ const Note = ()=>{
     const modalRefEdit = useRef(null)
 
     const [openRef, setOpenRef] = useState(false)
-    const {addTreino:addTrinoDB, removeTreino, data, idTreino, update, json, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading, updateTreinoId} = useFetchTreino(null)
+    const {addTreino:addTrinoDB, data, idTreino, update, json, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading, updateTreinoId} = useFetchTreino(null)
 
     
     {/* state das info do treino */}
     const [date, setDate] = useState(new Date())
     const [titulo, setTitulo] = useState('')
-    const [exercicios, setExercicios] = useState([])
-    const [btnLoading, setBtnLoading] = useState(null)
-    
 
     useEffect(() => {
         createTable();
@@ -79,11 +76,6 @@ const Note = ()=>{
     const editTreino = (id, nome, data, exercicios)=>{
         updateTreinoId(id, nome, data, exercicios)
 
-    }
-
-
-    const remove = ()=>{
-        removeTreino()
     }
     
 
@@ -143,9 +135,7 @@ const Note = ()=>{
                 <Ionicons name="add" size={20} color="white" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={noteStyle.remove} onPress={remove}>
-                <Ionicons name="remove" size={20} color="white" />
-            </TouchableOpacity>
+            
 
 
             <EditTreino modalRefEdit={modalRefEdit} closeModal={closeModalEdit} data={dataId} loading={loadingEdit} editTreino={editTreino}/>
