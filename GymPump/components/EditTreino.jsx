@@ -17,6 +17,8 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
         repeticao: ""
     })
 
+    const [showButtom, setShowButton] = useState(true)
+
 
     useEffect(()=>{
         setData(dataEdit)
@@ -75,7 +77,14 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
         setData(prev)
     }
 
-    
+    const handleTest = (event) => {
+        const { contentOffset } = event.nativeEvent;
+        if(contentOffset.y > 0){
+            setShowButton(false)
+        }else{
+            setShowButton(true)
+        }
+      };
 
 
     return(
@@ -89,7 +98,7 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
             <View style={styles.container}>
                 {!loading ? (
                     data && data.map((e, index)=>(
-                        <ScrollView key={index}>
+                        <ScrollView key={index}  onScroll={handleTest}>
                             <View style={styles.containerEdit}>
                                 <View style={styles.containerInfo}>
                                     <TextInput value={e.nome} style={styles.inputNome} onChangeText={(e)=>handleData(index, 'nome', e)}/>
@@ -122,23 +131,25 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
                 
 
 
-                <View>
-                    <TouchableOpacity style={styles.btnEdit}>
-                        {!loading ? (
-                            <Icon name="save" color='white' onPress={edit}/>
-                        ):(
-                            <ActivityIndicator size='small' color='white'/>
-                        )}
-                    </TouchableOpacity>
+                {showButtom && (
+                    <View style={styles.containerBtn}>
+                        <TouchableOpacity style={styles.btnEdit}>
+                            {!loading ? (
+                                <Icon name="save" color='white' onPress={edit}/>
+                            ):(
+                                <ActivityIndicator size='small' color='white'/>
+                            )}
+                        </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.btnteste}>
-                        {!loading ? (
-                            <Icon name="add" color='white' onPress={addTreino}/>
-                        ):(
-                            <ActivityIndicator size='small' color='white'/>
-                        )}
-                    </TouchableOpacity>
-                </View>
+                        <TouchableOpacity style={styles.btnteste}>
+                            {!loading ? (
+                                <Icon name="add" color='white' onPress={addTreino}/>
+                            ):(
+                                <ActivityIndicator size='small' color='white'/>
+                            )}
+                        </TouchableOpacity>
+                    </View>
+                )}
 
 
                 {openModal && (
@@ -153,6 +164,32 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
 
 const styles = StyleSheet.create({
     btnEdit: {
+        backgroundColor: '#18192d',
+        justifyContent:'center',
+        alignItems: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 100,
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        zIndex: 0
+    },
+
+    btnteste: {
+        backgroundColor: '#18192d',
+        justifyContent:'center',
+        alignItems: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 100,
+        position: 'absolute',
+        bottom: 20,
+        right: 90,
+        zIndex: 0
+    },
+
+    btnAdd: {
         backgroundColor: '#18192d',
         justifyContent:'center',
         alignItems: 'center',
@@ -192,31 +229,7 @@ const styles = StyleSheet.create({
         padding: 15,
         gap: 15
     },
-    btnAdd: {
-        backgroundColor: '#18192d',
-        justifyContent:'center',
-        alignItems: 'center',
-        width: 60,
-        height: 60,
-        borderRadius: 100,
-        position: 'absolute',
-        bottom: 90,
-        right: 20,
-        zIndex: 0
-    },
 
-    btnteste: {
-        backgroundColor: '#18192d',
-        justifyContent:'center',
-        alignItems: 'center',
-        width: 60,
-        height: 60,
-        borderRadius: 100,
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        zIndex: 0
-    },
     containerExercicio: {
         flexDirection: 'column',
         justifyContent: 'space-between',

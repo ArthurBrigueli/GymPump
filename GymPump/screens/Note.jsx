@@ -13,12 +13,14 @@ import EditTreino from '../components/EditTreino';
 
 import TreinoList from '../components/TreinoItem.jsx/TreinoList';
 import ExercicioList from '../components/TreinoItem.jsx/ExercicioList';
+import StatusProfile from '../components/StatusProfile/StatusProfile';
 
 const Note = ()=>{
 
     const modalRef = useRef(null)
     const modalRefAdd = useRef(null)
     const modalRefEdit = useRef(null)
+    const [showButton, setShowButton] = useState(true)
 
     const [openRef, setOpenRef] = useState(false)
     const {addTreino:addTrinoDB, data, idTreino, update, json, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading, updateTreinoId} = useFetchTreino(null)
@@ -92,48 +94,67 @@ const Note = ()=>{
         }
     }
 
+    const handleFlayPosition = (e)=>{
+        const { contentOffset } = e.nativeEvent;
+        if(contentOffset.y > 0){
+            setShowButton(false)
+        }else{
+            setShowButton(true)
+        }
+    }
+
     
 
     return(
         <View style={noteStyle.container}>
+            
+            <View style={noteStyle.containerStatusProfile}>
+                <StatusProfile/>
+            </View>
 
-            <FlatList
-                data={data}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                    <View style={noteStyle.containerTreino}>
-                        <TreinoList name={item.nome} data={item.data}/>
-                        {item.exercicios && item.exercicios.map((exercicio, indexE) => (
-                            <ExercicioList key={indexE} exercicios={exercicio} limitarText={limitarString}/>
-                        ))}
+            
+            <View style={noteStyle.containerTreinos}>
+                <FlatList
+                    data={data}
+                    keyExtractor={(item, index) => index.toString()}
+                    onScroll={(e)=>{handleFlayPosition(e)}}
+                    renderItem={({ item, index }) => (
+                        <View style={noteStyle.containerTreino}>
+                            <TreinoList name={item.nome} data={item.data}/>
+                            {item.exercicios && item.exercicios.map((exercicio, indexE) => (
+                                <ExercicioList key={indexE} exercicios={exercicio} limitarText={limitarString}/>
+                            ))}
 
-                        <View style={noteStyle.containerbtn}>
-                            <TouchableOpacity style={noteStyle.btnEdit} onPress={()=>{openModalEdit(item.id)}} disabled={loadingEdit}>
-                                {loadingEdit ? (
-                                    <ActivityIndicator size='small' color='black' />
-                                ):(
-                                    <Icon name='edit' color='black'/>
-                                )}
-                            </TouchableOpacity>
-                            <TouchableOpacity style={noteStyle.btnExcluir} onPress={()=>excluirExercicio(item.id)} disabled={loading}>
-                                {loading ? (
-                                    <ActivityIndicator size='small' color='white'/>
-                                ): (
-                                    <Icon name='clear' color='white'/>
-                                )}
-                            </TouchableOpacity>
+                            <View style={noteStyle.containerbtn}>
+                                <TouchableOpacity style={noteStyle.btnEdit} onPress={()=>{openModalEdit(item.id)}} disabled={loadingEdit}>
+                                    {loadingEdit ? (
+                                        <ActivityIndicator size='small' color='black' />
+                                    ):(
+                                        <Icon name='edit' color='black'/>
+                                    )}
+                                </TouchableOpacity>
+                                <TouchableOpacity style={noteStyle.btnExcluir} onPress={()=>excluirExercicio(item.id)} disabled={loading}>
+                                    {loading ? (
+                                        <ActivityIndicator size='small' color='white'/>
+                                    ): (
+                                        <Icon name='clear' color='white'/>
+                                    )}
+                                </TouchableOpacity>
+                            </View>
+
                         </View>
-
-                    </View>
-                )}
-            />
+                    )}
+                />
+            </View>
 
             
 
 
-            <TouchableOpacity style={noteStyle.btnAdd} onPress={openModal}>
-                <Ionicons name="add" size={20} color="white" />
-            </TouchableOpacity>
+            {showButton && (
+                <TouchableOpacity style={noteStyle.btnAdd} onPress={openModal}>
+                    <Ionicons name="add" size={20} color="white" />
+                </TouchableOpacity>
+            )}
 
             
 
