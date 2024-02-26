@@ -4,8 +4,14 @@ export const homeStyle = StyleSheet.create({
     container: {
         backgroundColor: '#0c0d17',
         alignItems: 'center',
-        flex: 1,
+        flex: 1
     },
+
+    containerStatusProfile: {
+        alignItems: 'center',
+        width: '100%',
+    },
+
     botao:{
         backgroundColor: '#18192d',
         justifyContent:'center',

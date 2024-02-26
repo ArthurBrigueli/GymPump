@@ -4,7 +4,20 @@ import { StyleSheet } from "react-native";
 export const noteStyle = StyleSheet.create({
     container: {
         backgroundColor: '#0c0d17',
-        flex: 1
+        flex: 1,
+        alignItems: 'center',
+        
+    },
+
+    containerTreinos: {
+        flex: 1,
+        padding: 20,
+        width: '100%',
+    },
+
+    containerStatusProfile: {
+        alignItems: 'center',
+        width: '100%',
     },
 
     containerExercicio: {
@@ -16,7 +29,7 @@ export const noteStyle = StyleSheet.create({
         padding: 10,
         borderRadius: 3,
         borderColor: 'black',
-        borderWidth: 1
+        borderWidth: 1,
     },
 
     containerbtn: {
@@ -48,15 +61,16 @@ export const noteStyle = StyleSheet.create({
     containerExercicios: {
         justifyContent: 'space-around',
         alignItems: 'center',
-        gap: 10
+        gap: 10,
     },
 
     containerTreino: {
         backgroundColor: 'white',
         padding: 10,
         gap: 20,
-        margin: 15,
-        borderRadius: 5
+        borderRadius: 5,
+        width: '100%',
+        marginBottom: 15
         
     },
 

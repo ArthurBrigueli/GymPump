@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { Alert } from "react-native";
 import { homeStyle } from "../styles/Home/Home";
+import StatusProfile from "../components/StatusProfile/StatusProfile";
 
 import useFetchFolha from "../hooks/useFetchFolha";
 
@@ -64,6 +65,9 @@ const Home = ()=>{
             )}
             <CreateFolha isOpen={modalOpen} closeModal={closeModal} handleSubmit={handleSubmit}/>
 
+            <View style={homeStyle.containerStatusProfile}>
+                <StatusProfile/>
+            </View>
             
             {Array.isArray(item)&&(
                 <View style={homeStyle.containerFolha}>
