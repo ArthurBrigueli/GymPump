@@ -6,7 +6,11 @@ const Login = ({navigation})=>{
 
     const [showPass, setShowPass] = useState(true)
 
+    const [user, setUser] = useState('')
+    const [password, setPassword] = useState('')
+
     const handleLogin = ()=>{
+        console.log(user, password)
         navigation.navigate('Home')
     }
 
@@ -24,9 +28,9 @@ const Login = ({navigation})=>{
                 <Text style={styles.h1}>GymPump</Text>
                 <View style={styles.containerLogin}>
                     <View style={styles.containerInputs}>
-                        <TextInput placeholder='Usuario'  style={styles.input} placeholderTextColor='gray'/>
+                        <TextInput placeholder='Usuario'  style={styles.input} placeholderTextColor='gray' onChangeText={(e)=>setUser(e)}/>
                         <View style={styles.containerInputPass}>
-                            <TextInput placeholder='Senha' style={styles.InputPass} placeholderTextColor='gray' secureTextEntry={showPass}/>
+                            <TextInput placeholder='Senha' style={styles.InputPass} placeholderTextColor='gray' secureTextEntry={showPass} onChangeText={(e)=>setPassword(e)}/>
                             <TouchableOpacity onPress={handleShowPassword}>
                                 {showPass ? (
                                     <Ionicons name="eye" size={20} color="gray" />

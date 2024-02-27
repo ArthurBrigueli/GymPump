@@ -1,13 +1,19 @@
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, ActivityIndicator, FlatList, TextInput} from 'react-native';
 
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
 
 const Register = ()=>{
 
     const navigation = useNavigation()
 
+    const [user, setUser] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassWord] = useState('')
+
     const handleRegister = ()=>{
+        console.log(user, email, password)
         navigation.navigate('Login')
     }
 
@@ -17,10 +23,9 @@ const Register = ()=>{
                 <Text style={styles.h1}>GymPump</Text>
                 <View style={styles.containerCadastro}>
                     <View style={styles.containerInputs}>
-                        <TextInput placeholder='Digite seu nome de usuario'  style={styles.input} placeholderTextColor='gray'/>
-                        <TextInput placeholder='Digite seu email' style={styles.input} placeholderTextColor='gray'/>
-                        <TextInput placeholder='Digite sua senha' style={styles.input} placeholderTextColor='gray'/>
-                        <TextInput placeholder='Digite sua senha novamente' style={styles.input} placeholderTextColor='gray'/>
+                        <TextInput placeholder='Digite seu nome de usuario'  style={styles.input} placeholderTextColor='gray' onChangeText={(e)=> setUser(e)}/>
+                        <TextInput placeholder='Digite seu email' style={styles.input} placeholderTextColor='gray' onChangeText={(e)=>setEmail(e)}/>
+                        <TextInput placeholder='Digite sua senha' style={styles.input} placeholderTextColor='gray' onChangeText={(e)=>setPassWord(e)}/>
                     </View>
                     <View style={styles.containerBtn}>
                         <TouchableOpacity style={styles.btnLogin} onPress={handleRegister}>
