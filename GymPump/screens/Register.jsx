@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, ScrollView, ActivityIndicator
 
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import axios from 'axios'
 
 
 const Register = ()=>{
@@ -12,10 +13,13 @@ const Register = ()=>{
     const [email, setEmail] = useState('')
     const [password, setPassWord] = useState('')
 
-    const handleRegister = ()=>{
-        
-        
-
+    const handleRegister = async()=>{
+    
+        await axios.post('http://192.168.0.103:8000/api/register/user', {
+            nome: user,
+            email: email,
+            senha: password
+        })
 
 
         navigation.navigate('Login')
