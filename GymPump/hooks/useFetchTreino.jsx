@@ -11,8 +11,13 @@ const useFetchTreino = (url)=>{
     const [loading, setloading] = useState(false)
 
     const addTreino = async(name, date)=>{
+
+        {/**mesmo o usuario nao salvando o treino eh criado com a estrutura base para nao quebrar */}
+        const prevExercicios = [
+        ]
+        
         const dataFormat = format(date, 'dd/MM/yyyy')
-        const idTreino = await insertTreino(name, dataFormat)
+        const idTreino = await insertTreino(name, dataFormat, JSON.stringify(prevExercicios))
         setIdTreino(idTreino)
         setCallBack(!callBack)
     }

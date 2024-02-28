@@ -3,9 +3,19 @@ import { StyleSheet } from "react-native"
 export const timeStyle = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-evenly',
-        alignContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#0c0d17'
+    },
+
+    containerTime: {
+        flex: 1,
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
+    },
+
+    containerStatusProfile: {
+        alignItems: 'center',
+        width: '100%',
     },
 
     cronometroContainer: {

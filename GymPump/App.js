@@ -1,21 +1,27 @@
-import { StyleSheet, Text, View } from 'react-native';
-import TimeScreen from './screens/Time';
-import { StatusBar } from 'expo-status-bar';
-import Note from './screens/Note';
-import Home from './screens/Home';
-
+import React from 'react';
+import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Icon } from 'react-native-elements';
 
+import TimeScreen from './screens/Time';
+import Note from './screens/Note';
+import Home from './screens/Home';
+import Login from './screens/Login'; // Importe a tela de login
+import Profile from './screens/Profile';
+import Register from './screens/Register';
 
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-
-const Tab = createBottomTabNavigator()
 const screenOptions = {
+  headerShown: false,
+};
+
+const screenOptions1 = {
   tabBarShowLabel: false,
   headerShow: false,
   tabBarStyle: {
@@ -24,70 +30,83 @@ const screenOptions = {
     backgroundColor: "#18192d",
     borderTopWidth: 0
   }
-}
+};
 
-export default function App() {
-  return (
-    <GestureHandlerRootView style={{flex: 1}}>
-      <NavigationContainer>
-          <StatusBar
-            backgroundColor="#0c0d17"
-            barStyle="light-content"
-            translucent={false}
-          />
-          <Tab.Navigator screenOptions={screenOptions} initialRouteName='Home'>
-            <Tab.Screen 
-              name="TimeScreen" 
-              component={TimeScreen}
-              options={{
-                headerShown: false,
-                tabBarIcon: ({focused})=>{
-                  return(
-                    <View style={{width: 50, height: 50, padding:10 ,borderRadius: 100,alignItems: 'center', justifyContent: 'center', backgroundColor:focused ? '#31346c':'#18192d', position: 'absolute',
-                    bottom: focused ? 20 : 0}}>
-                      <Ionicons name="timer" size={24} color="white" />
-                    </View>
-                  )
-                }
-              }}
-            />
+const MainTabs = () => (
+  <Tab.Navigator screenOptions={screenOptions1} initialRouteName='Home'>
+    <Tab.Screen
+      name="TimeScreen"
+      component={TimeScreen}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
+            bottom: focused ? 20 : 0 }}>
+            <Ionicons name="timer" size={24} color="white" />
+          </View>
+        ),
+        headerShown: false
+      }}
+    />
 
-            <Tab.Screen 
-              name="Home" 
-              component={Home}
-              options={{
-                headerShown: false,
-                tabBarIcon: ({focused})=>{
-                  return(
-                    <View style={{width: 50, height: 50,padding:10 ,borderRadius: 100,alignItems: 'center', justifyContent: 'center', backgroundColor:focused ? '#31346c':'#18192d', position: 'absolute',
-                    bottom: focused ? 20 : 0}}>
-                      <Entypo name="home" size={24} color={"white"} />
-                    </View>
-                  )
-                }
-              }}
-            />
-            
+    <Tab.Screen
+      name="Home"
+      component={Home}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
+            bottom: focused ? 20 : 0 }}>
+            <Entypo name="home" size={24} color={"white"} />
+          </View>
+        ),
+        headerShown: false
+      }}
+    />
 
+    <Tab.Screen
+      name="Note"
+      component={Note}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
+            bottom: focused ? 20 : 0 }}>
+            <FontAwesome name="sticky-note" size={24} color="white" />
+          </View>
+        ),
+        headerShown: false
+      }}
+    />
 
-            <Tab.Screen 
-              name="Note" 
-              component={Note}
-              options={{
-                headerShown: false,
-                tabBarIcon: ({focused})=>{
-                  return(
-                    <View style={{width: 50, height: 50,padding:10 ,borderRadius: 100,alignItems: 'center', justifyContent: 'center', backgroundColor:focused ? '#31346c':'#18192d', position: 'absolute',
-                    bottom: focused ? 20 : 0}}>
-                      <FontAwesome name="sticky-note" size={24} color="white" />
-                    </View>
-                  )
-                }
-              }}
-            />
-          </Tab.Navigator>
-      </NavigationContainer>
-    </GestureHandlerRootView>
-  );
-}
+  <Tab.Screen
+      name="Profile"
+      component={Profile}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
+            bottom: focused ? 20 : 0 }}>
+            <Icon name='person' color='white' size={24}/>
+          </View>
+        ),
+        headerShown: false
+      }}
+    />
+  </Tab.Navigator>
+);
 
+const App = () => (
+  <GestureHandlerRootView style={{ flex: 1 }}>
+    <NavigationContainer>
+      <StatusBar
+        backgroundColor="#0c0d17"
+        barStyle="light-content"
+        translucent={false}
+      />
+      <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Screen name="MainTabs" component={MainTabs}/>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  </GestureHandlerRootView>
+);
+
+export default App;

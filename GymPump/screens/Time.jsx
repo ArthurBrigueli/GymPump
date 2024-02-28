@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { timeStyle } from "../styles/Time/timeStyle";
 import LottieView from 'lottie-react-native'
+import StatusProfile from "../components/StatusProfile/StatusProfile";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -151,30 +152,36 @@ const TimeScreen = () => {
 
   return (
     <View style={timeStyle.container}>
-      {/* Cronômetro */}
-      <View style={timeStyle.cronometroContainer}>
-        {isDescanso ? (
-            <Text style={timeStyle.cronometroText}>{obterMinutos()}:{obterSegundos()}s</Text>
-        ):(
-            <Text style={timeStyle.TextSubTitleCronometro}>Serie em andamento...</Text>
-        )}
-
-        {!running && isDescanso && (
-            <Text style={timeStyle.TextSubTitleSerieOff}>Seu tempo de descanso acabou, Inicie a serie!</Text>
-        )}
-        
-    
+      
+      <View style={timeStyle.containerStatusProfile}>
+          <StatusProfile/>
       </View>
+    
+      <View style={timeStyle.containerTime}>
+        <View style={timeStyle.cronometroContainer}>
+          {isDescanso ? (
+              <Text style={timeStyle.cronometroText}>{obterMinutos()}:{obterSegundos()}s</Text>
+          ):(
+              <Text style={timeStyle.TextSubTitleCronometro}>Serie em andamento...</Text>
+          )}
 
-      {/* Botões */}
-      <View style={timeStyle.botoesContainer}>
-        <TouchableOpacity style={timeStyle.botaoComecarSerie} onPress={comecarSerie}>
-          <Text style={timeStyle.textBotao}>Começar série</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={isDescanso ? timeStyle.botaoDescansoOn:timeStyle.botaoDescanso} onPress={descanso}>
-          <Text style={timeStyle.textBotao}>Descanso</Text>
-          <Text style={timeStyle.textBotao}>{timeData.minutos}:{timeData.segundos}</Text>
-        </TouchableOpacity>
+          {!running && isDescanso && (
+              <Text style={timeStyle.TextSubTitleSerieOff}>Seu tempo de descanso acabou, Inicie a serie!</Text>
+          )}
+          
+      
+        </View>
+
+
+        <View style={timeStyle.botoesContainer}>
+          <TouchableOpacity style={timeStyle.botaoComecarSerie} onPress={comecarSerie}>
+            <Text style={timeStyle.textBotao}>Começar série</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={isDescanso ? timeStyle.botaoDescansoOn:timeStyle.botaoDescanso} onPress={descanso}>
+            <Text style={timeStyle.textBotao}>Descanso</Text>
+            <Text style={timeStyle.textBotao}>{timeData.minutos}:{timeData.segundos}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <TouchableOpacity style={timeStyle.btnConfig} onPress={openConfig}>
