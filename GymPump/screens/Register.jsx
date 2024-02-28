@@ -13,7 +13,11 @@ const Register = ()=>{
     const [password, setPassWord] = useState('')
 
     const handleRegister = ()=>{
-        console.log(user, email, password)
+        
+        
+
+
+
         navigation.navigate('Login')
     }
 
