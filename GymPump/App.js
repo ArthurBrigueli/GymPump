@@ -14,6 +14,9 @@ import Login from './screens/Login'; // Importe a tela de login
 import Profile from './screens/Profile';
 import Register from './screens/Register';
 
+
+import {AuthProvider} from './context/AuthContext'
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -93,20 +96,22 @@ const MainTabs = () => (
 );
 
 const App = () => (
-  <GestureHandlerRootView style={{ flex: 1 }}>
-    <NavigationContainer>
-      <StatusBar
-        backgroundColor="#0c0d17"
-        barStyle="light-content"
-        translucent={false}
-      />
-      <Stack.Navigator screenOptions={screenOptions}>
-        <Stack.Screen name="MainTabs" component={MainTabs}/>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  </GestureHandlerRootView>
+  <AuthProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <StatusBar
+          backgroundColor="#0c0d17"
+          barStyle="light-content"
+          translucent={false}
+        />
+        <Stack.Navigator screenOptions={screenOptions}>
+          <Stack.Screen name="MainTabs" component={MainTabs}/>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
+  </AuthProvider>
 );
 
 export default App;
