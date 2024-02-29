@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, TextInput} from 'react-native'
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
+import axios from 'axios'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from '../context/AuthContext';
 
 const Login = ({navigation})=>{
 
@@ -8,10 +11,23 @@ const Login = ({navigation})=>{
 
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
+    const {updateUserState} = useAuth()
 
-    const handleLogin = ()=>{
-        console.log(user, password)
-        navigation.navigate('Home')
+    const [showError, setShowError] = useState(null)
+
+    const handleLogin = async()=>{
+
+        const response = await axios.post('http://192.168.0.103:8000/api/login/user', {
+            nome: user,
+            senha: password
+        })
+
+        if(response.data.token){
+            updateUserState(response.data.user, response.data.token)
+            navigation.navigate('Home')
+        }else{
+            setShowError('Credenciais incorreta')
+        }
     }
 
     const handleCriarConta = ()=>{
@@ -40,6 +56,11 @@ const Login = ({navigation})=>{
                             </TouchableOpacity>
                         </View>
                     </View>
+                    {showError && (
+                        <View style={styles.containerErro}>
+                            <Text>{showError}</Text>
+                        </View>
+                    )}
                     <View style={styles.containerEsqueceu}>
                         <TouchableOpacity>
                             <Text style={styles.txt}>Esqueceu a senha?</Text>
@@ -66,6 +87,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    containerErro: {
+        backgroundColor: '#fc95a1',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
+        borderRadius: 5
     },
     h1: {
         color: 'white',

@@ -56,6 +56,7 @@ const TimeScreen = () => {
       }
     }
 
+
     data()
   }, [])
 
