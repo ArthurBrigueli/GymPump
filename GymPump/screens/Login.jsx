@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         width: '80%',
-        height: '50%',
+        height: '100',
         gap: 30
     },
     containerLogin: {

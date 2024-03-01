@@ -99,11 +99,11 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     containerForm: {
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
         width: '80%',
-        height: '50%',
-        gap: 60
+        height: 100,
+        gap: 30
     },
     containerCadastro: {
         width: '100%',
