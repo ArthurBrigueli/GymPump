@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     },
     containerCadastro: {
         width: '100%',
-        gap: 40
+        gap: 15
     },
     containerInputs: {
         gap: 15
