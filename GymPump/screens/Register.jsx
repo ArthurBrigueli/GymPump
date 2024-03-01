@@ -14,19 +14,27 @@ const Register = ()=>{
     const [password, setPassWord] = useState(null)
     const [passwordAgain,setPassWordAgain] = useState(null)
     const [showError, setShowError] = useState(null)
+    const [notEmail, setNotEmail] = useState(false)
+
 
     const handleRegister = async()=>{
 
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         if(user && email && password && passwordAgain){
-            if(password === passwordAgain){
-                await axios.post('http://192.168.0.103:8000/api/register/user', {
-                    nome: user,
-                    email: email,
-                    senha: password
-                })
-                navigation.navigate('Login')
+            if(regexEmail.test(email)){
+                if(password === passwordAgain){
+                    await axios.post('http://192.168.0.103:8000/api/register/user', {
+                        nome: user,
+                        email: email,
+                        senha: password
+                    })
+                    navigation.navigate('Login')
+                }else{
+                    setShowError('As senhas nao sao iguais')
+                }
             }else{
-                setShowError('As senhas nao sao iguais')
+                setShowError('Email nao valido')
             }
         }else{
             setShowError('Preencha os campos de registro')
