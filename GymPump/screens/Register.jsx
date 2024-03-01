@@ -14,6 +14,7 @@ const Register = ()=>{
     const [password, setPassWord] = useState(null)
     const [passwordAgain,setPassWordAgain] = useState(null)
     const [showError, setShowError] = useState(null)
+    const [loading, setLoading] = useState(false)
     
 
 
@@ -24,6 +25,7 @@ const Register = ()=>{
         if(user && email && password && passwordAgain){
             if(regexEmail.test(email)){
                 if(password === passwordAgain){
+                    setLoading(true)
                     try{
                         await axios.post('http://192.168.0.103:8000/api/register/user', {
                         nome: user,
@@ -36,6 +38,7 @@ const Register = ()=>{
                             setShowError(error.response.data.error)
                         }
                     }
+                    setLoading(false)
                 }else{
                     setShowError('As senhas nao sao iguais')
                 }
@@ -66,9 +69,13 @@ const Register = ()=>{
                         </View>
                     )}
                     <View style={styles.containerBtn}>
-                        <TouchableOpacity style={styles.btnLogin} onPress={handleRegister}>
-                            <Text style={styles.txt}>Cadastrar</Text>
-                        </TouchableOpacity>
+                        {loading ?(
+                            <ActivityIndicator size={20} color='gray'/>
+                        ): (
+                            <TouchableOpacity style={styles.btnLogin} onPress={handleRegister}>
+                                <Text style={styles.txt}>Cadastrar</Text>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 </View>
             </View>

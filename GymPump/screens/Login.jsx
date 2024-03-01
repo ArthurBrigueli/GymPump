@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, TextInput} from 'react-native'
+import {View, Text, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator} from 'react-native'
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -12,15 +12,17 @@ const Login = ({navigation})=>{
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
     const {updateUserState} = useAuth()
-
     const [showError, setShowError] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const handleLogin = async()=>{
 
+        setLoading(true)
         const response = await axios.post('http://192.168.0.103:8000/api/login/user', {
             nome: user,
             senha: password
         })
+        setLoading(false)
 
         if(response.data.token){
             updateUserState(response.data.user, response.data.token)
@@ -67,9 +69,13 @@ const Login = ({navigation})=>{
                         </TouchableOpacity>
                     </View>
                     <View style={styles.containerBtn}>
-                        <TouchableOpacity style={styles.btnLogin} onPress={handleLogin}>
-                            <Text style={styles.txt}>Login</Text>
-                        </TouchableOpacity>
+                        {loading ? (
+                            <ActivityIndicator size={20} color='gray'/>
+                        ):(
+                            <TouchableOpacity style={styles.btnLogin} onPress={handleLogin}>
+                                <Text style={styles.txt}>Login</Text>
+                            </TouchableOpacity>
+                        )}
                         <TouchableOpacity onPress={handleCriarConta}>
                             <Text style={styles.txt}>Criar conta</Text>
                         </TouchableOpacity>
