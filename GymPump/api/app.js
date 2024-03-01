@@ -49,11 +49,22 @@ app.post('/api/register/user', async(req, res)=>{
     const bcryptPass = await bcrypt.hash(senha, 10)
 
     try{
-        db.query('INSERT INTO users (nome, email, senha) VALUES (?, ?, ?)', [nome, email, bcryptPass], (erro, result)=>{
-            if(erro){
-                res.status(500).json({mensagem: 'erro para inserir usuario'})
+        
+        db.query('SELECT * FROM users WHERE email = ?', [email], (error, result)=>{
+            if(error){
+                res.status(500).json({mensagem: "erro interno"})
             }else{
-                res.send('usuario inserido')
+                if(result.length > 0){
+                    res.status(400).json({error: 'Email ja cadastrado'})
+                }else{
+                    db.query('INSERT INTO users (nome, email, senha) VALUES (?, ?, ?)', [nome, email, bcryptPass], (erro, result)=>{
+                        if(erro){
+                            res.status(500).json({mensagem: 'erro para inserir usuario'})
+                        }else{
+                            res.send('usuario inserido')
+                        }
+                    })
+                }
             }
         })
 

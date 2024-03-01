@@ -14,7 +14,7 @@ const Register = ()=>{
     const [password, setPassWord] = useState(null)
     const [passwordAgain,setPassWordAgain] = useState(null)
     const [showError, setShowError] = useState(null)
-    const [notEmail, setNotEmail] = useState(false)
+    
 
 
     const handleRegister = async()=>{
@@ -24,12 +24,18 @@ const Register = ()=>{
         if(user && email && password && passwordAgain){
             if(regexEmail.test(email)){
                 if(password === passwordAgain){
-                    await axios.post('http://192.168.0.103:8000/api/register/user', {
+                    try{
+                        await axios.post('http://192.168.0.103:8000/api/register/user', {
                         nome: user,
                         email: email,
                         senha: password
-                    })
-                    navigation.navigate('Login')
+                        })
+                        navigation.navigate('Login')
+                    }catch(error){
+                        if(error.response && error.response.data && error.response.data.error){
+                            setShowError(error.response.data.error)
+                        }
+                    }
                 }else{
                     setShowError('As senhas nao sao iguais')
                 }
