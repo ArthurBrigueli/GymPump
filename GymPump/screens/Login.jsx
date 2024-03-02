@@ -1,31 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator} from 'react-native'
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from '../context/AuthContext';
+import useFetchUser from '../hooks/useFetchUser';
 
 const Login = ({navigation})=>{
 
     const [showPass, setShowPass] = useState(true)
-
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
     const {updateUserState} = useAuth()
     const [showError, setShowError] = useState(null)
-    const [loading, setLoading] = useState(false)
+
+    const {loginUser, token, data, loading} = useFetchUser(null)
+
+
 
     const handleLogin = async()=>{
 
-        setLoading(true)
-        const response = await axios.post('http://192.168.0.103:8000/api/login/user', {
-            nome: user,
-            senha: password
-        })
-        setLoading(false)
+        await loginUser(user, password)
 
-        if(response.data.token){
-            updateUserState(response.data.user, response.data.token)
+        if(token){
+            updateUserState(data.user, data.token)
+            AsyncStorage.setItem('TOKEN', data.token)
             navigation.navigate('Home')
         }else{
             setShowError('Credenciais incorreta')
