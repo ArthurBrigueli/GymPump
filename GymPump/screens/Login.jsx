@@ -17,15 +17,15 @@ const Login = ({navigation})=>{
 
     const handleLogin = async()=>{
 
-        const response = await axios.post('http://192.168.0.103:8000/api/login/user', {
-            nome: user,
-            senha: password
-        })
+        try{
+            const response = await axios.post('http://192.168.0.103:8000/api/login/user', {
+                nome: user,
+                senha: password
+            })
 
-        if(response.data.token){
             updateUserState(response.data.user, response.data.token)
             navigation.navigate('Home')
-        }else{
+        }catch(erro){
             setShowError('Credenciais incorreta')
         }
     }
