@@ -20,13 +20,15 @@ const Login = ({navigation})=>{
 
     const handleLogin = async()=>{
 
-        await loginUser(user, password)
+        try{
+            const response = await axios.post('http://192.168.0.103:8000/api/login/user', {
+                nome: user,
+                senha: password
+            })
 
-        if(token){
-            updateUserState(data.user, data.token)
-            AsyncStorage.setItem('TOKEN', data.token)
+            updateUserState(response.data.user, response.data.token)
             navigation.navigate('Home')
-        }else{
+        }catch(erro){
             setShowError('Credenciais incorreta')
         }
     }
@@ -108,11 +110,11 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     containerForm: {
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
         width: '80%',
-        height: '100',
-        gap: 30
+        height: 100,
+        gap: 20
     },
     containerLogin: {
         width: '100%',
