@@ -4,7 +4,6 @@ import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from '../context/AuthContext';
-import useFetchUser from '../hooks/useFetchUser';
 
 const Login = ({navigation})=>{
 
@@ -13,24 +12,24 @@ const Login = ({navigation})=>{
     const [password, setPassword] = useState('')
     const {updateUserState} = useAuth()
     const [showError, setShowError] = useState(null)
-
-    const {loginUser, token, data, loading} = useFetchUser(null)
+    const [loading, setLoading] = useState(false)
 
 
 
     const handleLogin = async()=>{
 
+        setLoading(true)
         try{
             const response = await axios.post('http://192.168.0.103:8000/api/login/user', {
                 nome: user,
                 senha: password
             })
-
             updateUserState(response.data.user, response.data.token)
             navigation.navigate('Home')
         }catch(erro){
             setShowError('Credenciais incorreta')
         }
+        setLoading(false)
     }
 
     const handleCriarConta = ()=>{

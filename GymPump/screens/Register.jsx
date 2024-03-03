@@ -3,7 +3,6 @@ import { StyleSheet, Text, TouchableOpacity, View, ScrollView, ActivityIndicator
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import axios from 'axios'
-import useFetchUser from '../hooks/useFetchUser';
 
 
 const Register = ()=>{
@@ -15,7 +14,8 @@ const Register = ()=>{
     const [password, setPassWord] = useState(null)
     const [passwordAgain,setPassWordAgain] = useState(null)
     const [showError, setShowError] = useState(null)
-    const {registerUser, errorEmail, status, loading} = useFetchUser(null)
+    const [loading, setLoading] = useState(false)
+    const [emailErro, setEmailErro] = useState('')
     
 
 
@@ -23,12 +23,24 @@ const Register = ()=>{
 
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+
+        setLoading(true)
         if(user && email && password && passwordAgain){//input
             if(regexEmail.test(email)){//input
                 if(password === passwordAgain){ //input
-                    await registerUser(user, email, password)
-                    if(status === 200){
-                        navigation.navigate('Login')
+                    try{
+                        const response = await axios.post('http://192.168.0.103:8000/api/register/user', {
+                            nome: user,
+                            email: email,
+                            senha: password
+                        })
+                        if(response.status === 200){
+                            navigation.navigate('Login')
+                        }
+                    }catch(erro){
+                        if(erro.response.data.error){
+                            setEmailErro(erro.response.data.error)
+                        }
                     }
                 }else{
                     setShowError('As senhas nao sao iguais')
@@ -39,6 +51,7 @@ const Register = ()=>{
         }else{
             setShowError('Preencha os campos de registro')
         }
+        setLoading(false)
 
         
 
@@ -52,9 +65,9 @@ const Register = ()=>{
                     <View style={styles.containerInputs}>
                         <TextInput placeholder='Digite seu nome de usuario'  style={styles.input} placeholderTextColor='gray' onChangeText={(e)=> setUser(e)}/>
                         <TextInput placeholder='Digite seu email' style={styles.input} placeholderTextColor='gray' onChangeText={(e)=>setEmail(e)}/>
-                        {errorEmail && (
+                        {emailErro && (
                             <View style={styles.containerError}>
-                                <Text>{errorEmail}</Text>
+                                <Text>{emailErro}</Text>
                             </View>
                         )}
                         <TextInput placeholder='Digite sua senha' style={styles.input} placeholderTextColor='gray' onChangeText={(e)=>setPassWord(e)}/>
