@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     containerForm: {
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
         width: '80%',
-        height: '50%',
-        gap: 30
+        height: 100,
+        gap: 20
     },
     containerLogin: {
         width: '100%',
