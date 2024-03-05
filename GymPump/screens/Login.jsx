@@ -25,6 +25,7 @@ const Login = ({navigation})=>{
                 senha: password
             })
             updateUserState(response.data.user, response.data.token)
+            await AsyncStorage.setItem('TOKEN', response.data.token)
             navigation.navigate('Home')
         }catch(erro){
             setShowError('Credenciais incorreta')
@@ -38,6 +39,10 @@ const Login = ({navigation})=>{
 
     const handleShowPassword = ()=>{
         setShowPass(!showPass)
+    }
+
+    const handleJoinLocal = ()=>{
+        navigation.navigate('Home')
     }
 
     return(
@@ -78,6 +83,9 @@ const Login = ({navigation})=>{
                         )}
                         <TouchableOpacity onPress={handleCriarConta}>
                             <Text style={styles.txt}>Criar conta</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={handleJoinLocal}>
+                            <Text style={styles.txt}>Entrar localmente</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
