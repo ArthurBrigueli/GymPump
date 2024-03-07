@@ -103,6 +103,24 @@ app.post('/api/login/user', (req, res)=>{
     })
 })
 
+app.post('/api/authentication/login', (req, res)=>{
+    const {token} = req.body
+    const tokenDecode = jwt.decode(token)
+    const email = tokenDecode.email
+    db.query('SELECT * FROM users WHERE email = ?', [email], (erro, result)=>{
+        if(erro){
+            res.json(erro)
+        }
+
+        const user = result[0]
+        if(user){
+            res.json({nome: user.nome, email: user.email})
+        }else{
+            res.json({mensagem: 'Usuario nao encontrado'})
+        }
+    })
+})
+
 
 
 app.listen(8000, ()=>{

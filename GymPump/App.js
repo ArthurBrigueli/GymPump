@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -15,10 +15,14 @@ import Profile from './screens/Profile';
 import Register from './screens/Register';
 
 
-import {AuthProvider} from './context/AuthContext'
+import {AuthProvider, useAuth} from './context/AuthContext'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
 
 const screenOptions = {
   headerShown: false,
@@ -35,8 +39,28 @@ const screenOptions1 = {
   }
 };
 
-const MainTabs = () => (
-  <Tab.Navigator screenOptions={screenOptions1} initialRouteName='Home'>
+const MainTabs = () => {
+
+  const {updateUserState} = useAuth()
+
+  useEffect(()=>{
+
+    const persistenceLogin = async()=>{
+      const token = await AsyncStorage.getItem('TOKEN')
+      if(token){
+        const a = await axios.post('http://192.168.0.103:8000/api/authentication/login', {
+          token: token
+        })
+
+        updateUserState(a.data, token)
+      }
+    }
+
+    persistenceLogin()
+  },[])
+
+  return(
+    <Tab.Navigator screenOptions={screenOptions1} initialRouteName='Home'>
     <Tab.Screen
       name="TimeScreen"
       component={TimeScreen}
@@ -93,25 +117,28 @@ const MainTabs = () => (
       }}
     />
   </Tab.Navigator>
-);
+  )
+};
 
-const App = () => (
-  <AuthProvider>
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <NavigationContainer>
-        <StatusBar
-          backgroundColor="#0c0d17"
-          barStyle="light-content"
-          translucent={false}
-        />
-        <Stack.Navigator screenOptions={screenOptions}>
-          <Stack.Screen name="MainTabs" component={MainTabs}/>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </GestureHandlerRootView>
-  </AuthProvider>
-);
+const App = () => {
+  return(
+    <AuthProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <NavigationContainer>
+          <StatusBar
+            backgroundColor="#0c0d17"
+            barStyle="light-content"
+            translucent={false}
+          />
+          <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen name="MainTabs" component={MainTabs}/>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </AuthProvider>
+  )
+}
 
 export default App;

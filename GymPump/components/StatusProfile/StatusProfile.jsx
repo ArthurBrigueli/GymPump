@@ -18,9 +18,15 @@ const StatusProfile = ()=>{
 
     return(
         <View style={styles.container}>
-            <TouchableOpacity style={styles.containerProfile} onPress={handleProfile}>
-                {token && (<Text>{user.nome[0]}</Text>)}
-            </TouchableOpacity>
+            {token ? (
+                <TouchableOpacity style={styles.containerProfile} onPress={handleProfile}>
+                    {token && (<Text>{user.nome[0]}</Text>)}
+                </TouchableOpacity>
+            ):(
+                <TouchableOpacity>
+                    <Text style={styles.txt}>Você esta usando o modo Local</Text>
+                </TouchableOpacity>
+            )}
 
         </View>
 
@@ -46,6 +52,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '90%',
         marginTop: 10,
+        alignItems: 'center'
     },
     containerProfile: {
         backgroundColor: 'white',
@@ -59,6 +66,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
 
+    },
+    txt: {
+        color:'white'
     }
 })
 
