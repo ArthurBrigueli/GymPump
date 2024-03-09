@@ -40,27 +40,8 @@ const screenOptions1 = {
 };
 
 const MainTabs = () => {
-
-  const {updateUserState} = useAuth()
-
-  useEffect(()=>{
-
-    const persistenceLogin = async()=>{
-      const token = await AsyncStorage.getItem('TOKEN')
-      if(token){
-        const a = await axios.post('http://192.168.0.103:8000/api/authentication/login', {
-          token: token
-        })
-
-        updateUserState(a.data, token)
-      }
-    }
-
-    persistenceLogin()
-  },[])
-
   return(
-    <Tab.Navigator screenOptions={screenOptions1} initialRouteName='Home'>
+    <Tab.Navigator screenOptions={screenOptions1}>
     <Tab.Screen
       name="TimeScreen"
       component={TimeScreen}
@@ -130,9 +111,9 @@ const App = () => {
             barStyle="light-content"
             translucent={false}
           />
-          <Stack.Navigator screenOptions={screenOptions}>
+          <Stack.Navigator screenOptions={screenOptions} initialRouteName='Login'>
             <Stack.Screen name="MainTabs" component={MainTabs}/>
-            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Register" component={Register} />
           </Stack.Navigator>
         </NavigationContainer>
