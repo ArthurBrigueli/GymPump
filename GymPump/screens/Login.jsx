@@ -15,6 +15,29 @@ const Login = ({navigation})=>{
     const [loading, setLoading] = useState(false)
 
 
+    useEffect(()=>{
+
+        const persistenceLogin = async()=>{
+            
+            setLoading(true)
+
+            const token = await AsyncStorage.getItem('TOKEN')
+            if(token){
+                const a = await axios.post('http://192.168.0.103:8000/api/authentication/login', {
+                token: token
+                })
+        
+                updateUserState(a.data, token)
+                navigation.navigate('MainTabs', {screen: 'Home'})
+            }
+            setLoading(false)
+        }
+    
+        persistenceLogin()
+      },[])
+    
+
+
 
     const handleLogin = async()=>{
 
@@ -26,7 +49,7 @@ const Login = ({navigation})=>{
             })
             updateUserState(response.data.user, response.data.token)
             await AsyncStorage.setItem('TOKEN', response.data.token)
-            navigation.navigate('Home')
+            navigation.navigate('MainTabs', {screen: 'Home'})
         }catch(erro){
             setShowError('Credenciais incorreta')
         }
@@ -42,7 +65,7 @@ const Login = ({navigation})=>{
     }
 
     const handleJoinLocal = ()=>{
-        navigation.navigate('Home')
+        navigation.navigate('MainTabs', {screen: 'Home'})
     }
 
     return(
