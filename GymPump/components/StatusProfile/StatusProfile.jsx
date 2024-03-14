@@ -2,8 +2,6 @@ import { useState } from 'react'
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
-import InfoLocalUser from '../InfoLocalUse';
-import { Icon } from 'react-native-elements';
 
 
 const StatusProfile = ()=>{
@@ -34,14 +32,6 @@ const StatusProfile = ()=>{
                     <TouchableOpacity>
                         <Text style={styles.txt}>Você esta usando o modo Local</Text>
                     </TouchableOpacity>
-                    
-                    <TouchableOpacity onPress={handleInfoLocal} style={styles.btnInfo}>
-                        <Icon name='info' color='white'/>
-                    </TouchableOpacity>
-                    {showInfoLocal && (
-                        <InfoLocalUser handleInfoLocal={handleInfoLocal}/>
-                    )}
-                
                 </View>
             )}
 
@@ -80,7 +70,6 @@ const styles = StyleSheet.create({
         width: '90%',
         marginTop: 10,
         alignItems: 'center',
-        zIndex: 10
     },
     containerProfile: {
         backgroundColor: 'white',

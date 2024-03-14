@@ -7,7 +7,7 @@ const ExercicioList = ({exercicios, limitarText})=>{
 
     return(
         <View style={noteStyle.containerExercicio}>
-            <Text style={noteStyle.txt}>{limitarText(exercicios.nome, 30)}</Text>
+            <Text style={noteStyle.txtNomeExercicio}>{limitarText(exercicios.nome, 30)}</Text>
             <View>
                 <Text style={noteStyle.txt}>{exercicios.peso}KG</Text>
                 <Text style={noteStyle.txt}>{exercicios.repeticao}Rep</Text>

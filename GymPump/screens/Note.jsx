@@ -121,9 +121,11 @@ const Note = ()=>{
                     renderItem={({ item, index }) => (
                         <View style={noteStyle.containerTreino}>
                             <TreinoList name={item.nome} data={item.data}/>
-                            {item.exercicios && item.exercicios.map((exercicio, indexE) => (
-                                <ExercicioList key={indexE} exercicios={exercicio} limitarText={limitarString}/>
-                            ))}
+                            <View style={noteStyle.containerExercicios}>
+                                {item.exercicios && item.exercicios.map((exercicio, indexE) => (
+                                    <ExercicioList key={indexE} exercicios={exercicio} limitarText={limitarString}/>
+                                ))}
+                            </View>
 
                             <View style={noteStyle.containerbtn}>
                                 <TouchableOpacity style={noteStyle.btnEdit} onPress={()=>{openModalEdit(item.id)}} disabled={loadingEdit}>

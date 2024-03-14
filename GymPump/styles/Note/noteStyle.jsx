@@ -59,15 +59,13 @@ export const noteStyle = StyleSheet.create({
     },
 
     containerExercicios: {
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        gap: 10,
+        gap: 7,
     },
 
     containerTreino: {
         backgroundColor: 'white',
         padding: 10,
-        gap: 20,
+        gap: 10,
         borderRadius: 5,
         width: '100%',
         marginBottom: 15
@@ -77,6 +75,9 @@ export const noteStyle = StyleSheet.create({
 
     txt: {
         color: '#202024'
+    },
+    txtNomeExercicio: {
+        fontSize: 15
     },
     btnAdd: {
         backgroundColor: '#18192d',
