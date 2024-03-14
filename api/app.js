@@ -3,9 +3,12 @@ const db  = require('./connection')
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+require('dotenv').config();
+
 
 
 const SECRET_TOKEN = 'gympump1802arthur1423brigueli'
+const port = process.env.PORT || 3000;
 
 
 const app = express()
@@ -123,6 +126,6 @@ app.post('/api/authentication/login', (req, res)=>{
 
 
 
-app.listen(8000, ()=>{
+app.listen(port, ()=>{
     console.log('servidor iniciado')
 })

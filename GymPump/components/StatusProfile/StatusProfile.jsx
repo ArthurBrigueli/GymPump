@@ -2,6 +2,8 @@ import { useState } from 'react'
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
+import InfoLocalUser from '../InfoLocalUse';
+import { Icon } from 'react-native-elements';
 
 
 const StatusProfile = ()=>{
@@ -9,10 +11,15 @@ const StatusProfile = ()=>{
     const [openModalProfile, setOpenModalProfile] = useState(false)
     const navigation = useNavigation()
     const { user, token } = useAuth()
+    const [showInfoLocal, setShowInfoLocal] = useState(false)
 
     const handleProfile = ()=>{
         setOpenModalProfile(!openModalProfile)
         navigation.navigate('Profile')
+    }
+
+    const handleInfoLocal = ()=>{
+        setShowInfoLocal(!showInfoLocal)
     }
 
 
@@ -23,9 +30,19 @@ const StatusProfile = ()=>{
                     {token && (<Text>{user.nome[0]}</Text>)}
                 </TouchableOpacity>
             ):(
-                <TouchableOpacity>
-                    <Text style={styles.txt}>Você esta usando o modo Local</Text>
-                </TouchableOpacity>
+                <View style={styles.containerInfo}>
+                    <TouchableOpacity>
+                        <Text style={styles.txt}>Você esta usando o modo Local</Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity onPress={handleInfoLocal} style={styles.btnInfo}>
+                        <Icon name='info' color='white'/>
+                    </TouchableOpacity>
+                    {showInfoLocal && (
+                        <InfoLocalUser handleInfoLocal={handleInfoLocal}/>
+                    )}
+                
+                </View>
             )}
 
         </View>
@@ -36,6 +53,8 @@ const StatusProfile = ()=>{
 
 const styles = StyleSheet.create({
 
+
+
     containerModalProfile:{
         position: 'absolute',
         top: '100%',
@@ -45,6 +64,14 @@ const styles = StyleSheet.create({
         height: 150
     },
 
+    containerInfo: {
+        width: '100%',
+        flexDirection:'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 10
+    },
+
     container: {
         backgroundColor: '#18192d',
         height: 50,
@@ -52,7 +79,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '90%',
         marginTop: 10,
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: 10
     },
     containerProfile: {
         backgroundColor: 'white',
@@ -70,6 +98,7 @@ const styles = StyleSheet.create({
     txt: {
         color:'white'
     }
+
 })
 
 
