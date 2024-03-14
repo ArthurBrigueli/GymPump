@@ -9,7 +9,7 @@ import { CreateTreinoStyle } from '../styles/CreateTreino/CreateTreinoStyle'
 const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, addTreino})=>{
 
 
-    const snapPoints = useMemo(()=>['40%'])
+    const snapPoints = useMemo(()=>[260])
     const [openDate, setOpenDate] = useState(false)
     const [mode, setMode] = useState("date")
 
