@@ -21,7 +21,7 @@ const useFetchTreino = (url)=>{
         
         const dataFormat = format(date, 'dd/MM/yyyy')
         if(user.id){
-            const idTreino = await axios.post('http://192.168.0.103:8001/api/treinos/register', {
+            const idTreino = await axios.post('http://192.168.0.102:8001/api/treinos/register', {
                 id_usuario: user.id,
                 nome: name,
                 data: dataFormat,
@@ -43,9 +43,8 @@ const useFetchTreino = (url)=>{
     }
 
     const update = async(id, exercicios)=>{
-        console.log(user.id, id, exercicios)
         if(user.id){
-            await axios.put(`http://192.168.0.103:8001/api/user/${user.id}/treino/${id}/exercicios/register`, {
+            await axios.put(`http://192.168.0.102:8001/api/user/${user.id}/treino/${id}/exercicios/register`, {
                 exercicios: exercicios
             })
         }else{
@@ -57,8 +56,7 @@ const useFetchTreino = (url)=>{
     const updateTreinoId = async(id, nome, data, exercicios) => {
 
         if(user.id){
-            console.log(user.id, id)
-            const result = await axios.put(`http://192.168.0.103:8001/api/user/${user.id}/treino/${id}/exercicios/register`, {
+            const result = await axios.put(`http://192.168.0.102:8001/api/user/${user.id}/treino/${id}/update`, {
                 nome: nome,
                 data: data,
                 exercicios: exercicios
@@ -72,7 +70,7 @@ const useFetchTreino = (url)=>{
 
     const removeTreinoId = async(id)=>{
         if(user.id){
-            await axios.delete(`http://192.168.0.103:8001/api/treinos/delete/${user.id}/${id}`)
+            await axios.delete(`http://192.168.0.102:8001/api/treinos/delete/${user.id}/${id}`)
         }else{
             deleteId(id)
         }
@@ -83,7 +81,7 @@ const useFetchTreino = (url)=>{
         setLoadingEdit(true)
 
         if(user.id){
-            const result = await axios.get(`http://192.168.0.103:8001/api/treino/${user.id}/${id}`)
+            const result = await axios.get(`http://192.168.0.102:8001/api/treino/${user.id}/${id}`)
             setLoadingEdit(false)
             setDataId(result.data)
         }else{
@@ -108,7 +106,7 @@ const useFetchTreino = (url)=>{
             const fetchData = async()=>{
 
                 if(user.id){
-                    const data = await axios.get(`http://192.168.0.103:8001/api/treinos/${user.id}`)
+                    const data = await axios.get(`http://192.168.0.102:8001/api/treinos/${user.id}`)
                     const treinos = data.data
                     setData(treinos)
                 }else{

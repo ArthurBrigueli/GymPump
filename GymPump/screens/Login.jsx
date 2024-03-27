@@ -23,7 +23,7 @@ const Login = ({navigation})=>{
 
             const token = await AsyncStorage.getItem('TOKEN')
             if(token){
-                const a = await axios.post('http://192.168.0.103:8001/api/authentication/login', {
+                const a = await axios.post('http://192.168.0.102:8001/api/authentication/login', {
                 token: token
                 })
         
@@ -43,7 +43,7 @@ const Login = ({navigation})=>{
 
         setLoading(true)
         try{
-            const response = await axios.post('http://192.168.0.103:8001/api/login/user', {
+            const response = await axios.post('http://192.168.0.102:8001/api/login/user', {
                 nome: user,
                 senha: password
             })
