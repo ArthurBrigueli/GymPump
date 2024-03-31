@@ -18,6 +18,9 @@ const Register = ()=>{
     const [emailErro, setEmailErro] = useState('')
     
 
+    const tenhoUmaConta = ()=>{
+        navigation.navigate('Login')
+    }
 
     const handleRegister = async()=>{
 
@@ -87,7 +90,9 @@ const Register = ()=>{
                             </TouchableOpacity>
                         )}
 
-                        <Text style={styles.txt}>Já tenho uma conta</Text>
+                        <TouchableOpacity onPress={tenhoUmaConta}>
+                            <Text style={styles.txt}>Já tenho uma conta</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
