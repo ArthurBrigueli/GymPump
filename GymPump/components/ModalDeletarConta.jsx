@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Modal, StyleSheet, Text, View, TouchableNativeFeedback, TextInput, TouchableOpacity } from "react-native"
+import { Modal, StyleSheet, Text, View, TouchableWithoutFeedback, TextInput, TouchableOpacity } from "react-native"
 import {useAuth} from '../context/AuthContext'
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -35,27 +35,30 @@ const ModalDeletarConta = ({showModal})=>{
 
     }
 
-
-
     return(
-        <Modal transparent style={styles.modal}>
-            <View style={styles.containerModal}>
-                <View style={styles.container}>
-                    <View style={styles.containerInput}>
-                        <TextInput style={styles.input} placeholder="Digite sua senha" onChangeText={(e)=>{setPassword(e)}} secureTextEntry/>
-                        <TextInput style={styles.input} placeholder="Digite: Deletar minha conta" placeholderTextColor="#A5A5A5" onChangeText={(e)=>{setTextConfirmed(e)}}/>
+            <Modal transparent>
+                <TouchableWithoutFeedback onPress={showModal}>
+                    <View style={styles.containerModal}>
+                        <TouchableWithoutFeedback>
+                            <View style={styles.container}>
+                                <View style={styles.containerInput}>
+                                    <TextInput style={styles.input} placeholder="Digite sua senha" onChangeText={(e)=>{setPassword(e)}} secureTextEntry/>
+                                    <TextInput style={styles.input} placeholder="Digite: Deletar minha conta" placeholderTextColor="#A5A5A5" onChangeText={(e)=>{setTextConfirmed(e)}}/>
+                                </View>
+                                <View style={styles.containerBtn}>
+                                    <TouchableOpacity style={styles.btnCancelar} onPress={showModal}>
+                                        <Text style={styles.txt}>Cancelar</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.btnExcluir} onPress={deletarConta}>
+                                        <Text style={styles.txtDelete}>Deletar conta</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
-                    <View style={styles.containerBtn}>
-                        <TouchableOpacity style={styles.btnCancelar} onPress={showModal}>
-                            <Text style={styles.txt}>Cancelar</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.btnExcluir} onPress={deletarConta}>
-                            <Text style={styles.txtDelete}>Deletar conta</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-        </Modal>
+                </TouchableWithoutFeedback>
+            </Modal>
+        
     )
 }
 
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
     },
     btnCancelar: {
         borderRadius: 5,
-        backgroundColor: '#A180FF',
+        backgroundColor: '#31346c',
         width: "40%",
         justifyContent:"center",
         alignItems:"center",
