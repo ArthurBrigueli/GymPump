@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Modal, StyleSheet, Text, View, TouchableWithoutFeedback, TextInput, TouchableOpacity } from "react-native"
+import { Modal, StyleSheet, Text, View, TouchableWithoutFeedback, TextInput, TouchableOpacity, ActivityIndicator } from "react-native"
 import {useAuth} from '../context/AuthContext'
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -15,9 +15,11 @@ const ModalDeletarConta = ({showModal})=>{
     const [txtConfirmed, setTextConfirmed] = useState('')
     const {token, user, logoutAuth} = useAuth()
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const deletarConta = async()=>{
 
+        setLoading(true)
 
         const result = await axios.post('https://gym-pump-api.vercel.app/api/user/verification/password', {
             email: user.email,
@@ -28,6 +30,7 @@ const ModalDeletarConta = ({showModal})=>{
             if(SECRETTXTCONFIRMED === txtConfirmed){
 
                 const result  = await axios.delete(`https://gym-pump-api.vercel.app/api/user/delete/${user.id}`)
+                setLoading(false)
                 showModal()
                 logoutAuth()
             }
@@ -45,14 +48,21 @@ const ModalDeletarConta = ({showModal})=>{
                                     <TextInput style={styles.input} placeholder="Digite sua senha" onChangeText={(e)=>{setPassword(e)}} secureTextEntry/>
                                     <TextInput style={styles.input} placeholder="Digite: Deletar minha conta" placeholderTextColor="#A5A5A5" onChangeText={(e)=>{setTextConfirmed(e)}}/>
                                 </View>
-                                <View style={styles.containerBtn}>
-                                    <TouchableOpacity style={styles.btnCancelar} onPress={showModal}>
-                                        <Text style={styles.txt}>Cancelar</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.btnExcluir} onPress={deletarConta}>
-                                        <Text style={styles.txtDelete}>Deletar conta</Text>
-                                    </TouchableOpacity>
-                                </View>
+
+
+                                {loading ?(
+                                    <ActivityIndicator size={30} color="black"/>
+                                ):(
+                                    <View style={styles.containerBtn}>
+                                        <TouchableOpacity style={styles.btnCancelar} onPress={showModal}>
+                                            <Text style={styles.txt}>Cancelar</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.btnExcluir} onPress={deletarConta}>
+                                            <Text style={styles.txtDelete}>Deletar conta</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
+
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
