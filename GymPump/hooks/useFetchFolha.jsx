@@ -12,7 +12,7 @@ const useFetchFolha = (url)=>{
 
     const add = async(data)=>{
 
-        if(user.id){
+        if(user){
             await axios.post('https://gym-pump-api.vercel.app/api/folha/register', {
                 id_usuario:user.id,
                 folha: JSON.stringify(data)
@@ -26,7 +26,7 @@ const useFetchFolha = (url)=>{
 
     const remove = async()=>{
 
-        if(user.id){
+        if(user){
             await axios.delete(`https://gym-pump-api.vercel.app/api/folha/delete/${user.id}`)
         }else{
             await AsyncStorage.removeItem('FolhaDeTreino');
@@ -38,7 +38,7 @@ const useFetchFolha = (url)=>{
     useEffect(()=>{
         const fetchData = async()=>{
 
-            if(user.id){
+            if(user){
                 const result = await axios.get(`https://gym-pump-api.vercel.app/api/folha/${user.id}`)
                 const data = result.data.folha
                 setData(data)

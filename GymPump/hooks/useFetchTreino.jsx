@@ -20,7 +20,7 @@ const useFetchTreino = (url)=>{
         ]
         
         const dataFormat = format(date, 'dd/MM/yyyy')
-        if(user.id){
+        if(user){
             const idTreino = await axios.post('https://gym-pump-api.vercel.app/api/treinos/register', {
                 id_usuario: user.id,
                 nome: name,
@@ -43,7 +43,7 @@ const useFetchTreino = (url)=>{
     }
 
     const update = async(id, exercicios)=>{
-        if(user.id){
+        if(user){
             await axios.put(`https://gym-pump-api.vercel.app/api/user/${user.id}/treino/${id}/exercicios/register`, {
                 exercicios: exercicios
             })
@@ -55,7 +55,7 @@ const useFetchTreino = (url)=>{
 
     const updateTreinoId = async(id, nome, data, exercicios) => {
 
-        if(user.id){
+        if(user){
             const result = await axios.put(`https://gym-pump-api.vercel.app/api/user/${user.id}/treino/${id}/update`, {
                 nome: nome,
                 data: data,
@@ -69,7 +69,7 @@ const useFetchTreino = (url)=>{
     }
 
     const removeTreinoId = async(id)=>{
-        if(user.id){
+        if(user){
             await axios.delete(`https://gym-pump-api.vercel.app/api/treinos/delete/${user.id}/${id}`)
         }else{
             deleteId(id)
@@ -80,7 +80,7 @@ const useFetchTreino = (url)=>{
     const fetchIdTreino = async(id)=>{
         setLoadingEdit(true)
 
-        if(user.id){
+        if(user){
             const result = await axios.get(`https://gym-pump-api.vercel.app/api/treino/${user.id}/${id}`)
             setLoadingEdit(false)
             setDataId(result.data)
@@ -105,7 +105,7 @@ const useFetchTreino = (url)=>{
         setloading(true)
             const fetchData = async()=>{
 
-                if(user.id){
+                if(user){
                     const data = await axios.get(`https://gym-pump-api.vercel.app/api/treinos/${user.id}`)
                     const treinos = data.data
                     setData(treinos)
