@@ -24,7 +24,6 @@ const Note = ()=>{
 
     const [openRef, setOpenRef] = useState(false)
     const {addTreino:addTrinoDB, data, idTreino, update, json, removeTreinoId, fetchIdTreino, dataId, loadingEdit, loading, updateTreinoId} = useFetchTreino(null)
-
     
     {/* state das info do treino */}
     const [date, setDate] = useState(new Date())

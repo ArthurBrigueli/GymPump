@@ -29,7 +29,7 @@ const Register = ()=>{
             if(regexEmail.test(email)){//input
                 if(password === passwordAgain){ //input
                     try{
-                        const response = await axios.post('https://gym-pump-api-t87v.vercel.app/api/register/user', {
+                        const response = await axios.post('https://gym-pump-api-ruddy.vercel.app/api/register/user', {
                             nome: user,
                             email: email,
                             senha: password

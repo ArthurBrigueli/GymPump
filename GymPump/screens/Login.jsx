@@ -23,7 +23,7 @@ const Login = ({navigation})=>{
 
             const token = await AsyncStorage.getItem('TOKEN')
             if(token){
-                const a = await axios.post('https://gym-pump-api-t87v.vercel.app/api/authentication/login', {
+                const a = await axios.post('https://gym-pump-api-ruddy.vercel.app/api/authentication/login', {
                 token: token
                 })
         
@@ -43,7 +43,7 @@ const Login = ({navigation})=>{
 
         setLoading(true)
         try{
-            const response = await axios.post('https://gym-pump-api-t87v.vercel.app/api/login/user', {
+            const response = await axios.post('https://gym-pump-api-ruddy.vercel.app/api/login/user', {
                 nome: user,
                 senha: password
             })
