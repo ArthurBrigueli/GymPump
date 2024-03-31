@@ -23,9 +23,9 @@ const StatusProfile = ()=>{
 
     return(
         <View style={styles.container}>
-            {token ? (
+            {user ? (
                 <TouchableOpacity style={styles.containerProfile} onPress={handleProfile}>
-                    {token && (<Text>{user.nome[0]}</Text>)}
+                    {user && (<Text>{user.nome[0]}</Text>)}
                 </TouchableOpacity>
             ):(
                 <View style={styles.containerInfo}>

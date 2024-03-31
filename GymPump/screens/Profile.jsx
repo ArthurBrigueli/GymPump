@@ -1,13 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, ActivityIndicator, FlatList} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, ActivityIndicator, FlatList, Modal} from 'react-native';
 
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
+import { useState } from 'react';
+import ModalDeletarConta from '../components/ModalDeletarConta';
 
 
 const Profile = ()=>{
 
     const navigation = useNavigation()
     const {user, token, logoutAuth} = useAuth()
+    const [showDeletarConta, setShowDeletarConta] = useState(false)
     
     const handleLogout = async()=>{
         logoutAuth()
@@ -18,19 +21,40 @@ const Profile = ()=>{
 
     }
 
+    const deletarConta = ()=>{
+        setShowDeletarConta(!showDeletarConta)
+    }
+
     return(
         <View style={styles.container}>
-            {token ? (
+
+
+            {showDeletarConta && (
+                <ModalDeletarConta showModal={deletarConta} handleLogout={handleLogout}/>
+            )}
+            
+
+
+            {user ? (
                 <>
                     <View style={styles.containerProfile}>
                         <View style={styles.containerIconProfile}>
-                            {token && (<Text style={styles.txtIcon}>{user.nome[0]}</Text>)}
+                            {user && (<Text style={styles.txtIcon}>{user.nome[0]}</Text>)}
                         </View>
                         <View>
                             <Text style={styles.txt}>{user.nome}</Text>
                             <Text style={styles.txt}>{user.email}</Text>
                         </View>
                     </View>
+
+
+                    <View style={styles.containerOpcoes}>
+                        <TouchableOpacity style={styles.opcaoDeletar} onPress={deletarConta}>
+                            <Text style={styles.txt}>Deletar minha conta</Text>
+                        </TouchableOpacity>
+                    </View>
+
+
 
                     <View style={styles.containerBtnLogout}>
                         <TouchableOpacity style={styles.btnLogout} onPress={handleLogout}>
@@ -98,6 +122,15 @@ const styles = StyleSheet.create({
     },
     txt: {
         color: 'white'
+    },
+    containerOpcoes: {
+        flex: 1,
+        padding: 15
+    },
+    opcaoDeletar: {
+        padding: 15,
+        borderColor: 'white',
+        borderLeftWidth: 2
     }
 
 })
