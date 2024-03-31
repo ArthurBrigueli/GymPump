@@ -86,6 +86,8 @@ const Register = ()=>{
                                 <Text style={styles.txt}>Cadastrar</Text>
                             </TouchableOpacity>
                         )}
+
+                        <Text style={styles.txt}>Já tenho uma conta</Text>
                     </View>
                 </View>
             </View>
