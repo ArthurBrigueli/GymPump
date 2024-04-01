@@ -53,7 +53,7 @@ const useFetchFolha = (url)=>{
         }
 
         fetchData()
-    }, [url, callBack])
+    }, [url, callBack, user])
 
 
     return {data, add, remove}
