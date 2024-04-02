@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
+import * as Updates from 'expo-updates'
 
 import TimeScreen from './screens/Time';
 import Note from './screens/Note';
@@ -39,7 +40,26 @@ const screenOptions1 = {
   }
 };
 
+
 const MainTabs = () => {
+
+  useEffect(()=>{
+    const update = async()=>{
+      try{
+        const update = await Updates.checkForUpdateAsync()
+        if(update.isAvailable){
+          await Updates.fetchUpdateAsync()
+          Alert.alert('Atualização disponivel, reinicie o aplicativo!')
+          await Updates.reloadAsync()
+        }
+      }catch(erro){
+        return
+      }
+    }
+
+    update()
+  }, [])
+
   return(
     <Tab.Navigator screenOptions={screenOptions1}>
     <Tab.Screen
@@ -102,6 +122,25 @@ const MainTabs = () => {
 };
 
 const App = () => {
+
+
+  useEffect(()=>{
+    const update = async()=>{
+      try{
+        const update = await Updates.checkForUpdateAsync()
+        if(update.isAvailable){
+          await Updates.fetchUpdateAsync()
+          Alert.alert('Atualização disponivel, reinicie o aplicativo!')
+          await Updates.reloadAsync()
+        }
+      }catch(erro){
+        return
+      }
+    }
+
+    update()
+  }, [])
+
   return(
     <AuthProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>

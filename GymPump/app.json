@@ -15,7 +15,8 @@
       "**/*"
     ],
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/80892038-0c67-4207-bc92-8d2693825ced"
     },
     "ios": {
       "supportsTablet": true
@@ -31,10 +32,8 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "80892038-0c67-4207-bc92-8d2693825ced"
-      }
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
