@@ -15,8 +15,7 @@
       "**/*"
     ],
     "updates": {
-      "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/80892038-0c67-4207-bc92-8d2693825ced"
+      "fallbackToCacheTimeout": 0
     },
     "ios": {
       "supportsTablet": true
@@ -34,11 +33,6 @@
     },
     "runtimeVersion": {
       "policy": "appVersion"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "b1f8d0ac-fda7-41b5-ac41-c7173a8ccc48"
-      }
     }
   }
 }

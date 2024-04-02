@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, ActivityIndicator, FlatList, Modal} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, ActivityIndicator, FlatList, Modal, Alert} from 'react-native';
 
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
@@ -28,27 +28,16 @@ const Profile = ()=>{
 
     const verificationUpdate = async()=>{
         try {
-            const update = await Updates.checkForUpdateAsync();
-            if (update.isAvailable) {
-              Alert.alert(
-                'Atualização Disponível',
-                'Uma nova versão do aplicativo está disponível. Deseja atualizar agora?',
-                [
-                  {
-                    text: 'Cancelar',
-                    style: 'cancel'
-                  },
-                  {
-                    text: 'Atualizar',
-                    onPress: () => Updates.reloadAsync()
-                  }
-                ]
-              );
-            } else {
-              Alert.alert('Sem atualizações', 'O aplicativo está atualizado.');
+            const update = await Updates.checkForUpdateAsync()
+            if(update.isAvailable){
+                await Updates.fetchUpdateAsync()
+                Alert.alert('reinicia caraio')
+                await Updates.reloadAsync()
+            }else{
+                Alert.alert('naooo')
             }
           } catch (error) {
-            return
+            console.log(error)
           }
     }
 
