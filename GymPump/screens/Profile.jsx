@@ -32,7 +32,7 @@ const Profile = ()=>{
             if (update.isAvailable) {
               Alert.alert(
                 'Atualização Disponível',
-                'Uma nova versão do aplicativo está disponível. Deseja atualizar?',
+                'Uma nova versão do aplicativo está disponível. Deseja atualizar agora?',
                 [
                   {
                     text: 'Cancelar',
