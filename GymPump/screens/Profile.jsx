@@ -37,7 +37,7 @@ const Profile = ()=>{
                 Alert.alert('naooo')
             }
           } catch (error) {
-            console.log(error)
+            Alert.alert('porra, '+error.message)
           }
     }
 
