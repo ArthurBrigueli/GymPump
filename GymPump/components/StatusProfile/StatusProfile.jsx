@@ -30,7 +30,7 @@ const StatusProfile = ()=>{
             ):(
                 <View style={styles.containerInfo}>
                     <TouchableOpacity>
-                        <Text style={styles.txt}>Você esta usando o modo Local</Text>
+                        <Text style={styles.txt}>Você esta usando o modo Local!</Text>
                     </TouchableOpacity>
                 </View>
             )}
