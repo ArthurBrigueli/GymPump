@@ -4,6 +4,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { useState } from 'react';
 import ModalDeletarConta from '../components/ModalDeletarConta';
+import * as Updates from 'expo-updates'
 
 
 const Profile = ()=>{
@@ -23,6 +24,32 @@ const Profile = ()=>{
 
     const deletarConta = ()=>{
         setShowDeletarConta(!showDeletarConta)
+    }
+
+    const verificationUpdate = async()=>{
+        try {
+            const update = await Updates.checkForUpdateAsync();
+            if (update.isAvailable) {
+              Alert.alert(
+                'Atualização Disponível',
+                'Uma nova versão do aplicativo está disponível. Deseja atualizar?',
+                [
+                  {
+                    text: 'Cancelar',
+                    style: 'cancel'
+                  },
+                  {
+                    text: 'Atualizar',
+                    onPress: () => Updates.reloadAsync()
+                  }
+                ]
+              );
+            } else {
+              Alert.alert('Sem atualizações', 'O aplicativo está atualizado.');
+            }
+          } catch (error) {
+            return
+          }
     }
 
     return(
@@ -69,6 +96,11 @@ const Profile = ()=>{
                     </TouchableOpacity>
                 </View>
             )}
+            <View style={styles.containerBtnLogout}>
+                <TouchableOpacity onPress={verificationUpdate}>
+                    <Text style={styles.txt}>Verificar atualização</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
