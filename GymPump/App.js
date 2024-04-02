@@ -103,25 +103,6 @@ const MainTabs = () => {
 };
 
 const App = () => {
-
-
-  useEffect(()=>{
-    const update = async()=>{
-      try{
-        const update = await Updates.checkForUpdateAsync()
-        if(update.isAvailable){
-          await Updates.fetchUpdateAsync()
-          Alert.alert('Atualização disponivel, reinicie o aplicativo!')
-          await Updates.reloadAsync()
-        }
-      }catch(erro){
-        return
-      }
-    }
-
-    update()
-  }, [])
-
   return(
     <AuthProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>

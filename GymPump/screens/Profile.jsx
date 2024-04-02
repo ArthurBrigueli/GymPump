@@ -26,21 +26,6 @@ const Profile = ()=>{
         setShowDeletarConta(!showDeletarConta)
     }
 
-    const verificationUpdate = async()=>{
-        try {
-            const update = await Updates.checkForUpdateAsync()
-            if(update.isAvailable){
-                await Updates.fetchUpdateAsync()
-                Alert.alert('reinicia caraio')
-                await Updates.reloadAsync()
-            }else{
-                Alert.alert('naooo')
-            }
-          } catch (error) {
-            Alert.alert('porra, '+error.message)
-          }
-    }
-
     return(
         <View style={styles.container}>
 
@@ -85,11 +70,6 @@ const Profile = ()=>{
                     </TouchableOpacity>
                 </View>
             )}
-            <View style={styles.containerBtnLogout}>
-                <TouchableOpacity onPress={verificationUpdate}>
-                    <Text style={styles.txt}>Verificar atualização</Text>
-                </TouchableOpacity>
-            </View>
         </View>
     )
 }
