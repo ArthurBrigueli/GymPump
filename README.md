@@ -1,6 +1,5 @@
 Download APK (android)
 
-![image](https://github.com/ArthurBrigueli/GymPump/assets/95196719/728c7ed6-5b8f-455e-a6da-37205f3096aa)
-
+![image](https://github.com/ArthurBrigueli/GymPump/assets/95196719/6ef37d94-545e-4cc5-a9c5-f0dc71297f35)
 
 
