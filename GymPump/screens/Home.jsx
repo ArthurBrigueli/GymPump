@@ -25,7 +25,7 @@ const Home = ()=>{
 
     const remove = async()=>{
         Alert.alert(
-            "Confirmar Remoção.",
+            "Confirmar Remoção",
             "Tem certeza de que deseja remover a folha de treino?",
             [
               {
