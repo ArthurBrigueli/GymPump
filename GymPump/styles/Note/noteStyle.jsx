@@ -9,6 +9,19 @@ export const noteStyle = StyleSheet.create({
         
     },
 
+    noteTip: {
+        color: '#333863',
+        fontSize: 25,
+        textAlign: 'center',
+        marginTop: 250, // Adicione um espaçamento superior para centralizar verticalmente
+    },
+
+    iconTip: { 
+        position: 'absolute',
+        marginTop: 563,
+        marginLeft: 227.5,
+    },
+
     containerTreinos: {
         flex: 1,
         padding: 20,

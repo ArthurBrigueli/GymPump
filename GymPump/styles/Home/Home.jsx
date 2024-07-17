@@ -7,6 +7,19 @@ export const homeStyle = StyleSheet.create({
         flex: 1
     },
 
+    fichaTip: {
+        color: '#333863',
+        fontSize: 25,
+        textAlign: 'center',
+        marginTop: 250, // Adicione um espaçamento superior para centralizar verticalmente
+      },
+
+    iconTip: { 
+        position: 'absolute',
+        marginTop: 583,
+        marginLeft: 220,
+    },
+
     containerStatusProfile: {
         alignItems: 'center',
         width: '100%',
