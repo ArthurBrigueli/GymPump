@@ -15,6 +15,8 @@ import TreinoList from '../components/TreinoItem.jsx/TreinoList';
 import ExercicioList from '../components/TreinoItem.jsx/ExercicioList';
 import StatusProfile from '../components/StatusProfile/StatusProfile';
 
+import { MaterialIcons } from '@expo/vector-icons';
+
 const Note = ()=>{
 
     const modalRef = useRef(null)
@@ -112,40 +114,48 @@ const Note = ()=>{
             </View>
 
             
+
             <View style={noteStyle.containerTreinos}>
-                <FlatList
-                    data={data}
-                    keyExtractor={(item, index) => index.toString()}
-                    onScroll={(e)=>{handleFlayPosition(e)}}
-                    renderItem={({ item, index }) => (
-                        <View style={noteStyle.containerTreino}>
-                            <TreinoList name={item.nome} data={item.data}/>
-                            <View style={noteStyle.containerExercicios}>
-                                {item.exercicios && item.exercicios.map((exercicio, indexE) => (
-                                    <ExercicioList key={indexE} exercicios={exercicio} limitarText={limitarString}/>
-                                ))}
-                            </View>
+                {data.length > 0 ? (
+                    <FlatList
+                        data={data}
+                        keyExtractor={(item, index) => index.toString()}
+                        onScroll={(e)=>{handleFlayPosition(e)}}
+                        renderItem={({ item, index }) => (
+                            <View style={noteStyle.containerTreino}>
+                                <TreinoList name={item.nome} data={item.data}/>
+                                <View style={noteStyle.containerExercicios}>
+                                    {item.exercicios && item.exercicios.map((exercicio, indexE) => (
+                                        <ExercicioList key={indexE} exercicios={exercicio} limitarText={limitarString}/>
+                                    ))}
+                                </View>
 
-                            <View style={noteStyle.containerbtn}>
-                                <TouchableOpacity style={noteStyle.btnEdit} onPress={()=>{openModalEdit(item.id)}} disabled={loadingEdit}>
-                                    {loadingEdit ? (
-                                        <ActivityIndicator size='small' color='black' />
-                                    ):(
-                                        <Icon name='edit' color='black'/>
-                                    )}
-                                </TouchableOpacity>
-                                <TouchableOpacity style={noteStyle.btnExcluir} onPress={()=>excluirExercicio(item.id)} disabled={loading}>
-                                    {loading ? (
-                                        <ActivityIndicator size='small' color='white'/>
-                                    ): (
-                                        <Icon name='clear' color='white'/>
-                                    )}
-                                </TouchableOpacity>
-                            </View>
+                                <View style={noteStyle.containerbtn}>
+                                    <TouchableOpacity style={noteStyle.btnEdit} onPress={()=>{openModalEdit(item.id)}} disabled={loadingEdit}>
+                                        {loadingEdit ? (
+                                            <ActivityIndicator size='small' color='black' />
+                                        ):(
+                                            <Icon name='edit' color='black'/>
+                                        )}
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={noteStyle.btnExcluir} onPress={()=>excluirExercicio(item.id)} disabled={loading}>
+                                        {loading ? (
+                                            <ActivityIndicator size='small' color='white'/>
+                                        ): (
+                                            <Icon name='clear' color='white'/>
+                                        )}
+                                    </TouchableOpacity>
+                                </View>
 
-                        </View>
-                    )}
-                />
+                            </View>
+                        )}
+                    />
+                ):(
+                    <View>
+                        <Text style={noteStyle.noteTip}> Aqui você criará suas anotações de treino. </Text>
+                        <MaterialIcons style={noteStyle.iconTip} name="subdirectory-arrow-right" size={60} color="#333863" />
+                    </View>
+                )}
             </View>
 
             
@@ -165,7 +175,9 @@ const Note = ()=>{
             <CreateTreino modalRef={modalRef} closeModal={closeModal} setTitulo={setTitulo} titulo={titulo} setDate={setDate} date={date} addTreino={addTreino}/>
 
             <AddTreino openRef={modalRefAdd} date={date} titulo={titulo} closeM={closeModalAdd} addExercicios={addExercicios}/>
+
         </View>
+        
     )
 }
 
