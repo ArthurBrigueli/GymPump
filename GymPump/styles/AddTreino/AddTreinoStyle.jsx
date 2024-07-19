@@ -36,18 +36,46 @@ export const AddTreinoStyle = StyleSheet.create({
         right: 20,
     },
     containerExercicio: {
-        flexDirection: 'column',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingLeft: 20,
         paddingRight:25,
         padding: 10,
-        backgroundColor: 'gray',
-        margin: 10
+        backgroundColor: '#31346C',
+        margin: 10,
+        borderRadius: 5
     },
+
+    containerBtnTrash: {
+        
+    },
+
+    containerExercicioInfo: {
+        flexDirection: "column",
+        gap: 3
+    },
+
+
+    btnExcluir:{
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 8
+        
+    },
+
+    TextTitulo: {
+        color: 'white',
+        fontSize: 17
+    },
+
+
     Text: {
-        color: 'white'
+        color: 'white',
+        fontSize: 14
     },
+
+
     BackContainerModal: {
         width: '100%',
         height: '100%',
@@ -84,23 +112,8 @@ export const AddTreinoStyle = StyleSheet.create({
         color: 'black',
         textAlign: 'center'
     },
-    containerExercicioInfo: {
-        width: '100%',
-        flexDirection: "row",
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    btnExcluir:{
-        backgroundColor: 'white',
-        borderRadius: 10,
-        padding: 5
-        
-    },
-    containerBtnTrash: {
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+    
+    
     addTreino: {
         padding: 10,
         borderRadius: 20,
