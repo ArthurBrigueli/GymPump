@@ -15,14 +15,22 @@ export const homeStyle = StyleSheet.create({
       },
 
     iconTip: { 
+        zIndex: 2,
         position: 'absolute',
-        marginTop: 583,
-        marginLeft: 220,
+        bottom: '10%',
+        right: '100%'
     },
 
     containerStatusProfile: {
         alignItems: 'center',
         width: '100%',
+    },
+
+    Containerbotao: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        zIndex: 1,
     },
 
     botao:{
@@ -32,9 +40,7 @@ export const homeStyle = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 100,
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
+
         zIndex: 1
     },
     txtBotaoAddFolha: {

@@ -153,7 +153,6 @@ const Note = ()=>{
                 ):(
                     <View>
                         <Text style={noteStyle.noteTip}> Aqui você criará suas anotações de treino. </Text>
-                        <MaterialIcons style={noteStyle.iconTip} name="subdirectory-arrow-right" size={60} color="#333863" />
                     </View>
                 )}
             </View>
@@ -162,9 +161,14 @@ const Note = ()=>{
 
 
             {showButton && (
-                <TouchableOpacity style={noteStyle.btnAdd} onPress={openModal}>
-                    <Ionicons name="add" size={20} color="white" />
-                </TouchableOpacity>
+                <View style={noteStyle.ContainerbtnAdd}>
+                    <TouchableOpacity style={noteStyle.btnAdd} onPress={openModal}>
+                        <Ionicons name="add" size={20} color="white" />
+                    </TouchableOpacity>
+                    {data.length <= 0 && (
+                        <MaterialIcons style={noteStyle.iconTip} name="subdirectory-arrow-right" size={60} color="#333863" />
+                    )}
+                </View>
             )}
 
             

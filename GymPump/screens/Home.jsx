@@ -58,13 +58,18 @@ const Home = () => {
     return (
         <View style={homeStyle.container}>
             {!Array.isArray(item) ? (
-                <TouchableOpacity style={homeStyle.botao} onPress={openModal}>
-                    <Ionicons name="add" size={20} color="white" />
-                </TouchableOpacity>
+                <View style={homeStyle.Containerbotao}>
+                    <TouchableOpacity onPress={openModal} style={homeStyle.botao}>
+                        <Ionicons name="add" size={20} color="white" />
+                    </TouchableOpacity>
+                    <MaterialIcons style={homeStyle.iconTip} name="subdirectory-arrow-right" size={60} color="#333863" />
+                </View>
             ) : (
-                <TouchableOpacity style={homeStyle.botao} onPress={remove}>
-                    <Ionicons name="trash" size={20} color="white" />
-                </TouchableOpacity>
+                <View style={homeStyle.Containerbotao}>
+                    <TouchableOpacity style={homeStyle.botao} onPress={remove}>
+                        <Ionicons name="trash" size={20} color="white" />
+                    </TouchableOpacity>
+                </View>
             )}
             <CreateFolha isOpen={modalOpen} closeModal={closeModal} handleSubmit={handleSubmit} />
 
@@ -90,9 +95,7 @@ const Home = () => {
                 </View>
             ):(
                 <View>
-                    <View></View>
                     <Text style={homeStyle.fichaTip}> Aqui você cria sua ficha de treino. </Text>
-                    <MaterialIcons style={homeStyle.iconTip} name="subdirectory-arrow-right" size={60} color="#333863" />
                 </View>
             )}
 

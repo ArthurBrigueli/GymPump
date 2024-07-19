@@ -18,8 +18,8 @@ export const noteStyle = StyleSheet.create({
 
     iconTip: { 
         position: 'absolute',
-        marginTop: 563,
-        marginLeft: 227.5,
+        bottom: '10%',
+        right: '100%'
     },
 
     containerTreinos: {
@@ -92,6 +92,14 @@ export const noteStyle = StyleSheet.create({
     txtNomeExercicio: {
         fontSize: 15
     },
+
+    ContainerbtnAdd: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        zIndex: 0
+    },
+
     btnAdd: {
         backgroundColor: '#18192d',
         justifyContent:'center',
@@ -99,10 +107,6 @@ export const noteStyle = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 100,
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        zIndex: 0
     },
     remove: {
         backgroundColor: '#18192d',
