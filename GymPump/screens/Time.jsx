@@ -175,13 +175,18 @@ const TimeScreen = () => {
 
 
         <View style={timeStyle.botoesContainer}>
-          <TouchableOpacity style={timeStyle.botaoComecarSerie} onPress={comecarSerie}>
-            <Text style={timeStyle.textBotao}>Começar série</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={isDescanso ? timeStyle.botaoDescansoOn:timeStyle.botaoDescanso} onPress={descanso}>
-            <Text style={timeStyle.textBotao}>Descanso</Text>
-            <Text style={timeStyle.textBotao}>{timeData.minutos}:{timeData.segundos}</Text>
-          </TouchableOpacity>
+          {isDescanso ? (
+            <TouchableOpacity style={timeStyle.botaoComecarSerie} onPress={comecarSerie}>
+              <Text style={timeStyle.textBotao}>Começar série</Text>
+            </TouchableOpacity>
+          ):(
+            <TouchableOpacity style={timeStyle.botaoDescanso} onPress={descanso}>
+              <Text style={timeStyle.textBotao}>Descanso</Text>
+              <Text style={timeStyle.textBotao}>{timeData.minutos}:{timeData.segundos}</Text>
+            </TouchableOpacity>
+          )}
+          
+
         </View>
       </View>
 
