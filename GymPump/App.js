@@ -18,6 +18,8 @@ import Register from './screens/Register';
 import {AuthProvider, useAuth} from './context/AuthContext'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import ForgotPassword from './screens/ForgotPassword';
+import Newpassword from './screens/Newpassword';
 
 
 const Tab = createBottomTabNavigator();
@@ -116,6 +118,8 @@ const App = () => {
             <Stack.Screen name="MainTabs" component={MainTabs}/>
             <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name='ForgotPassword' component={ForgotPassword}/>
+            <Stack.Screen name='NewPassword' component={Newpassword}/>
           </Stack.Navigator>
         </NavigationContainer>
       </GestureHandlerRootView>
