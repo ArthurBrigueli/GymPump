@@ -86,17 +86,15 @@ const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
             <View style={AddTreinoStyle.containerExercicios}>
                 {exercicios.map((e, index) => (
                     <View key={index} style={AddTreinoStyle.containerExercicio}>
+                        <View style={AddTreinoStyle.containerExercicioInfo}>
+                            <Text style={AddTreinoStyle.TextTitulo}>{e.nome}</Text>
+                            <Text style={AddTreinoStyle.Text}>{e.repeticao} REP</Text>
+                            <Text style={AddTreinoStyle.Text}>{e.peso} KG</Text>
+                        </View>
                         <View style={AddTreinoStyle.containerBtnTrash}>
                             <TouchableOpacity style={AddTreinoStyle.btnExcluir} onPress={()=>{handleExcluir(index)}}>
                                 <Ionicons name="trash" size={20} color="black" />
                             </TouchableOpacity>
-                        </View>
-                        <View style={AddTreinoStyle.containerExercicioInfo}>
-                            <Text style={AddTreinoStyle.Text}>{e.nome}</Text>
-                            <View>
-                                <Text style={AddTreinoStyle.Text}>{e.repeticao} REP</Text>
-                                <Text style={AddTreinoStyle.Text}>{e.peso} KG</Text>
-                            </View>
                         </View>
                     </View>
                 ))}

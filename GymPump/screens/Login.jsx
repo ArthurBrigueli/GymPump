@@ -50,6 +50,7 @@ const Login = ({navigation})=>{
             updateUserState(response.data.user, response.data.token)
             await AsyncStorage.setItem('TOKEN', response.data.token)
             navigation.navigate('MainTabs', {screen: 'Home'})
+            setShowError(null)
         }catch(erro){
             setShowError('Credenciais incorreta')
         }
@@ -62,6 +63,10 @@ const Login = ({navigation})=>{
 
     const handleShowPassword = ()=>{
         setShowPass(!showPass)
+    }
+
+    const handleForgotPassword = ()=>{
+        navigation.navigate('ForgotPassword')
     }
 
     const handleJoinLocal = ()=>{
@@ -92,7 +97,7 @@ const Login = ({navigation})=>{
                         </View>
                     )}
                     <View style={styles.containerEsqueceu}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={handleForgotPassword}>
                             <Text style={styles.txt}>Esqueceu a senha?</Text>
                         </TouchableOpacity>
                     </View>
@@ -175,7 +180,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 5,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     containerInputPass: {

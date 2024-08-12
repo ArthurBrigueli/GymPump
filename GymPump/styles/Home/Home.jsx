@@ -7,9 +7,30 @@ export const homeStyle = StyleSheet.create({
         flex: 1
     },
 
+    fichaTip: {
+        color: '#333863',
+        fontSize: 25,
+        textAlign: 'center',
+        marginTop: 250, // Adicione um espaçamento superior para centralizar verticalmente
+      },
+
+    iconTip: { 
+        zIndex: 2,
+        position: 'absolute',
+        bottom: '10%',
+        right: '100%'
+    },
+
     containerStatusProfile: {
         alignItems: 'center',
         width: '100%',
+    },
+
+    Containerbotao: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        zIndex: 1,
     },
 
     botao:{
@@ -19,9 +40,7 @@ export const homeStyle = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 100,
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
+
         zIndex: 1
     },
     txtBotaoAddFolha: {

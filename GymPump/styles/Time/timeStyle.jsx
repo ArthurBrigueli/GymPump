@@ -43,9 +43,6 @@ export const timeStyle = StyleSheet.create({
         alignItems: 'center'
     },
 
-    botaoDescansoOn:{
-      display: "none"
-    },
 
     botaoDescanso:{
         margin: 5,
