@@ -1,6 +1,7 @@
 Download APK (android)
 
-![image](https://github.com/user-attachments/assets/800ad312-8f63-4445-b669-d19a8030b633)
+![image](https://github.com/user-attachments/assets/ca770234-f737-43ca-bd08-c1e366c1b7a8)
+
 
 
 
