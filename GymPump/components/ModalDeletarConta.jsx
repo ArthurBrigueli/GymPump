@@ -21,7 +21,7 @@ const ModalDeletarConta = ({showModal})=>{
 
         setLoading(true)
 
-        const result = await axios.post('https://gym-pump-api.vercel.app/api/user/verification/password', {
+        const result = await axios.post('https://gym-pump-api-apgp.vercel.app/api/user/verification/password', {
             email: user.email,
             senha: password
         })
@@ -29,7 +29,7 @@ const ModalDeletarConta = ({showModal})=>{
         if(result.data.result){
             if(SECRETTXTCONFIRMED === txtConfirmed){
 
-                const result  = await axios.delete(`https://gym-pump-api.vercel.app/api/user/delete/${user.id}`)
+                const result  = await axios.delete(`https://gym-pump-api-apgp.vercel.app/api/user/delete/${user.id}`)
                 setLoading(false)
                 showModal()
                 logoutAuth()
