@@ -8,7 +8,7 @@ const useForgotPassword = () => {
 
         try {
             setLoading(true); // Inicia o carregamento
-            const result = await axios.post(`https://gym-pump-api.vercel.app/api/forgotpassword/${email}`, {
+            const result = await axios.post(`https://gym-pump-api-apgp.vercel.app/api/forgotpassword/${email}`, {
                 code: code
             });
             return result;
@@ -22,7 +22,7 @@ const useForgotPassword = () => {
     const setNewPassword = async (password, email) => {
         try {
             setLoading(true); // Inicia o carregamento
-            const result = await axios.post(`https://gym-pump-api.vercel.app/api/forgotpassword/newpassword/${email}`, {
+            const result = await axios.post(`https://gym-pump-api-apgp.vercel.app/api/forgotpassword/newpassword/${email}`, {
                 password: password
             });
             return result;
