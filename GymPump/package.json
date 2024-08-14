@@ -24,6 +24,7 @@
     "body-parser": "^1.20.2",
     "date-fns": "^3.2.0",
     "expo": "~51.0.22",
+    "expo-build-properties": "~0.12.5",
     "expo-dev-client": "~4.0.22",
     "expo-image": "~1.12.13",
     "expo-jwt": "^1.7.1",
