@@ -4,6 +4,7 @@ import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from '../context/AuthContext';
+import { BannerAd } from 'react-native-google-mobile-ads';
 
 const Login = ({navigation})=>{
 
@@ -76,6 +77,9 @@ const Login = ({navigation})=>{
     return(
         <View style={styles.container}>
             <View style={styles.containerForm}>
+                <View>
+                    <BannerAd/>
+                </View>
                 <Text style={styles.h1}>GymPump</Text>
                 <View style={styles.containerLogin}>
                     <View style={styles.containerInputs}>

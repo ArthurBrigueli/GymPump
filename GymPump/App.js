@@ -6,6 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
+import 'expo-dev-client'
+
 
 import TimeScreen from './screens/Time';
 import Note from './screens/Note';
