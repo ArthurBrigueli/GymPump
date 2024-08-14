@@ -1,10 +1,14 @@
-import {BannerAd, TestIds} from 'react-native-google-mobile-ads'
+import {BannerAd, TestIds, BannerAdSize} from 'react-native-google-mobile-ads'
 
 
-const BannerAd = ()=>{
+const BannerAds = ()=>{
+
+
+    const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-3363226248593249/3190830306';
+
     return(
         <BannerAd
-            unitId={TestIds}
+            unitId={adUnitId}
             size={BannerAdSize.FULL_BANNER}
             requestOptions={{
                 requestNonPersonalizedAdsOnly: true,
@@ -14,4 +18,4 @@ const BannerAd = ()=>{
 }
 
 
-export default BannerAd
+export default BannerAds

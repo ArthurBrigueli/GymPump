@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { View, StatusBar } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, StatusBar, TouchableOpacity, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,6 +7,7 @@ import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
 import 'expo-dev-client'
+import {InterstitialAd, AdEventType, TestIds} from 'react-native-google-mobile-ads'
 
 
 import TimeScreen from './screens/Time';
@@ -26,6 +27,12 @@ import Newpassword from './screens/Newpassword';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-3363226248593249/6365821814';
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+  keywords: ['fashion', 'clothing'],
+});
 
 
 const screenOptions = {
@@ -107,6 +114,25 @@ const MainTabs = () => {
 };
 
 const App = () => {
+
+  const [loaded, setLoaded] = useState(false);
+  const adShownOnce = useRef(false);
+
+  useEffect(() => {
+    if (!adShownOnce.current) {
+      const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+        setLoaded(true);
+        interstitial.show();
+        adShownOnce.current = true;
+      });
+
+      interstitial.load();
+
+      return () => unsubscribe();
+    }
+  }, []);
+
+
   return(
     <AuthProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>

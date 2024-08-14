@@ -24,6 +24,7 @@ export const homeStyle = StyleSheet.create({
     containerStatusProfile: {
         alignItems: 'center',
         width: '100%',
+        gap: 20
     },
 
     Containerbotao: {
