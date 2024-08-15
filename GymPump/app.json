@@ -1,6 +1,16 @@
 {
   "expo": {
     "name": "GymPump",
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ],
     "slug": "GymPump",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -39,5 +49,9 @@
         "projectId": "965b3bcb-8a5d-4055-ac0e-091de7b50eea"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3363226248593249~3260882993",
+    "ios_app_id": "ca-app-pub-3363226248593249~3260882993"
   }
 }

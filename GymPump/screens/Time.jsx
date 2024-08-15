@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { timeStyle } from "../styles/Time/timeStyle";
 import LottieView from 'lottie-react-native'
 import StatusProfile from "../components/StatusProfile/StatusProfile";
+import BannerAds from "../components/BannerAds";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -156,6 +157,7 @@ const TimeScreen = () => {
       
       <View style={timeStyle.containerStatusProfile}>
           <StatusProfile/>
+          <BannerAds/>
       </View>
     
       <View style={timeStyle.containerTime}>
@@ -218,6 +220,7 @@ const TimeScreen = () => {
         </Animated.View>
       )}
 
+      
     </View>
   );
 };
