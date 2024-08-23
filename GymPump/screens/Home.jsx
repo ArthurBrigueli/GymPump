@@ -8,12 +8,11 @@ import { homeStyle } from "../styles/Home/Home";
 import StatusProfile from "../components/StatusProfile/StatusProfile";
 import useFetchFolha from "../hooks/useFetchFolha";
 import BannerAds from "../components/BannerAds";
-
 import { MaterialIcons } from '@expo/vector-icons';
 
 
 
-const Home = () => {
+const Home = ({navigation}) => {
 
     const [modalOpen, setIsModalOpen] = useState(false)
     const [dataFolha, setDataFolha] = useState([])
@@ -55,6 +54,20 @@ const Home = () => {
         closeModal()
         setDataFolha([])
     }
+
+
+    useEffect(()=>{
+        const verificationTutorialUser = async ()=>{  
+            const showTutorialNewUser = await AsyncStorage.getItem("TutorialNewUser") || "false";
+            console.log(showTutorialNewUser)
+            if(showTutorialNewUser == "false"){
+                navigation.navigate('TutorialUser')
+            }
+        }
+
+        verificationTutorialUser()
+    }, [])
+
 
     return (
         <View style={homeStyle.container}>

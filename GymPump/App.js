@@ -23,6 +23,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import ForgotPassword from './screens/ForgotPassword';
 import Newpassword from './screens/Newpassword';
+import TutorialUser from './screens/TutorialUser';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -118,6 +120,7 @@ const App = () => {
   const [loaded, setLoaded] = useState(false);
   const adShownOnce = useRef(false);
 
+
   useEffect(() => {
     if (!adShownOnce.current) {
       const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
@@ -148,6 +151,7 @@ const App = () => {
             <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name='ForgotPassword' component={ForgotPassword}/>
             <Stack.Screen name='NewPassword' component={Newpassword}/>
+            <Stack.Screen name='TutorialUser' component={TutorialUser}/>
           </Stack.Navigator>
         </NavigationContainer>
       </GestureHandlerRootView>
