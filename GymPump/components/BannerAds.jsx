@@ -1,4 +1,5 @@
 import {BannerAd, TestIds, BannerAdSize} from 'react-native-google-mobile-ads'
+import {View, StyleSheet} from 'react-native'
 
 
 const BannerAds = ()=>{
@@ -9,10 +10,11 @@ const BannerAds = ()=>{
     return(
         <BannerAd
             unitId={adUnitId}
-            size={BannerAdSize.FULL_BANNER}
+            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
             requestOptions={{
                 requestNonPersonalizedAdsOnly: true,
             }}
+            
         />
     )
 }
