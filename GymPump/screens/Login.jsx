@@ -29,8 +29,12 @@ const Login = ({navigation})=>{
                 token: token
                 })
         
-                updateUserState(a.data, token)
-                navigation.navigate('MainTabs', {screen: 'Home'})
+                if(!a.data.error){
+                    updateUserState(a.data, token)
+                    navigation.navigate('MainTabs', {screen: 'Home'})
+                }else{
+                    await AsyncStorage.removeItem("TOKEN")
+                }
             }
             setLoading(false)
         }
