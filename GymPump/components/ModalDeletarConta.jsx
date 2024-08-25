@@ -3,6 +3,7 @@ import { Modal, StyleSheet, Text, View, TouchableWithoutFeedback, TextInput, Tou
 import {useAuth} from '../context/AuthContext'
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import ShowError from './ShowError'
 
 
 const ModalDeletarConta = ({showModal})=>{
@@ -14,7 +15,7 @@ const ModalDeletarConta = ({showModal})=>{
     const [password, setPassword] = useState('')
     const [txtConfirmed, setTextConfirmed] = useState('')
     const {token, user, logoutAuth} = useAuth()
-    const [error, setError] = useState('')
+    const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
     const deletarConta = async()=>{
@@ -26,15 +27,23 @@ const ModalDeletarConta = ({showModal})=>{
             senha: password
         })
 
-        if(result.data.result){
+        if(!result.data.error){
             if(SECRETTXTCONFIRMED === txtConfirmed){
 
                 const result  = await axios.delete(`https://gym-pump-api-apgp.vercel.app/api/user/delete/${user.id}`)
                 setLoading(false)
                 showModal()
                 logoutAuth()
+            }else{
+                setError('Digite "Deletar minha conta"')
+                
             }
+        }else{
+            setError("Senha incorreta!")
+            
         }
+
+        setLoading(false)
 
     }
 
@@ -47,6 +56,9 @@ const ModalDeletarConta = ({showModal})=>{
                                 <View style={styles.containerInput}>
                                     <TextInput style={styles.input} placeholder="Digite sua senha" onChangeText={(e)=>{setPassword(e)}} secureTextEntry/>
                                     <TextInput style={styles.input} placeholder="Digite: Deletar minha conta" placeholderTextColor="#A5A5A5" onChangeText={(e)=>{setTextConfirmed(e)}}/>
+                                    {error && (
+                                        <ShowError msg={error}/>
+                                    )}
                                 </View>
 
 
@@ -61,6 +73,8 @@ const ModalDeletarConta = ({showModal})=>{
                                             <Text style={styles.txtDelete}>Deletar conta</Text>
                                         </TouchableOpacity>
                                     </View>
+
+                                    
                                 )}
 
                             </View>
