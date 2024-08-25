@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, ScrollView, ActivityIndicator
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import axios from 'axios'
+import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 
 
 const Register = ()=>{
@@ -16,48 +17,66 @@ const Register = ()=>{
     const [showError, setShowError] = useState(null)
     const [loading, setLoading] = useState(false)
     const [emailErro, setEmailErro] = useState('')
+
+    const [showPass, setShowPass] = useState(true)
+    const [showPasstwo, setShowPasstwo] = useState(true)
+    const [userErro, setUserErro] = useState(null)
     
 
     const tenhoUmaConta = ()=>{
         navigation.navigate('Login')
     }
 
-    const handleRegister = async()=>{
-
+    const handleRegister = async () => {
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-        setLoading(true)
-        if(user && email && password && passwordAgain){//input
-            if(regexEmail.test(email)){//input
-                if(password === passwordAgain){ //input
-                    try{
-                        const response = await axios.post('https://gym-pump-api-apgp.vercel.app/api/register/user', {
+    
+        setLoading(true);
+    
+        if (user && email && password && passwordAgain) { // Check if all fields are filled
+            if (regexEmail.test(email)) { // Validate the email format
+                if (password === passwordAgain) { // Check if passwords match
+                    try {
+                        const response = await axios.post('http://192.168.0.102:8001/api/register/user', {
                             nome: user,
                             email: email,
                             senha: password
-                        })
-                        if(response.status === 200){
-                            navigation.navigate('Login')
+                        });
+                        if (response.status === 200) {
+                            navigation.navigate('Login');
                         }
-                    }catch(erro){
-                        if(erro.response.data.error){
-                            setEmailErro(erro.response.data.error)
+                    } catch (erro) {
+                        if (erro.response) {
+                            if (erro.response.data.error_email) {
+                                setEmailErro(erro.response.data.error_email);
+                            } else if (erro.response.data.error_user) {
+                                setUserErro(erro.response.data.error_user);
+                            } else {
+                                setShowError('Erro ao registrar. Tente novamente.');
+                            }
+                        } else {
+                            setShowError('Erro ao registrar. Tente novamente.');
                         }
                     }
-                }else{
-                    setShowError('As senhas nao sao iguais')
+                } else {
+                    setShowError('As senhas não são iguais');
                 }
-            }else{
-                setShowError('Email nao valido')
+            } else {
+                setShowError('Email não válido');
             }
-        }else{
-            setShowError('Preencha os campos de registro')
+        } else {
+            setShowError('Preencha os campos de registro');
         }
-        setLoading(false)
+        setLoading(false);
+    };
+    
 
-        
 
+    const handleShowPassword = ()=>{
+        setShowPass(!showPass)
+    }
+
+    const handleShowPasswordTwo = ()=>{
+        setShowPasstwo(!showPasstwo)
     }
 
     return(
@@ -67,14 +86,37 @@ const Register = ()=>{
                 <View style={styles.containerCadastro}>
                     <View style={styles.containerInputs}>
                         <TextInput placeholder='Digite seu nome de usuario'  style={styles.input} placeholderTextColor='gray' onChangeText={(e)=> setUser(e)}/>
+                        {userErro && (
+                            <View style={styles.containerError}>
+                                <Text>{userErro}</Text>
+                            </View>
+                        )}
                         <TextInput placeholder='Digite seu email' style={styles.input} placeholderTextColor='gray' onChangeText={(e)=>setEmail(e)}/>
                         {emailErro && (
                             <View style={styles.containerError}>
                                 <Text>{emailErro}</Text>
                             </View>
                         )}
-                        <TextInput placeholder='Digite sua senha' style={styles.input} placeholderTextColor='gray' onChangeText={(e)=>setPassWord(e)}/>
-                        <TextInput placeholder='Digite sua senha novamente' style={styles.input} placeholderTextColor='gray' onChangeText={(e)=>setPassWordAgain(e)}/>
+                        <View style={styles.containerPass}>
+                            <TextInput placeholder='Digite sua senha' style={styles.inputPass} placeholderTextColor='gray' onChangeText={(e)=>setPassWord(e)} secureTextEntry={showPass}/>
+                            <TouchableOpacity onPress={handleShowPassword}>
+                                {showPass ? (
+                                    <Ionicons name="eye" size={20} color="gray" />
+                                ): (
+                                    <Ionicons name="eye-off" size={20} color="gray" />
+                                )}
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.containerPass}>
+                            <TextInput placeholder='Digite sua senha novamente' style={styles.inputPass} placeholderTextColor='gray' onChangeText={(e)=>setPassWordAgain(e)} secureTextEntry={showPasstwo}/>
+                            <TouchableOpacity onPress={handleShowPasswordTwo}>
+                                {showPasstwo ? (
+                                    <Ionicons name="eye" size={20} color="gray" />
+                                ): (
+                                    <Ionicons name="eye-off" size={20} color="gray" />
+                                )}
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     {showError && (
                         <View style={styles.containerError}>
@@ -148,9 +190,16 @@ const styles = StyleSheet.create({
     input: {
         borderColor: 'gray',
         borderWidth: 1,
-        padding: 7,
         borderRadius: 5,
-        color: 'white'
+        padding: 7,
+        color: 'white',
+        width: '100%'
+    },
+    inputPass: {
+        borderRadius: 5,
+        padding: 7,
+        color: 'white',
+        width: '90%'
     },
     btnLogin: {
         backgroundColor: '#31346c',
@@ -159,6 +208,16 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    containerPass: {
+        flexDirection: "row",
+        width: "100%",
+        justifyContent: "center",
+        alignItems:"center",
+        borderWidth: 1,
+        borderColor: "gray",
+        borderRadius: 5,
+
     }
 })
 
