@@ -7,6 +7,22 @@ export const timeStyle = StyleSheet.create({
         backgroundColor: '#0c0d17'
     },
 
+    timeTip: {
+        zIndex: -1,
+        color: '#333863',
+        fontSize: 18,
+        textAlign: 'center',
+        marginTop: -120, // Adicione um espaçamento superior para centralizar verticalmente
+      },
+
+    iconTip: { 
+        zIndex: 99,
+       bottom: '10%',
+        right: '10%'
+       
+       
+    },
+
     containerTime: {
         flex: 1,
         justifyContent: 'space-evenly',

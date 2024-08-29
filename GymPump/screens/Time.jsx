@@ -8,6 +8,8 @@ import { timeStyle } from "../styles/Time/timeStyle";
 import LottieView from 'lottie-react-native'
 import StatusProfile from "../components/StatusProfile/StatusProfile";
 
+import { MaterialIcons } from '@expo/vector-icons';
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -23,7 +25,7 @@ const TimeScreen = () => {
   const bottomSheetRef = useRef(null)
   const [showAlertConfirmedTime, setShowAlertConfirmedTime] = useState(false)
   const [fadeIn] = useState(new Animated.Value(0))
-  const [timeData, setTimeData] = useState({minutos:0, segundos:0})
+  const [timeData, setTimeData] = useState({ minutos: 0, segundos: 0 })
 
   useEffect(() => {
     let interval;
@@ -36,10 +38,10 @@ const TimeScreen = () => {
     return () => clearInterval(interval);
   }, [running]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const minuto = Math.floor(tempoTotal / 60);
     const segundos = tempoTotal % 60;
-    if(timeData.minutos > 0 || timeData.segundos > 0){
+    if (timeData.minutos > 0 || timeData.segundos > 0) {
       if (minuto === timeData.minutos && segundos === timeData.segundos) {
         handleCallNotifications();
         setRunning(false);
@@ -48,10 +50,10 @@ const TimeScreen = () => {
   }, [tempoTotal])
 
 
-  useEffect(()=>{
-    const data = async()=>{
+  useEffect(() => {
+    const data = async () => {
       const data = await AsyncStorage.getItem('TimeDescanso')
-      if(data){
+      if (data) {
         setTimeData(JSON.parse(data))
       }
     }
@@ -68,11 +70,11 @@ const TimeScreen = () => {
   };
 
   const descanso = () => {
-    if(!isDescanso){
-        setRunning(true)
-        setIsDescanso(true)
-    }else{
-        return
+    if (!isDescanso) {
+      setRunning(true)
+      setIsDescanso(true)
+    } else {
+      return
     }
   };
 
@@ -104,15 +106,15 @@ const TimeScreen = () => {
     });
   };
 
-  const openConfig = ()=>{
+  const openConfig = () => {
     bottomSheetRef.current?.expand()
   }
 
-  const closeConfig = ()=>{
+  const closeConfig = () => {
     bottomSheetRef.current?.close()
   }
 
-  const alterarTime = (minutos, segundos)=>{
+  const alterarTime = (minutos, segundos) => {
     salvarTimeLocal(minutos, segundos)
     closeConfig()
 
@@ -135,14 +137,14 @@ const TimeScreen = () => {
     }, 2000);
   }
 
-  const salvarTimeLocal = async(minutos, segundos)=>{
-    const data = {minutos:Number(minutos), segundos:Number(segundos)}
-    setTimeData({minutos:Number(minutos),segundos:Number(segundos)})
+  const salvarTimeLocal = async (minutos, segundos) => {
+    const data = { minutos: Number(minutos), segundos: Number(segundos) }
+    setTimeData({ minutos: Number(minutos), segundos: Number(segundos) })
     const dataJson = JSON.stringify(data)
     await AsyncStorage.setItem('TimeDescanso', dataJson)
   }
 
-  const del = async()=>{
+  const del = async () => {
     await AsyncStorage.removeItem('TimeDescanso')
     console.log('deletado')
   }
@@ -153,24 +155,24 @@ const TimeScreen = () => {
 
   return (
     <View style={timeStyle.container}>
-      
+
       <View style={timeStyle.containerStatusProfile}>
-          <StatusProfile/>
+        <StatusProfile />
       </View>
-    
+
       <View style={timeStyle.containerTime}>
         <View style={timeStyle.cronometroContainer}>
           {isDescanso ? (
-              <Text style={timeStyle.cronometroText}>{obterMinutos()}:{obterSegundos()}s</Text>
-          ):(
-              <Text style={timeStyle.TextSubTitleCronometro}>Serie em andamento...</Text>
+            <Text style={timeStyle.cronometroText}>{obterMinutos()}:{obterSegundos()}s</Text>
+          ) : (
+            <Text style={timeStyle.TextSubTitleCronometro}>Serie em andamento...</Text>
           )}
 
           {!running && isDescanso && (
-              <Text style={timeStyle.TextSubTitleSerieOff}>Seu tempo de descanso acabou, Inicie a serie!</Text>
+            <Text style={timeStyle.TextSubTitleSerieOff}>Seu tempo de descanso acabou, Inicie a serie!</Text>
           )}
-          
-      
+
+
         </View>
 
 
@@ -179,21 +181,22 @@ const TimeScreen = () => {
             <TouchableOpacity style={timeStyle.botaoComecarSerie} onPress={comecarSerie}>
               <Text style={timeStyle.textBotao}>Começar série</Text>
             </TouchableOpacity>
-          ):(
+          ) : (
             <TouchableOpacity style={timeStyle.botaoDescanso} onPress={descanso}>
               <Text style={timeStyle.textBotao}>Descanso</Text>
               <Text style={timeStyle.textBotao}>{timeData.minutos}:{timeData.segundos}</Text>
             </TouchableOpacity>
           )}
-          
+
 
         </View>
+
       </View>
 
       <TouchableOpacity style={timeStyle.btnConfig} onPress={openConfig}>
-          <Ionicons name="cog" size={20} color='white'/>
+        <Ionicons name="cog" size={20} color='white' />
       </TouchableOpacity>
-      <ModalConfigTime bottomSheetRef={bottomSheetRef} alterarTime={alterarTime}/>
+      <ModalConfigTime bottomSheetRef={bottomSheetRef} alterarTime={alterarTime} />
       {showAlertConfirmedTime && (
         <Animated.View
           style={{
@@ -217,6 +220,14 @@ const TimeScreen = () => {
           </View>
         </Animated.View>
       )}
+
+
+      <View>
+
+        <Text style={timeStyle.timeTip}>Aqui voçê define seu tempo de descanço</Text>
+        <MaterialIcons style={timeStyle.iconTip} name="subdirectory-arrow-right" size={60} color="#333863" />
+
+      </View>
 
     </View>
   );

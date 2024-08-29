@@ -13,6 +13,7 @@ import Home from './screens/Home';
 import Login from './screens/Login'; // Importe a tela de login
 import Profile from './screens/Profile';
 import Register from './screens/Register';
+import Teste from './screens/teste';
 
 
 import {AuthProvider, useAuth} from './context/AuthContext'
@@ -51,6 +52,20 @@ const MainTabs = () => {
           <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
             bottom: focused ? 20 : 0 }}>
             <Ionicons name="timer" size={24} color="white" />
+          </View>
+        ),
+        headerShown: false
+      }}
+    />
+
+    <Tab.Screen
+      name="Teste"
+      component={Teste}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
+            bottom: focused ? 20 : 0 }}>
+            <Ionicons name="timer" size={24} color="green" />
           </View>
         ),
         headerShown: false
