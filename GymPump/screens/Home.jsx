@@ -7,7 +7,6 @@ import { Alert } from "react-native";
 import { homeStyle } from "../styles/Home/Home";
 import StatusProfile from "../components/StatusProfile/StatusProfile";
 import useFetchFolha from "../hooks/useFetchFolha";
-import BannerAds from "../components/BannerAds";
 import { MaterialIcons } from '@expo/vector-icons';
 
 
@@ -90,7 +89,6 @@ const Home = ({navigation}) => {
 
             <View style={homeStyle.containerStatusProfile}>
                 <StatusProfile />
-                <BannerAds/>
             </View>
 
 

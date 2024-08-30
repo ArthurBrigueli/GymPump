@@ -4,8 +4,6 @@ import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from '../context/AuthContext';
-import { BannerAd, TestIds } from 'react-native-google-mobile-ads';
-import BannerAds from '../components/BannerAds';
 
 const Login = ({navigation})=>{
 

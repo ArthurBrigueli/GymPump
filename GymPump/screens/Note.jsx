@@ -14,7 +14,6 @@ import EditTreino from '../components/EditTreino';
 import TreinoList from '../components/TreinoItem.jsx/TreinoList';
 import ExercicioList from '../components/TreinoItem.jsx/ExercicioList';
 import StatusProfile from '../components/StatusProfile/StatusProfile';
-import BannerAds from '../components/BannerAds';
 
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -112,7 +111,6 @@ const Note = ()=>{
             
             <View style={noteStyle.containerStatusProfile}>
                 <StatusProfile/>
-                <BannerAds/>
             </View>
 
             
