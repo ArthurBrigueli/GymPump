@@ -40,10 +40,10 @@ const Profile = ()=>{
                 <>
                     <View style={styles.containerProfile}>
                         <View style={styles.containerIconProfile}>
-                            {user && (<Text style={styles.txtIcon}>{user.nome[0]}</Text>)}
+                            {user && (<Text style={styles.txtIcon}>{user.name[0]}</Text>)}
                         </View>
                         <View>
-                            <Text style={styles.txt}>{user.nome}</Text>
+                            <Text style={styles.txt}>{user.name}</Text>
                             <Text style={styles.txt}>{user.email}</Text>
                         </View>
                     </View>

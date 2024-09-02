@@ -18,6 +18,8 @@ const Login = ({navigation})=>{
     useEffect(()=>{
 
         const persistenceLogin = async()=>{
+
+            await AsyncStorage.removeItem('TOKEN')
             
             setLoading(true)
 
@@ -47,9 +49,9 @@ const Login = ({navigation})=>{
 
         setLoading(true)
         try{
-            const response = await axios.post('https://gym-pump-api-apgp.vercel.app/api/login/user', {
-                nome: user,
-                senha: password
+            const response = await axios.post('http://192.168.0.102:8080/api/auth/login', {
+                name: user,
+                password: password
             })
             updateUserState(response.data.user, response.data.token)
             await AsyncStorage.setItem('TOKEN', response.data.token)

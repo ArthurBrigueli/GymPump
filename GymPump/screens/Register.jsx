@@ -36,10 +36,10 @@ const Register = ()=>{
             if (regexEmail.test(email)) { // Validate the email format
                 if (password === passwordAgain) { // Check if passwords match
                     try {
-                        const response = await axios.post('https://gym-pump-api-apgp.vercel.app/api/register/user', {
-                            nome: user,
+                        const response = await axios.post('http://192.168.0.102:8080/api/auth/register', {
+                            name: user,
                             email: email,
-                            senha: password
+                            password: password
                         });
                         if (response.status === 200) {
                             navigation.navigate('Login');
