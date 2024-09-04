@@ -8,7 +8,7 @@ const FormAddExercicio = ({closeModal, handleInput, handleSubmit, exercicio})=>{
                 <TouchableWithoutFeedback onPress={() => {}}>
                     <View style={AddTreinoStyle.containerModal}>
                         <View style={AddTreinoStyle.containerInputs}>
-                            <TextInput value={exercicio.nome} placeholder={'Nome do exercicio'} style={AddTreinoStyle.inputText} placeholderTextColor="black" onChangeText={(value) => handleInput('nome', value)}/>
+                            <TextInput value={exercicio.name} placeholder={'Nome do exercicio'} style={AddTreinoStyle.inputText} placeholderTextColor="black" onChangeText={(value) => handleInput('name', value)}/>
                             <TextInput value={exercicio.peso} keyboardType="numeric" placeholder={'Peso usado no exercicio'} placeholderTextColor="black" style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('peso', value)}/>
                             <TextInput value={exercicio.repeticao} keyboardType="numeric" placeholder={'Repetiçoes feitas'} placeholderTextColor="black"  style={AddTreinoStyle.inputText} onChangeText={(value)=> handleInput('repeticao', value)}/>
                         </View>

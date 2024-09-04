@@ -19,17 +19,19 @@ const Login = ({navigation})=>{
 
         const persistenceLogin = async()=>{
 
-            await AsyncStorage.removeItem('TOKEN')
-            
             setLoading(true)
 
             const token = await AsyncStorage.getItem('TOKEN')
             if(token){
-                const a = await axios.post('https://gym-pump-api-apgp.vercel.app/api/authentication/login', {
-                token: token
+                const a = await axios.post('http://192.168.0.102:8080/api/auth/persistence', {
+                    token: token
+                }, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
                 })
         
-                if(!a.data.error){
+                if(a.status == 200){
                     updateUserState(a.data, token)
                     navigation.navigate('MainTabs', {screen: 'Home'})
                 }else{

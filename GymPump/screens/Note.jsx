@@ -76,8 +76,8 @@ const Note = ()=>{
     }
 
 
-    const editTreino = (id, nome, data, exercicios)=>{
-        updateTreinoId(id, nome, data, exercicios)
+    const editTreino = (id, name, date, exercicios)=>{
+        updateTreinoId(id, name, date, exercicios)
 
     }
     
@@ -123,7 +123,7 @@ const Note = ()=>{
                         onScroll={(e)=>{handleFlayPosition(e)}}
                         renderItem={({ item, index }) => (
                             <View style={noteStyle.containerTreino}>
-                                <TreinoList name={item.nome} data={item.data}/>
+                                <TreinoList name={item.name} data={item.date}/>
                                 <View style={noteStyle.containerExercicios}>
                                     {item.exercicios && item.exercicios.map((exercicio, indexE) => (
                                         <ExercicioList key={indexE} exercicios={exercicio} limitarText={limitarString}/>

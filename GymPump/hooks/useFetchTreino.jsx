@@ -3,6 +3,7 @@ import { createTable, fetchTreinos, insertTreino, removeTable, updateExercicio, 
 import {format} from 'date-fns'
 import {useAuth} from '../context/AuthContext'
 import axios from 'axios'
+import { isReanimated3 } from 'react-native-reanimated';
 const useFetchTreino = (url)=>{
 
     const [idTreino, setIdTreino] = useState(null)
@@ -21,13 +22,19 @@ const useFetchTreino = (url)=>{
         
         const dataFormat = format(date, 'dd/MM/yyyy')
         if(user){
-            const idTreino = await axios.post('https://gym-pump-api-apgp.vercel.app/api/treinos/register', {
-                id_usuario: user.id,
-                nome: name,
-                data: dataFormat,
+            const idTreino = await axios.post('http://192.168.0.102:8080/api/treinos/treino/create', {
+                idUser: user.id,
+                name: name,
+                date: dataFormat,
                 exercicios: prevExercicios
+            },{
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             })
 
+
+            console.log(idTreino.data)
             setIdTreino(idTreino.data.id)
         }else{
             const idTreino = await insertTreino(name, dataFormat, JSON.stringify(prevExercicios))
@@ -44,8 +51,13 @@ const useFetchTreino = (url)=>{
 
     const update = async(id, exercicios)=>{
         if(user){
-            await axios.put(`https://gym-pump-api-apgp.vercel.app/api/user/${user.id}/treino/${id}/exercicios/register`, {
+            await axios.put(`http://192.168.0.102:8080/api/treinos/exercicios/add`, {
+                id: id,
                 exercicios: exercicios
+            },{
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             })
         }else{
             updateExercicio(id, JSON.stringify(exercicios))
@@ -53,37 +65,53 @@ const useFetchTreino = (url)=>{
         setCallBack(!callBack)
     }
 
-    const updateTreinoId = async(id, nome, data, exercicios) => {
+    const updateTreinoId = async(id, name, data, exercicios) => {
 
         if(user){
-            const result = await axios.put(`https://gym-pump-api-apgp.vercel.app/api/user/${user.id}/treino/${id}/update`, {
-                nome: nome,
-                data: data,
+            const result = await axios.put(`http://192.168.0.102:8080/api/treinos/treino/update/${id}`, {
+                idUser: user.id,
+                name: name,
+                date: data,
                 exercicios: exercicios
+            },{
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             })
             
         }else{
-            updateTreino(id, nome, data, JSON.stringify(exercicios))
+            updateTreino(id, name, data, JSON.stringify(exercicios))
         }
         setCallBack(!callBack)
     }
 
     const removeTreinoId = async(id)=>{
+        setloading(true)
         if(user){
-            await axios.delete(`https://gym-pump-api-apgp.vercel.app/api/treinos/delete/${user.id}/${id}`)
+            await axios.delete(`http://192.168.0.102:8080/api/treinos/delete/${id}/user/${user.id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
         }else{
             deleteId(id)
         }
         setCallBack(!callBack)
+        setloading(false)
     }
 
     const fetchIdTreino = async(id)=>{
         setLoadingEdit(true)
 
         if(user){
-            const result = await axios.get(`https://gym-pump-api-apgp.vercel.app/api/treino/${user.id}/${id}`)
+            const result = await axios.get(`http://192.168.0.102:8080/api/treinos/user/treino/${id}/${user.id}`,{
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+            console.log(result.data)
             setLoadingEdit(false)
-            setDataId(result.data)
+            setDataId([result.data])
         }else{
             fetchTreinoId(id, (treino)=>{
                 const treinoAtualizado = treino.map((treino)=> {
@@ -106,7 +134,11 @@ const useFetchTreino = (url)=>{
             const fetchData = async()=>{
 
                 if(user){
-                    const data = await axios.get(`https://gym-pump-api-apgp.vercel.app/api/treinos/${user.id}`)
+                    const data = await axios.get(`http://192.168.0.102:8080/api/treinos/user/${user.id}`, {
+                        headers: {
+                            "Authorization":`Bearer ${token}`
+                        }
+                    })
                     const treinos = data.data
                     setData(treinos)
                 }else{

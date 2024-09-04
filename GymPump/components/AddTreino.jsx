@@ -17,7 +17,7 @@ const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
 
 
     const [exercicio, setExercicio] = useState({
-        nome: '',
+        name: '',
         peso: '',
         repeticao: ''
     })
@@ -34,7 +34,7 @@ const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
 
     const resetExercicio = () => {
         setExercicio({
-          nome: '',
+          name: '',
           peso: '',
           repeticao: ''
         });
@@ -87,7 +87,7 @@ const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
                 {exercicios.map((e, index) => (
                     <View key={index} style={AddTreinoStyle.containerExercicio}>
                         <View style={AddTreinoStyle.containerExercicioInfo}>
-                            <Text style={AddTreinoStyle.TextTitulo}>{e.nome}</Text>
+                            <Text style={AddTreinoStyle.TextTitulo}>{e.name}</Text>
                             <Text style={AddTreinoStyle.Text}>{e.repeticao} REP</Text>
                             <Text style={AddTreinoStyle.Text}>{e.peso} KG</Text>
                         </View>
