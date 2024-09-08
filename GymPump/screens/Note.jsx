@@ -11,11 +11,12 @@ import { noteStyle } from '../styles/Note/noteStyle';
 import { Icon } from 'react-native-elements';
 import EditTreino from '../components/EditTreino';
 
-import TreinoList from '../components/TreinoItem.jsx/TreinoList';
-import ExercicioList from '../components/TreinoItem.jsx/ExercicioList';
+import TreinoList from '../components/TreinoItem/TreinoList';
+import ExercicioList from '../components/TreinoItem/ExercicioList';
 import StatusProfile from '../components/StatusProfile/StatusProfile';
 
 import { MaterialIcons } from '@expo/vector-icons';
+import Treino from '../components/Treino';
 
 const Note = ()=>{
 
@@ -122,32 +123,7 @@ const Note = ()=>{
                         keyExtractor={(item, index) => index.toString()}
                         onScroll={(e)=>{handleFlayPosition(e)}}
                         renderItem={({ item, index }) => (
-                            <View style={noteStyle.containerTreino}>
-                                <TreinoList name={item.nome} data={item.data}/>
-                                <View style={noteStyle.containerExercicios}>
-                                    {item.exercicios && item.exercicios.map((exercicio, indexE) => (
-                                        <ExercicioList key={indexE} exercicios={exercicio} limitarText={limitarString}/>
-                                    ))}
-                                </View>
-
-                                <View style={noteStyle.containerbtn}>
-                                    <TouchableOpacity style={noteStyle.btnEdit} onPress={()=>{openModalEdit(item.id)}} disabled={loadingEdit}>
-                                        {loadingEdit ? (
-                                            <ActivityIndicator size='small' color='black' />
-                                        ):(
-                                            <Icon name='edit' color='black'/>
-                                        )}
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={noteStyle.btnExcluir} onPress={()=>excluirExercicio(item.id)} disabled={loading}>
-                                        {loading ? (
-                                            <ActivityIndicator size='small' color='white'/>
-                                        ): (
-                                            <Icon name='clear' color='white'/>
-                                        )}
-                                    </TouchableOpacity>
-                                </View>
-
-                            </View>
+                            <Treino item={item} openModalEdit={openModalEdit} excluirExercicio={excluirExercicio} loading={loading} loadingEdit={loadingEdit} limitarString={limitarString}/>
                         )}
                     />
                 ):(

@@ -21,6 +21,7 @@ const Login = ({navigation})=>{
             
             setLoading(true)
 
+
             const token = await AsyncStorage.getItem('TOKEN')
             if(token){
                 const a = await axios.post('https://gym-pump-api-apgp.vercel.app/api/authentication/login', {
