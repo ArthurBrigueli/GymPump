@@ -18,17 +18,21 @@ const Login = ({navigation})=>{
     useEffect(()=>{
 
         const persistenceLogin = async()=>{
-            
-            setLoading(true)
 
+
+            setLoading(true)
 
             const token = await AsyncStorage.getItem('TOKEN')
             if(token){
-                const a = await axios.post('https://gym-pump-api-apgp.vercel.app/api/authentication/login', {
-                token: token
+                const a = await axios.post('http://192.168.0.102:8082/api/auth/persistence', {
+                    token: token
+                }, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
                 })
         
-                if(!a.data.error){
+                if(a.status == 200){
                     updateUserState(a.data, token)
                     navigation.navigate('MainTabs', {screen: 'Home'})
                 }else{
@@ -48,9 +52,9 @@ const Login = ({navigation})=>{
 
         setLoading(true)
         try{
-            const response = await axios.post('https://gym-pump-api-apgp.vercel.app/api/login/user', {
-                nome: user,
-                senha: password
+            const response = await axios.post('http://192.168.0.102:8082/api/auth/login', {
+                name: user,
+                password: password
             })
             updateUserState(response.data.user, response.data.token)
             await AsyncStorage.setItem('TOKEN', response.data.token)

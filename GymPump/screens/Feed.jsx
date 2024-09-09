@@ -1,4 +1,4 @@
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
+import {View, StyleSheet, Text, TouchableOpacity, Alert} from 'react-native'
 
 import StatusProfile from '../components/StatusProfile/StatusProfile'
 import SearchProfile from '../components/ShearchProfile'
@@ -12,6 +12,7 @@ import { useAuth } from '../context/AuthContext';
 
 
 
+
 const Feed = ({navigation})=>{
 
 
@@ -21,8 +22,8 @@ const Feed = ({navigation})=>{
     const debounceTimeoutRef = useRef(null);
     const [messages, setMessages] = useState([]);
     const {user, token, logoutAuth} = useAuth()
-    
 
+    
 
     useEffect(()=>{
         
@@ -30,9 +31,10 @@ const Feed = ({navigation})=>{
             
             try{
                 console.log(search)
-                const result = await axios.get(`http://192.168.0.102:8080/api/auth/search/user/${search}`)
+                const result = await axios.get(`http://192.168.0.102:8082/api/auth/search/user/${search}`)
                 setShowSearch(true)
                 setDataSearch(result.data)
+                console.log(result.data)
 
             }catch(error){
                 setShowSearch(false)
@@ -59,8 +61,17 @@ const Feed = ({navigation})=>{
     }, [search])
 
 
-    const handleSearchUser = (idReceiver, name)=>{
-        
+    const handleSearchUser = async(idReceiver, name)=>{
+        try{
+            const result = await axios.post("http://192.168.0.102:8082/api/friends/envited", {
+                senderId: idReceiver,
+                receiverId: user.id
+            })
+
+
+        }catch(error){
+            console.log(error)
+        }
     }
 
 
@@ -74,9 +85,6 @@ const Feed = ({navigation})=>{
                 <ScrollView style={{marginBottom: 60}}>
                     <View style={{justifyContent: 'center', alignItems: 'center', position:'relative'}}>
                         <SearchProfile setSearch={setSearch}/>
-                        {messages.map((msg, index) => (
-                            <Text key={index}>{`Sender: ${msg.senderId}, Receiver: ${msg.receiverId}, Status: ${msg.status}`}</Text>
-                        ))}
                         {showSearch && (
                             <View style={styles.containerSearchList}>
                                 {dataSearch.map((user, index)=>(

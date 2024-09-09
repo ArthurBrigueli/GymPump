@@ -24,6 +24,9 @@ import Newpassword from './screens/Newpassword';
 import TutorialUser from './screens/TutorialUser';
 import Feed from './screens/Feed';
 
+import 'text-encoding';
+
+
 
 
 const Tab = createBottomTabNavigator();
