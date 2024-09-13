@@ -21,6 +21,7 @@ const Login = ({navigation})=>{
 
 
             setLoading(true)
+            
 
             const token = await AsyncStorage.getItem('TOKEN')
             if(token){

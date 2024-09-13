@@ -1,8 +1,9 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import { noteStyle } from '../../styles/Note/noteStyle'
 import { format } from 'date-fns'
+import { Ionicons } from '@expo/vector-icons'
 
-const TreinoList = ({name, data})=>{
+const TreinoList = ({name, data, share})=>{
 
     const date = new Date()
     const dataform = format(date, 'dd/MM/yyyy')
@@ -13,10 +14,10 @@ const TreinoList = ({name, data})=>{
                 <Text style={noteStyle.txtNome}>{name}</Text>
                 <Text>{data}</Text>
             </View>
-            {dataform == data && (
-                <View style={styles.containerDate}>
-                </View>
-            )}
+            <TouchableOpacity onPress={()=>{share()}}>
+                <Ionicons name="share-social-outline" size={25} color="black" />
+            </TouchableOpacity>
+            
         </View>
     )
 }

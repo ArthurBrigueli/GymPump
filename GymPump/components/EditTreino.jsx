@@ -12,7 +12,7 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
     const [data, setData] = useState(dataEdit)
     const [openModal, setOpenModal] = useState(false)
     const [newExercicio, setNewExercicio] = useState({
-        nome: "",
+        name: "",
         peso: "",
         repeticao: ""
     })
@@ -39,7 +39,7 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
 
 
     const edit = ()=>{
-        editTreino(data[0].id, data[0].nome, data[0].data, data[0].exercicios)
+        editTreino(data[0].id, data[0].name, data[0].date, data[0].exercicios)
         closeModal()
         Alert.alert('Treino editado', 'Seu treino foi editado com sucesso!')
     }
@@ -64,7 +64,7 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
         prev.push(newExercicio)
         data[0].exercicios = prev
         setNewExercicio({
-            nome: "",
+            name: "",
             peso: "",
             repeticao: ""
         })
@@ -101,8 +101,8 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
                         <ScrollView key={index}  onScroll={handleTest}>
                             <View style={styles.containerEdit}>
                                 <View style={styles.containerInfo}>
-                                    <TextInput value={e.nome} style={styles.inputNome} onChangeText={(e)=>handleData(index, 'nome', e)}/>
-                                    <TextInput style={styles.input} value={e.data} onChangeText={(e)=>handleData(index,'data', e)}/>
+                                    <TextInput value={e.name} style={styles.inputNome} onChangeText={(e)=>handleData(index, 'name', e)}/>
+                                    <TextInput style={styles.input} value={e.date} onChangeText={(e)=>handleData(index,'date', e)}/>
                                 </View>
                                 <View style={styles.containerExercicios}>
                                     {Array.isArray(e.exercicios) && e.exercicios.map((ex, indexEx)=>(
@@ -113,7 +113,7 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
                                                 </TouchableOpacity>
                                             </View>
                                             <View style={styles.containerInfoExercicio}>
-                                                <TextInput value={ex.nome} style={styles.inputExercicio} onChangeText={(e)=>{handleExercicios(indexEx, 'nome', e)}}/>
+                                                <TextInput value={ex.name} style={styles.inputExercicio} onChangeText={(e)=>{handleExercicios(indexEx, 'name', e)}}/>
                                                 <View style={styles.containerInfo}>
                                                     <TextInput style={styles.inputExercicio} value={ex.peso} onChangeText={(e)=>{handleExercicios(indexEx, 'peso', e)}}/>
                                                     <TextInput style={styles.inputExercicio} value={ex.repeticao} onChangeText={(e)=>{handleExercicios(indexEx, 'repeticao', e)}}/>

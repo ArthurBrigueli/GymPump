@@ -4,14 +4,35 @@ import { Icon } from 'react-native-elements';
 
 import TreinoList from '../components/TreinoItem/TreinoList';
 import ExercicioList from '../components/TreinoItem/ExercicioList';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+
 
 const Treino = ({item, openModalEdit, excluirExercicio, loading, loadingEdit, limitarString})=>{
 
 
+    const {user, token, logoutAuth} = useAuth()
+
+
+    const share = async()=>{
+
+        const result = await axios.post('http://192.168.0.102:8082/api/posts/post/create',{
+            idUser: item.idUser,
+            title: item.name,
+            content: item.exercicios
+        },{
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+
+        console.log(result.data)
+
+    }
 
     return(
         <View style={noteStyle.containerTreino}>
-            <TreinoList name={item.nome} data={item.data}/>
+            <TreinoList name={item.name} data={item.date} share={share}/>
             <View style={noteStyle.containerExercicios}>
                 {item.exercicios && item.exercicios.map((exercicio, indexE) => (
                     <ExercicioList key={indexE} exercicios={exercicio} limitarText={limitarString}/>

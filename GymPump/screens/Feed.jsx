@@ -61,12 +61,20 @@ const Feed = ({navigation})=>{
     }, [search])
 
 
+    
+
+
     const handleSearchUser = async(idReceiver, name)=>{
         try{
             const result = await axios.post("http://192.168.0.102:8082/api/friends/envited", {
                 senderId: idReceiver,
-                receiverId: user.id
+                nameSender: name,
+                receiverId: user.id,
+                nameReceiver: user.name
             })
+            
+            setShowSearch(true)
+            setDataSearch(result.data)
 
 
         }catch(error){
@@ -84,15 +92,36 @@ const Feed = ({navigation})=>{
             <View>
                 <ScrollView style={{marginBottom: 60}}>
                     <View style={{justifyContent: 'center', alignItems: 'center', position:'relative'}}>
-                        <SearchProfile setSearch={setSearch}/>
+                        <View>
+                            <SearchProfile setSearch={setSearch}/>
+                        </View>
                         {showSearch && (
                             <View style={styles.containerSearchList}>
-                                {dataSearch.map((user, index)=>(
-                                    <View key={index} style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                                        <Text style={{color: 'white'}}>{`${user.name} #${user.id}`}</Text>
-                                        <TouchableOpacity onPress={()=>{handleSearchUser(user.id, user.name)}}>
-                                            <Ionicons name="person-add-outline" size={20} color="white" />
-                                        </TouchableOpacity>
+                                {dataSearch.map((userSearch, index)=>(
+                                    <View key={index} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                                        <Text style={{color: 'white'}}>{`${userSearch.name} #${userSearch.id}`}</Text>
+                                        {userSearch.status == "ACCEPTED" ? (
+                                                <TouchableOpacity onPress={()=>{handleSearchUser(userSearch.id, userSearch.name)}}>
+                                                    <Text style={{color: 'white', backgroundColor: '#22233C', borderRadius: 10, padding: 5, fontSize: 12    }}>Amigo</Text>
+                                                </TouchableOpacity>
+                                        ):userSearch.status == 'PENDING' ?(
+                                            
+                                            <TouchableOpacity onPress={()=>{handleSearchUser(userSearch.id, userSearch.name)}}>
+                                                <Text style={{color: 'white', backgroundColor: '#22233C', borderRadius: 10, padding: 5, fontSize: 12    }}>Pendente</Text>
+                                            </TouchableOpacity>
+                                        ):userSearch.id == user.id ?(
+                                            <TouchableOpacity onPress={()=>{handleSearchUser(userSearch.id, userSearch.name)}}>
+                                                <Text style={{color: 'white', backgroundColor: '#22233C', borderRadius: 10, padding: 5, fontSize: 12    }}>Você</Text>
+                                            </TouchableOpacity>
+                                        ):(
+
+                                            <TouchableOpacity onPress={()=>{handleSearchUser(userSearch.id, userSearch.name)}}>
+                                                <Ionicons name="person-add-outline" size={20} color="white" />
+                                            </TouchableOpacity>
+                                        
+                                        )}
+
+                                        
 
                                     </View>
                                 ))}
@@ -101,10 +130,7 @@ const Feed = ({navigation})=>{
                     </View>
 
                     <View style={styles.containerFeed}>
-                        <Post/>
-                        <Post/>
-                        <Post/>
-                        <Post/>
+                        
                     </View>
                 </ScrollView>
             </View>
@@ -128,7 +154,9 @@ const styles = StyleSheet.create({
         marginTop: 20,
         flex: 1,
         alignItems: 'center',
-        padding: 10
+        padding: 10,
+        backgroundColor: 'red',
+        zIndex: 1
     },
     feed: {
         backgroundColor: 'white',
