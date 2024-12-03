@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator} from 'react-native'
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from '../context/AuthContext';
+import ModalLoginProfile from '../components/ModalLoginProfile';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Login = ({navigation})=>{
 
@@ -13,6 +15,9 @@ const Login = ({navigation})=>{
     const {updateUserState} = useAuth()
     const [showError, setShowError] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [dataLogin, setDataLogin] = useState()
+
+    const openRefModal = useRef(null)
 
 
     useEffect(()=>{
@@ -24,21 +29,42 @@ const Login = ({navigation})=>{
             const token = await AsyncStorage.getItem('TOKEN')
             if(token){
                 const a = await axios.post('https://gym-pump-api-apgp.vercel.app/api/authentication/login', {
-                token: token
+                    token: token
                 })
         
-                if(!a.data.error){
-                    updateUserState(a.data, token)
-                    navigation.navigate('MainTabs', {screen: 'Home'})
+                if(a.data){
+                    setDataLogin([a.data, token])
+                    openRefModal.current?.expand()
                 }else{
-                    await AsyncStorage.removeItem("TOKEN")
+                    openRefModal.current?.close()
                 }
             }
             setLoading(false)
         }
     
         persistenceLogin()
-      },[])
+    },[])
+
+
+    
+
+
+    const logina = async(token)=>{
+        console.log(token)
+        if(token){
+            const a = await axios.post('https://gym-pump-api-apgp.vercel.app/api/authentication/login', {
+                token: token
+            })
+    
+            if(a.data){
+                updateUserState(a.data, token)
+                navigation.navigate('MainTabs', {screen: 'Home'})
+            }else{
+                await AsyncStorage.removeItem("TOKEN")
+            }
+        }
+    }
+    
     
 
 
@@ -122,6 +148,9 @@ const Login = ({navigation})=>{
                     </View>
                 </View>
             </View>
+
+            <ModalLoginProfile open={openRefModal} data={dataLogin} login={logina}/>
+
         </View>
     )
 }
