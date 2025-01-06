@@ -23,17 +23,9 @@ const StatusProfile = ()=>{
 
     return(
         <View style={styles.container}>
-            {user ? (
-                <TouchableOpacity style={styles.containerProfile} onPress={handleProfile}>
-                    {user && (<Text>{user.nome[0]}</Text>)}
-                </TouchableOpacity>
-            ):(
-                <View style={styles.containerInfo}>
-                    <TouchableOpacity>
-                        <Text style={styles.txt}>Você esta usando o modo Local</Text>
-                    </TouchableOpacity>
-                </View>
-            )}
+            <TouchableOpacity style={styles.containerProfile} onPress={handleProfile}>
+                {user && (<Text>{user.nome[0]}</Text>)}
+            </TouchableOpacity>
 
         </View>
 

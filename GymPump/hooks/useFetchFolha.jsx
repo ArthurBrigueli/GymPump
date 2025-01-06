@@ -12,25 +12,16 @@ const useFetchFolha = (url)=>{
 
     const add = async(data)=>{
 
-        if(user){
-            await axios.post('https://gym-pump-api-apgp.vercel.app/api/folha/register', {
-                id_usuario:user.id,
-                folha: JSON.stringify(data)
-            })
-        }else{
-            const dataA = JSON.stringify(data)
-            await AsyncStorage.setItem('FolhaDeTreino', dataA)
-        }
+        await axios.post('https://gym-pump-api-apgp.vercel.app/api/folha/register', {
+            id_usuario:user.id,
+            folha: JSON.stringify(data)
+        })
         setCallBack(!callBack)
     }
 
     const remove = async()=>{
 
-        if(user){
-            await axios.delete(`https://gym-pump-api-apgp.vercel.app/api/folha/delete/${user.id}`)
-        }else{
-            await AsyncStorage.removeItem('FolhaDeTreino');
-        }
+        await axios.delete(`https://gym-pump-api-apgp.vercel.app/api/folha/delete/${user.id}`)
 
         setCallBack(!callBack)
     }
@@ -38,16 +29,9 @@ const useFetchFolha = (url)=>{
     useEffect(()=>{
         const fetchData = async()=>{
 
-            if(user){
-                const result = await axios.get(`https://gym-pump-api-apgp.vercel.app/api/folha/${user.id}`)
-                const data = result.data.folha
-                setData(data)
-                
-            }else{
-                const data = await AsyncStorage.getItem('FolhaDeTreino')
-                const dataForm = JSON.parse(data)
-                setData(dataForm)
-            }
+            const result = await axios.get(`https://gym-pump-api-apgp.vercel.app/api/folha/${user.id}`)
+            const data = result.data.folha
+            setData(data)
 
             
         }

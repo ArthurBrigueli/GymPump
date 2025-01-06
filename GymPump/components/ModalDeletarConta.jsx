@@ -4,6 +4,7 @@ import {useAuth} from '../context/AuthContext'
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import ShowError from './ShowError'
+import { useNavigation } from '@react-navigation/native';
 
 
 const ModalDeletarConta = ({showModal})=>{
@@ -17,6 +18,7 @@ const ModalDeletarConta = ({showModal})=>{
     const {token, user, logoutAuth} = useAuth()
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
+    const navigation = useNavigation()
 
     const deletarConta = async()=>{
 
@@ -34,6 +36,7 @@ const ModalDeletarConta = ({showModal})=>{
                 setLoading(false)
                 showModal()
                 logoutAuth()
+                navigation.navigate('Login')
             }else{
                 setError('Digite "Deletar minha conta"')
                 

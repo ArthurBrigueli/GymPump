@@ -5,7 +5,6 @@ import CreateTreino from '../components/CreateTreino';
 import { useState, useEffect } from 'react';
 import AddTreino from '../components/AddTreino';
 import {format} from 'date-fns'
-import { createTable, fetchTreinos, insertTreino, removeTable, deleteId } from '../databases/DataBase';
 import useFetchTreino from '../hooks/useFetchTreino';
 import { noteStyle } from '../styles/Note/noteStyle';
 import { Icon } from 'react-native-elements';
@@ -31,9 +30,6 @@ const Note = ()=>{
     const [date, setDate] = useState(new Date())
     const [titulo, setTitulo] = useState('')
 
-    useEffect(() => {
-        createTable();
-    }, []);
 
     const openModalAdd = ()=>{
         modalRefAdd.current?.expand()

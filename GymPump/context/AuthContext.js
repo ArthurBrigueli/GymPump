@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
     setUser('')
     setToken('')
     await AsyncStorage.removeItem('TOKEN')
-
   }
 
   return (
