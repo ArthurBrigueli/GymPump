@@ -144,7 +144,6 @@ const TimeScreen = () => {
 
   const del = async()=>{
     await AsyncStorage.removeItem('TimeDescanso')
-    console.log('deletado')
   }
 
 

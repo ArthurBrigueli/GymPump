@@ -4,7 +4,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import axios from 'axios'
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
-
+import {API_URL} from '@env'
 
 const Register = ()=>{
 
@@ -36,7 +36,7 @@ const Register = ()=>{
             if (regexEmail.test(email)) { // Validate the email format
                 if (password === passwordAgain) { // Check if passwords match
                     try {
-                        const response = await axios.post('http://192.168.0.102:8082/api/auth/register', {
+                        const response = await axios.post(`${API_URL}/api/auth/register`, {
                             name: user,
                             email: email,
                             password: password

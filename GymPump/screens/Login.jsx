@@ -4,6 +4,7 @@ import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from '../context/AuthContext';
+import {API_URL} from '@env'
 
 const Login = ({navigation})=>{
 
@@ -13,6 +14,7 @@ const Login = ({navigation})=>{
     const {updateUserState} = useAuth()
     const [showError, setShowError] = useState(null)
     const [loading, setLoading] = useState(false)
+
 
 
     useEffect(()=>{
@@ -25,7 +27,7 @@ const Login = ({navigation})=>{
 
             const token = await AsyncStorage.getItem('TOKEN')
             if(token){
-                const a = await axios.post('http://192.168.0.102:8082/api/auth/persistence', {
+                const a = await axios.post(`${API_URL}/api/auth/persistence`, {
                     token: token
                 }, {
                     headers: {
@@ -53,7 +55,7 @@ const Login = ({navigation})=>{
 
         setLoading(true)
         try{
-            const response = await axios.post('http://192.168.0.102:8082/api/auth/login', {
+            const response = await axios.post(`${API_URL}/api/auth/login`, {
                 name: user,
                 password: password
             })

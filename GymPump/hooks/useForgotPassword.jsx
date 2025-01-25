@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-
+import {API_URL} from '@env'
 const useForgotPassword = () => {
     const [loading, setLoading] = useState(false);
 
@@ -8,7 +8,7 @@ const useForgotPassword = () => {
 
         try {
             setLoading(true); // Inicia o carregamento
-            const result = await axios.post(`http://192.168.0.102:8082/api/auth/forgotpassword/${email}`, {
+            const result = await axios.post(`${API_URL}/api/auth/forgotpassword/${email}`, {
                 code: code
             });
             return result;
@@ -22,7 +22,7 @@ const useForgotPassword = () => {
     const setNewPassword = async (password, email) => {
         try {
             setLoading(true); // Inicia o carregamento
-            const result = await axios.post(`http://192.168.0.102:8082/api/auth/forgotpassword/newpassword/${email}`, {
+            const result = await axios.post(`${API_URL}/api/auth/forgotpassword/newpassword/${email}`, {
                 password: password
             });
             return result;

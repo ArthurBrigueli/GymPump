@@ -26,7 +26,6 @@ const Treino = ({item, openModalEdit, excluirExercicio, loading, loadingEdit, li
             }
         })
 
-        console.log(result.data)
 
     }
 

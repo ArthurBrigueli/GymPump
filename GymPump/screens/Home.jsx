@@ -58,7 +58,6 @@ const Home = ({navigation}) => {
     useEffect(()=>{
         const verificationTutorialUser = async ()=>{  
             const showTutorialNewUser = await AsyncStorage.getItem("TutorialNewUser") || "false";
-            console.log(showTutorialNewUser)
             if(showTutorialNewUser == "false"){
                 navigation.navigate('TutorialUser')
             }
