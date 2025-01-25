@@ -79,10 +79,6 @@ const Login = ({navigation})=>{
         navigation.navigate('ForgotPassword')
     }
 
-    const handleJoinLocal = ()=>{
-        navigation.navigate('MainTabs', {screen: 'Home'})
-    }
-
     return(
         <View style={styles.container}>
             <View style={styles.containerForm}>
@@ -121,9 +117,6 @@ const Login = ({navigation})=>{
                         )}
                         <TouchableOpacity onPress={handleCriarConta}>
                             <Text style={styles.txt}>Criar conta</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={handleJoinLocal}>
-                            <Text style={styles.txt}>Entrar localmente</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
