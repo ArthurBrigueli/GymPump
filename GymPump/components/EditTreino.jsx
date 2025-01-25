@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, TouchableWithoutFeedback, ScrollView} from "react-native"
-import BottomSheet from '@gorhom/bottom-sheet'
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Icon } from "react-native-elements"
 import { AddTreinoStyle } from "../styles/AddTreino/AddTreinoStyle"
@@ -95,8 +95,9 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
             backgroundStyle={{backgroundColor: 'white'}}
             enablePanDownToClose={true}
         >
-            <View style={styles.container}>
-                {!loading ? (
+
+            <BottomSheetView style={styles.container}>
+            {!loading ? (
                     data && data.map((e, index)=>(
                         <ScrollView key={index}  onScroll={handleTest}>
                             <View style={styles.containerEdit}>
@@ -155,8 +156,8 @@ const EditTreino = ({modalRefEdit, closeModal, data:dataEdit, loading, editTrein
                 {openModal && (
                     <FormAddExercicio closeModal={closeOpenModal} handleSubmit={handleSubmit} handleInput={handleInput} exercicio={newExercicio}/>
                 )}
-
-            </View>
+            </BottomSheetView>
+            
             
         </BottomSheet>
     )

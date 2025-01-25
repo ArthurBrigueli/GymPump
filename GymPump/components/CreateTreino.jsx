@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, TextInput, Button, StyleSheet} from 'react-native'
-import BottomSheet from '@gorhom/bottom-sheet'
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 import { useMemo } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { useState } from 'react'
@@ -39,8 +39,7 @@ const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, a
             enablePanDownToClose={true}
         >
 
-            <View style={CreateTreinoStyle.container}>
-
+            <BottomSheetView style={CreateTreinoStyle.container}> 
                 <View style={CreateTreinoStyle.containerInputs}>
                     <View style={CreateTreinoStyle.containerDate}>
                         <TouchableOpacity style={CreateTreinoStyle.btnDate} onPress={()=>openDatePicker("date")}>
@@ -67,7 +66,7 @@ const CreateTreino = ({modalRef, closeModal, setTitulo, titulo, setDate, date, a
                         display='spinner'
                     />
                 )}
-            </View>
+            </BottomSheetView>
 
         </BottomSheet>
     )

@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, TextInput, NumberInput} from 'react-native'
-import BottomSheet from '@gorhom/bottom-sheet'
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 import { useMemo } from 'react'
 import { format } from 'date-fns'
 import { Ionicons } from '@expo/vector-icons';
@@ -78,40 +78,42 @@ const AddTreino = ({openRef, date, titulo, closeM, addExercicios})=>{
             enablePanDownToClose={true}
         >
 
-            <View style={AddTreinoStyle.containerInf}>
-                <Text>{format(date, 'dd/MM/yyyy').toString()}</Text>
-                <Text>{titulo}</Text>
-            </View>
+            <BottomSheetView style={{flex: 1}}>
+                <View style={AddTreinoStyle.containerInf}>
+                    <Text>{format(date, 'dd/MM/yyyy').toString()}</Text>
+                    <Text>{titulo}</Text>
+                </View>
 
-            <View style={AddTreinoStyle.containerExercicios}>
-                {exercicios.map((e, index) => (
-                    <View key={index} style={AddTreinoStyle.containerExercicio}>
-                        <View style={AddTreinoStyle.containerExercicioInfo}>
-                            <Text style={AddTreinoStyle.TextTitulo}>{e.name}</Text>
-                            <Text style={AddTreinoStyle.Text}>{e.repeticao} REP</Text>
-                            <Text style={AddTreinoStyle.Text}>{e.peso} KG</Text>
+                <View style={AddTreinoStyle.containerExercicios}>
+                    {exercicios.map((e, index) => (
+                        <View key={index} style={AddTreinoStyle.containerExercicio}>
+                            <View style={AddTreinoStyle.containerExercicioInfo}>
+                                <Text style={AddTreinoStyle.TextTitulo}>{e.name}</Text>
+                                <Text style={AddTreinoStyle.Text}>{e.repeticao} REP</Text>
+                                <Text style={AddTreinoStyle.Text}>{e.peso} KG</Text>
+                            </View>
+                            <View style={AddTreinoStyle.containerBtnTrash}>
+                                <TouchableOpacity style={AddTreinoStyle.btnExcluir} onPress={()=>{handleExcluir(index)}}>
+                                    <Ionicons name="trash" size={20} color="black" />
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        <View style={AddTreinoStyle.containerBtnTrash}>
-                            <TouchableOpacity style={AddTreinoStyle.btnExcluir} onPress={()=>{handleExcluir(index)}}>
-                                <Ionicons name="trash" size={20} color="black" />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                ))}
-                
-            </View>
+                    ))}
+                    
+                </View>
 
-            <TouchableOpacity style={AddTreinoStyle.btnAdd} onPress={addExercicio}>
-                <Ionicons name="add" size={20} color="white" />
-            </TouchableOpacity>
+                <TouchableOpacity style={AddTreinoStyle.btnAdd} onPress={addExercicio}>
+                    <Ionicons name="add" size={20} color="white" />
+                </TouchableOpacity>
 
-            <TouchableOpacity style={AddTreinoStyle.btnsave} onPress={saveExercicios}>
-                <Ionicons name="save" size={20} color="white" />
-            </TouchableOpacity>
+                <TouchableOpacity style={AddTreinoStyle.btnsave} onPress={saveExercicios}>
+                    <Ionicons name="save" size={20} color="white" />
+                </TouchableOpacity>
 
-            {openModel && (
-                <FormAddExercicio closeModal={closeModal} handleInput={handleInput} handleSubmit={handleSubmit} exercicio={exercicio}/>
-            )}
+                {openModel && (
+                    <FormAddExercicio closeModal={closeModal} handleInput={handleInput} handleSubmit={handleSubmit} exercicio={exercicio}/>
+                )}
+            </BottomSheetView>
 
         </BottomSheet>
         
