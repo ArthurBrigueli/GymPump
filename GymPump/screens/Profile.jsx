@@ -37,7 +37,7 @@ const Profile = ()=>{
 
 
             {showDeletarConta && (
-                <ModalDeletarConta showModal={deletarConta} handleLogout={handleLogout}/>
+                <ModalDeletarConta showModal={deletarConta} handleLogout={handleLogout} navigation={navigation}/>
             )}
             
 

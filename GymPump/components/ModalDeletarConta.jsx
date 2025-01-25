@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import ShowError from './ShowError'
 
 
-const ModalDeletarConta = ({showModal})=>{
+const ModalDeletarConta = ({showModal, navigation})=>{
 
 
     var SECRETTXTCONFIRMED = 'Deletar minha conta'
@@ -17,20 +17,31 @@ const ModalDeletarConta = ({showModal})=>{
     const {token, user, logoutAuth} = useAuth()
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
+    
 
     const deletarConta = async()=>{
 
         setLoading(true)
 
-        const result = await axios.post('https://gym-pump-api-apgp.vercel.app/api/user/verification/password', {
+        const result = await axios.post('http://192.168.0.102:8082/api/auth/verification/password', {
             email: user.email,
-            senha: password
+            password: password
+        }, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
         })
+
 
         if(!result.data.error){
             if(SECRETTXTCONFIRMED === txtConfirmed){
 
-                const result  = await axios.delete(`https://gym-pump-api-apgp.vercel.app/api/user/delete/${user.id}`)
+                const result  = await axios.delete(`http://192.168.0.102:8082/api/auth/delete/${user.id}`, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                })
+                navigation.navigate('Login')
                 setLoading(false)
                 showModal()
                 logoutAuth()
