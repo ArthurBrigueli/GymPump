@@ -70,13 +70,15 @@ const styles = new StyleSheet.create({
     },
     containerInputs: {
         gap: 15,
+        width: '60%'
     },
     input: {
         borderColor: 'gray',
         borderWidth: 1,
         padding: 7,
         borderRadius: 5,
-        color: 'white'
+        color: 'white',
+        height: 50
     },
     containerInputPass: {
         flexDirection: 'row',

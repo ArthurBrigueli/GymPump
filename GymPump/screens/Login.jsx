@@ -175,7 +175,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 7,
         borderRadius: 5,
-        color: 'white'
+        color: 'white',
+        height: 50
     },
     btnLogin: {
         backgroundColor: '#31346c',
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderColor: 'gray',
         borderWidth: 1,
-        padding: 7,
+        paddingRight: 10,
         borderRadius: 5,
         color: 'white',
         justifyContent: 'center',
@@ -198,7 +199,8 @@ const styles = StyleSheet.create({
     },
     InputPass: {
         width: '90%',
-        color: 'white'
+        color: 'white',
+        height: 50
     }
 })
 

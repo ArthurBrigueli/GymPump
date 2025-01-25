@@ -193,13 +193,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 7,
         color: 'white',
-        width: '100%'
+        width: '100%',
+        height: 50
     },
     inputPass: {
         borderRadius: 5,
-        padding: 7,
         color: 'white',
-        width: '90%'
+        width: '90%',
+        height: 50
     },
     btnLogin: {
         backgroundColor: '#31346c',
