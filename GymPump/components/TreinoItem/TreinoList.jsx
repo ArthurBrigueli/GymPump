@@ -14,10 +14,6 @@ const TreinoList = ({name, data, share})=>{
                 <Text style={noteStyle.txtNome}>{name}</Text>
                 <Text>{data}</Text>
             </View>
-            <TouchableOpacity onPress={()=>{share()}}>
-                <Ionicons name="share-social-outline" size={25} color="black" />
-            </TouchableOpacity>
-            
         </View>
     )
 }

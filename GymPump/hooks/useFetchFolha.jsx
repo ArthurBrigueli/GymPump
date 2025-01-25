@@ -12,34 +12,24 @@ const useFetchFolha = (url)=>{
 
     const add = async(data)=>{
 
-        if(user){
-            await axios.post('http://192.168.0.102:8082/api/folhas/folha/create', {
-                idUser:user.id,
-                folha: data
-            },{
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-        }else{
-            const dataA = JSON.stringify(data)
-            await AsyncStorage.setItem('FolhaDeTreino', dataA)
-        }
+        await axios.post('http://192.168.0.102:8082/api/folhas/folha/create', {
+            idUser:user.id,
+            folha: data
+        },{
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
         setCallBack(!callBack)
     }
 
     const remove = async()=>{
 
-        if(user){
-            const a = await axios.delete(`http://192.168.0.102:8082/api/folhas/folha/delete/user/${user.id}`,{
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-
-        }else{
-            await AsyncStorage.removeItem('FolhaDeTreino');
-        }
+        const a = await axios.delete(`http://192.168.0.102:8082/api/folhas/folha/delete/user/${user.id}`,{
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
 
         setCallBack(!callBack)
     }
@@ -47,21 +37,14 @@ const useFetchFolha = (url)=>{
     useEffect(()=>{
         const fetchData = async()=>{
 
-            if(user){
-                const result = await axios.get(`http://192.168.0.102:8082/api/folhas/user/${user.id}`, {
-                    headers: {
-                        "Authorization":`Bearer ${token}` 
-                    }
-                })
+            const result = await axios.get(`http://192.168.0.102:8082/api/folhas/user/${user.id}`, {
+                headers: {
+                    "Authorization":`Bearer ${token}` 
+                }
+            })
 
-                const data = result.data.folha
-                setData(data)
-                
-            }else{
-                const data = await AsyncStorage.getItem('FolhaDeTreino')
-                const dataForm = JSON.parse(data)
-                setData(dataForm)
-            }
+            const data = result.data.folha
+            setData(data)
 
             
         }

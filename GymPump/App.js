@@ -22,9 +22,7 @@ import axios from 'axios';
 import ForgotPassword from './screens/ForgotPassword';
 import Newpassword from './screens/Newpassword';
 import TutorialUser from './screens/TutorialUser';
-import Feed from './screens/Feed';
 
-import 'text-encoding';
 
 
 
@@ -52,21 +50,6 @@ const screenOptions1 = {
 const MainTabs = () => {
   return(
     <Tab.Navigator screenOptions={screenOptions1}>
-
-    <Tab.Screen
-      name="Feed"
-      component={Feed}
-      options={{
-        tabBarIcon: ({ focused }) => (
-          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
-            bottom: focused ? 20 : 0 }}>
-            <Ionicons name="albums-outline" size={24} color="white" />
-          </View>
-        ),
-        headerShown: false
-      }}
-    />
-
 
     <Tab.Screen
       name="TimeScreen"

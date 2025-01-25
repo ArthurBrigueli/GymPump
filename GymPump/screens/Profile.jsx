@@ -14,12 +14,10 @@ const Profile = ()=>{
     const navigation = useNavigation()
     const {user, token, logoutAuth} = useAuth()
     const [showDeletarConta, setShowDeletarConta] = useState(false)
-    const [invitedPending, setInvitedPending] = useState([])
-    const [yourFriends, setYourFriends] = useState([])
-    const [atua, setAtua] = useState(false)
     
     const handleLogout = async()=>{
         logoutAuth()
+        navigation.navigate('Login')
     }
 
     const handleLogin = ()=>{
@@ -29,96 +27,6 @@ const Profile = ()=>{
 
     const deletarConta = ()=>{
         setShowDeletarConta(!showDeletarConta)
-    }
-
-
-    useEffect(()=>{
-        const fetchInvited = async()=>{
-            const result = await axios.get(`http://192.168.0.102:8082/api/auth/user/invitedfriend/${user.id}`,{
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-            console.log(result.data)
-
-            setInvitedPending(result.data)
-        }
-
-        fetchInvited()
-    },[atua])
-
-
-    const acceptInvited = async(id)=>{
-
-        const result = await axios.get(`http://192.168.0.102:8082/api/auth/user/invitedfriend/accept/${id}`,{
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-
-        setAtua(!atua)
-    }
-
-
-    useEffect(()=>{
-        const fetchYourFriend = async()=>{
-            const result = await axios.get(`http://192.168.0.102:8082/api/auth/user/yourfriends/${user.id}`, {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-            console.log(result.data)
-            
-            setYourFriends(result.data)
-        }
-
-        fetchYourFriend()
-    },[invitedPending])
-
-
-    const recudeInvited = async(idInvited)=>{
-        const result = await axios.delete(`http://192.168.0.102:8082/api/auth/user/recuseinvite/${idInvited}`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-
-        setAtua(!atua)
-
-
-    }
-
-
-    const syncInvitedPending = async()=>{
-        const result = await axios.get(`http://192.168.0.102:8082/api/auth/user/invitedfriend/${user.id}`,{
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-
-        setInvitedPending(result.data)
-    }
-
-
-    const syncInvitedAccept = async()=>{
-        const result = await axios.get(`http://192.168.0.102:8082/api/auth/user/yourfriends/${user.id}`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-        
-        setYourFriends(result.data)
-    }
-
-
-    const removeFriend = async(id)=>{
-        const result = await axios.delete(`http://192.168.0.102:8082/api/auth/user/recuseinvite/${id}`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-
-        setAtua(!atua)
     }
 
 
@@ -150,58 +58,6 @@ const Profile = ()=>{
 
 
                     <View style={styles.containerOpcoes}>
-
-                        <View style={styles.containerFriends}>
-                        <View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                                    <Text style={{color: 'white'}}>Pedidos de amizades pendentes</Text>
-                                    <TouchableOpacity onPress={()=>{syncInvitedPending()}}>
-                                        <Ionicons name="sync-outline" size={20} color="white" />
-                                    </TouchableOpacity>
-                                </View>
-                                {invitedPending.map((invited, index) => (
-                                    <View style={styles.containerInvited} key={index}>
-                                        <View style={{flexDirection: 'row', alignItems: 'center', gap: 20}}>
-                                            <Text style={{color: 'white'}}>{invited.nameReceiver}</Text>
-                                            <Text style={{color: 'white', backgroundColor: '#18192d', padding: 5, borderRadius: 10}}>{invited.status.toLowerCase()}</Text>
-                                        </View>
-                                        <View style={{flexDirection: 'row', gap: 10}}>
-
-                                            <TouchableOpacity onPress={()=>{acceptInvited(invited.id)}}>
-                                                <Ionicons name="checkmark-circle-outline" size={30} color="white" />
-                                            </TouchableOpacity>
-
-                                            <TouchableOpacity onPress={()=>{recudeInvited(invited.id)}}>
-                                                <Ionicons name="close-circle-outline" size={30} color="white" />
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                ))}
-                            </View>
-
-                            <View>
-                                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                                    <Text style={{color: 'white'}}>Seus amigos</Text>
-                                    <TouchableOpacity onPress={()=>{syncInvitedAccept()}}>
-                                        <Ionicons name="sync-outline" size={20} color="white" />
-                                    </TouchableOpacity>
-                                </View>
-                                {yourFriends.map((friend, index)=>(
-                                    <View style={styles.containerInvited} key={index}>
-                                        <View style={{backgroundColor: '#18192d', padding: 7, borderRadius: 10, flexDirection: 'row', alignItems: 'center', gap: 10}}>
-                                            {friend.senderId == user.id ? (
-                                                <Text style={{color: 'white'}}>{friend.nameReceiver}</Text>
-                                            ):(
-                                                <Text style={{color: 'white'}}>{friend.nameSender}</Text>
-                                            )}
-                                            <TouchableOpacity onPress={()=>{removeFriend(friend.id)}}>
-                                                <Ionicons name="close-outline" size={20} color="white" />
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                ))}
-                            </View>
-                        </View>
 
                         <TouchableOpacity style={styles.opcaoDeletar} onPress={deletarConta}>
                             <Text style={styles.txt}>Deletar minha conta</Text>

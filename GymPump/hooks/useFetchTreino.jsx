@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { createTable, fetchTreinos, insertTreino, removeTable, updateExercicio, deleteId, fetchTreinoId, updateTreino } from '../databases/DataBase';
 import {format} from 'date-fns'
 import {useAuth} from '../context/AuthContext'
 import axios from 'axios'
@@ -21,81 +20,63 @@ const useFetchTreino = (url)=>{
         ]
         
         const dataFormat = format(date, 'dd/MM/yyyy')
-        if(user){
-            const idTreino = await axios.post('http://192.168.0.102:8082/api/treinos/treino/create', {
-                idUser: user.id,
-                name: name,
-                date: dataFormat,
-                exercicios: prevExercicios
-            },{
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
+        const idTreino = await axios.post('http://192.168.0.102:8082/api/treinos/treino/create', {
+            idUser: user.id,
+            name: name,
+            date: dataFormat,
+            exercicios: prevExercicios
+        },{
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
 
 
-            console.log(idTreino.data)
-            setIdTreino(idTreino.data.id)
-        }else{
-            const idTreino = await insertTreino(name, dataFormat, JSON.stringify(prevExercicios))
-            setIdTreino(idTreino)
-        }
+        console.log(idTreino.data)
+        setIdTreino(idTreino.data.id)
+
         setCallBack(!callBack)
     }
 
     const removeTreino = async()=>{
-        removeTable()
         setData(null)
         setCallBack(!callBack)
     }
 
     const update = async(id, exercicios)=>{
-        if(user){
-            await axios.put(`http://192.168.0.102:8082/api/treinos/exercicios/add`, {
+        await axios.put(`http://192.168.0.102:8082/api/treinos/exercicios/add`, {
                 id: id,
                 exercicios: exercicios
             },{
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
-            })
-        }else{
-            updateExercicio(id, JSON.stringify(exercicios))
-        }
+        })
         setCallBack(!callBack)
     }
 
     const updateTreinoId = async(id, name, data, exercicios) => {
 
-        if(user){
-            const result = await axios.put(`http://192.168.0.102:8082/api/treinos/treino/update/${id}`, {
-                idUser: user.id,
-                name: name,
-                date: data,
-                exercicios: exercicios
-            },{
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-            
-        }else{
-            updateTreino(id, name, data, JSON.stringify(exercicios))
-        }
+        const result = await axios.put(`http://192.168.0.102:8082/api/treinos/treino/update/${id}`, {
+            idUser: user.id,
+            name: name,
+            date: data,
+            exercicios: exercicios
+        },{
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
         setCallBack(!callBack)
     }
 
     const removeTreinoId = async(id)=>{
         setloading(true)
-        if(user){
-            await axios.delete(`http://192.168.0.102:8082/api/treinos/delete/${id}/user/${user.id}`, {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-        }else{
-            deleteId(id)
-        }
+        await axios.delete(`http://192.168.0.102:8082/api/treinos/delete/${id}/user/${user.id}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
         setCallBack(!callBack)
         setloading(false)
     }
@@ -103,27 +84,14 @@ const useFetchTreino = (url)=>{
     const fetchIdTreino = async(id)=>{
         setLoadingEdit(true)
 
-        if(user){
-            const result = await axios.get(`http://192.168.0.102:8082/api/treinos/user/treino/${id}/${user.id}`,{
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-            console.log(result.data)
-            setLoadingEdit(false)
-            setDataId([result.data])
-        }else{
-            fetchTreinoId(id, (treino)=>{
-                const treinoAtualizado = treino.map((treino)=> {
-                    return {
-                        ...treino,
-                        exercicios: JSON.parse(treino.exercicios)
-                    }
-                })
-                setLoadingEdit(false)
-                setDataId(treinoAtualizado)
-            })
-        }
+        const result = await axios.get(`http://192.168.0.102:8082/api/treinos/user/treino/${id}/${user.id}`,{
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        console.log(result.data)
+        setLoadingEdit(false)
+        setDataId([result.data])
 
         
         
@@ -133,25 +101,13 @@ const useFetchTreino = (url)=>{
         setloading(true)
             const fetchData = async()=>{
 
-                if(user){
-                    const data = await axios.get(`http://192.168.0.102:8082/api/treinos/user/${user.id}`, {
-                        headers: {
-                            "Authorization":`Bearer ${token}`
-                        }
-                    })
-                    const treinos = data.data
-                    setData(treinos)
-                }else{
-                    fetchTreinos((treino)=>{
-                        const treinosAtualizados = treino.map((treino) => {
-                            return {
-                              ...treino,
-                              exercicios: JSON.parse(treino.exercicios),
-                            };
-                        });
-                        setData(treinosAtualizados)
-                    })
-                }
+                const data = await axios.get(`http://192.168.0.102:8082/api/treinos/user/${user.id}`, {
+                    headers: {
+                        "Authorization":`Bearer ${token}`
+                    }
+                })
+                const treinos = data.data
+                setData(treinos)
 
             }
     
