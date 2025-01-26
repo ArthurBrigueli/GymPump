@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native"
 import { Picker } from "@react-native-picker/picker"
 import { useMemo, useState } from "react"
-import BottomSheet from "@gorhom/bottom-sheet"
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet"
 import Separator from "./Separator"
 import { ModalConfigTimeStyle } from "../styles/ModalConfigTime/ModalConfigTimeStyle"
 
@@ -23,8 +23,8 @@ const ModalConfigTime = ({ bottomSheetRef , alterarTime})=>{
             enablePanDownToClose={true}
         >
 
-            <View style={ModalConfigTimeStyle.container}>
-                <View style={ModalConfigTimeStyle.pickerContainer}>
+            <BottomSheetView style={ModalConfigTimeStyle.container}>
+            <View style={ModalConfigTimeStyle.pickerContainer}>
                     <View style={ModalConfigTimeStyle.containerTextTitle}>
                         <Text>Minutos</Text>
                     </View>
@@ -56,7 +56,7 @@ const ModalConfigTime = ({ bottomSheetRef , alterarTime})=>{
                         <Text style={ModalConfigTimeStyle.txtBtn}>Alterar</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </BottomSheetView>
         </BottomSheet>
 
         

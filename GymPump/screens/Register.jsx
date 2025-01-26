@@ -45,6 +45,7 @@ const Register = ()=>{
                             navigation.navigate('Login');
                         }
                     } catch (erro) {
+                        console.log(erro)
                         if (erro.response) {
                             if (erro.response.data.error_email) {
                                 setEmailErro(erro.response.data.error_email);

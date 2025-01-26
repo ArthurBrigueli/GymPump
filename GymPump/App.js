@@ -42,10 +42,9 @@ const screenOptions1 = {
     elevation: 1,
     height: 60,
     backgroundColor: "#18192d",
-    borderTopWidth: 0
+    borderTopWidth: 0,
   }
 };
-
 
 const MainTabs = () => {
   return(
@@ -56,8 +55,9 @@ const MainTabs = () => {
       component={TimeScreen}
       options={{
         tabBarIcon: ({ focused }) => (
-          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
-            bottom: focused ? 20 : 0 }}>
+          <View style={{
+            width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center',
+            backgroundColor: focused ? '#31346c' : '#18192d'}}>
             <Ionicons name="timer" size={24} color="white" />
           </View>
         ),
@@ -70,8 +70,9 @@ const MainTabs = () => {
       component={Home}
       options={{
         tabBarIcon: ({ focused }) => (
-          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
-            bottom: focused ? 20 : 0 }}>
+          <View style={{
+            width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center',
+            backgroundColor: focused ? '#31346c' : '#18192d'}}>
             <Entypo name="home" size={24} color={"white"} />
           </View>
         ),
@@ -84,8 +85,9 @@ const MainTabs = () => {
       component={Note}
       options={{
         tabBarIcon: ({ focused }) => (
-          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
-            bottom: focused ? 20 : 0 }}>
+          <View style={{
+            width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center',
+            backgroundColor: focused ? '#31346c' : '#18192d'}}>
             <FontAwesome name="sticky-note" size={24} color="white" />
           </View>
         ),
@@ -93,13 +95,14 @@ const MainTabs = () => {
       }}
     />
 
-  <Tab.Screen
+    <Tab.Screen
       name="Profile"
       component={Profile}
       options={{
         tabBarIcon: ({ focused }) => (
-          <View style={{ width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? '#31346c' : '#18192d', position: 'absolute',
-            bottom: focused ? 20 : 0 }}>
+          <View style={{
+            width: 50, height: 50, padding: 10, borderRadius: 100, alignItems: 'center', justifyContent: 'center',
+            backgroundColor: focused ? '#31346c' : '#18192d'}}>
             <Icon name='person' color='white' size={24}/>
           </View>
         ),
@@ -109,6 +112,7 @@ const MainTabs = () => {
   </Tab.Navigator>
   )
 };
+
 
 const App = () => {
 
