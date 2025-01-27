@@ -4,7 +4,8 @@ import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from '../context/AuthContext';
-import {API_URL} from '@env'
+const API_URL = process.env.API_URL;
+
 
 const Login = ({navigation})=>{
 

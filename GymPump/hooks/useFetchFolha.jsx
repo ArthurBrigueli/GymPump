@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import {useAuth} from '../context/AuthContext'
 import axios from 'axios'
-import {API_URL} from '@env'
+const API_URL = process.env.API_URL;
+
 
 const useFetchFolha = (url)=>{
 

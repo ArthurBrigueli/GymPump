@@ -3,7 +3,8 @@ import {format} from 'date-fns'
 import {useAuth} from '../context/AuthContext'
 import axios from 'axios'
 import { isReanimated3 } from 'react-native-reanimated';
-import {API_URL} from '@env'
+const API_URL = process.env.API_URL;
+
 const useFetchTreino = (url)=>{
 
     const [idTreino, setIdTreino] = useState(null)

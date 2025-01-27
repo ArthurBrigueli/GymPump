@@ -4,7 +4,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import axios from 'axios'
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons';
-import {API_URL} from '@env'
+const API_URL = process.env.API_URL;
 
 const Register = ()=>{
 

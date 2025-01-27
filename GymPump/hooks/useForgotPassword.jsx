@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
-import {API_URL} from '@env'
+const API_URL = process.env.API_URL;
+
 const useForgotPassword = () => {
     const [loading, setLoading] = useState(false);
 
