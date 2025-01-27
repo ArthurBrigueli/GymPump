@@ -36,7 +36,7 @@ const Register = ()=>{
             if (regexEmail.test(email)) { // Validate the email format
                 if (password === passwordAgain) { // Check if passwords match
                     try {
-                        const response = await axios.post(`${API_URL}/api/auth/register`, {
+                        const response = await axios.post(`http://147.79.82.47:8082/api/auth/register`, {
                             name: user,
                             email: email,
                             password: password

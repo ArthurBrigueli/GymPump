@@ -27,7 +27,7 @@ const Login = ({navigation})=>{
 
             const token = await AsyncStorage.getItem('TOKEN')
             if(token){
-                const a = await axios.post(`${API_URL}/api/auth/persistence`, {
+                const a = await axios.post(`http://147.79.82.47:8082/api/auth/persistence`, {
                     token: token
                 }, {
                     headers: {
@@ -55,7 +55,7 @@ const Login = ({navigation})=>{
 
         setLoading(true)
         try{
-            const response = await axios.post(`${API_URL}/api/auth/login`, {
+            const response = await axios.post(`http://147.79.82.47:8082/api/auth/login`, {
                 name: user,
                 password: password
             })

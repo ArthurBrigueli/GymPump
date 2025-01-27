@@ -23,7 +23,7 @@ const ModalDeletarConta = ({showModal, navigation})=>{
 
         setLoading(true)
 
-        const result = await axios.post('http://192.168.0.102:8082/api/auth/verification/password', {
+        const result = await axios.post('http://147.79.82.47:8082/api/auth/verification/password', {
             email: user.email,
             password: password
         }, {
@@ -36,7 +36,7 @@ const ModalDeletarConta = ({showModal, navigation})=>{
         if(!result.data.error){
             if(SECRETTXTCONFIRMED === txtConfirmed){
 
-                const result  = await axios.delete(`http://192.168.0.102:8082/api/auth/delete/${user.id}`, {
+                const result  = await axios.delete(`http://147.79.82.47:8082/api/auth/delete/${user.id}`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }

@@ -22,7 +22,7 @@ const useFetchTreino = (url)=>{
         ]
         
         const dataFormat = format(date, 'dd/MM/yyyy')
-        const idTreino = await axios.post(`${API_URL}/api/treinos/treino/create`, {
+        const idTreino = await axios.post(`http://147.79.82.47:8082/api/treinos/treino/create`, {
             idUser: user.id,
             name: name,
             date: dataFormat,
@@ -45,7 +45,7 @@ const useFetchTreino = (url)=>{
     }
 
     const update = async(id, exercicios)=>{
-        await axios.put(`${API_URL}/api/treinos/exercicios/add`, {
+        await axios.put(`http://147.79.82.47:8082/api/treinos/exercicios/add`, {
                 id: id,
                 exercicios: exercicios
             },{
@@ -58,7 +58,7 @@ const useFetchTreino = (url)=>{
 
     const updateTreinoId = async(id, name, data, exercicios) => {
 
-        const result = await axios.put(`${API_URL}/api/treinos/treino/update/${id}`, {
+        const result = await axios.put(`http://147.79.82.47:8082/api/treinos/treino/update/${id}`, {
             idUser: user.id,
             name: name,
             date: data,
@@ -73,7 +73,7 @@ const useFetchTreino = (url)=>{
 
     const removeTreinoId = async(id)=>{
         setloading(true)
-        await axios.delete(`${API_URL}/api/treinos/delete/${id}/user/${user.id}`, {
+        await axios.delete(`http://147.79.82.47:8082/api/treinos/delete/${id}/user/${user.id}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -85,7 +85,7 @@ const useFetchTreino = (url)=>{
     const fetchIdTreino = async(id)=>{
         setLoadingEdit(true)
 
-        const result = await axios.get(`${API_URL}/api/treinos/user/treino/${id}/${user.id}`,{
+        const result = await axios.get(`http://147.79.82.47:8082/api/treinos/user/treino/${id}/${user.id}`,{
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -101,7 +101,7 @@ const useFetchTreino = (url)=>{
         setloading(true)
             const fetchData = async()=>{
 
-                const data = await axios.get(`${API_URL}/api/treinos/user/${user.id}`, {
+                const data = await axios.get(`http://147.79.82.47:8082/api/treinos/user/${user.id}`, {
                     headers: {
                         "Authorization":`Bearer ${token}`
                     }

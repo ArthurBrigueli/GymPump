@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import {useAuth} from '../context/AuthContext'
 import axios from 'axios'
-const API_URL = process.env.API_URL;
-
 
 const useFetchFolha = (url)=>{
 
@@ -14,7 +12,7 @@ const useFetchFolha = (url)=>{
 
     const add = async(data)=>{
 
-        await axios.post(`${API_URL}/api/folhas/folha/create`, {
+        await axios.post(`http://147.79.82.47:8082/api/folhas/folha/create`, {
             idUser:user.id,
             folha: data
         },{
@@ -27,7 +25,7 @@ const useFetchFolha = (url)=>{
 
     const remove = async()=>{
 
-        const a = await axios.delete(`${API_URL}/api/folhas/folha/delete/user/${user.id}`,{
+        const a = await axios.delete(`http://147.79.82.47:8082/api/folhas/folha/delete/user/${user.id}`,{
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -39,7 +37,7 @@ const useFetchFolha = (url)=>{
     useEffect(()=>{
         const fetchData = async()=>{
 
-            const result = await axios.get(`${API_URL}/api/folhas/user/${user.id}`, {
+            const result = await axios.get(`http://147.79.82.47:8082/api/folhas/user/${user.id}`, {
                 headers: {
                     "Authorization":`Bearer ${token}` 
                 }

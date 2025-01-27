@@ -9,7 +9,7 @@ const useForgotPassword = () => {
 
         try {
             setLoading(true); // Inicia o carregamento
-            const result = await axios.post(`${API_URL}/api/auth/forgotpassword/${email}`, {
+            const result = await axios.post(`http://147.79.82.47:8082/api/auth/forgotpassword/${email}`, {
                 code: code
             });
             return result;
@@ -23,7 +23,7 @@ const useForgotPassword = () => {
     const setNewPassword = async (password, email) => {
         try {
             setLoading(true); // Inicia o carregamento
-            const result = await axios.post(`${API_URL}/api/auth/forgotpassword/newpassword/${email}`, {
+            const result = await axios.post(`http://147.79.82.47:8082/api/auth/forgotpassword/newpassword/${email}`, {
                 password: password
             });
             return result;

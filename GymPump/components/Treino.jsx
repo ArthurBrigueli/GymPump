@@ -16,7 +16,7 @@ const Treino = ({item, openModalEdit, excluirExercicio, loading, loadingEdit, li
 
     const share = async()=>{
 
-        const result = await axios.post('http://192.168.0.102:8082/api/posts/post/create',{
+        const result = await axios.post('http://147.79.82.47:8082/api/posts/post/create',{
             idUser: item.idUser,
             title: item.name,
             content: item.exercicios
